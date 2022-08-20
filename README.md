@@ -5,7 +5,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ### Initial steps
 
 - [x] Configure Typescript and NextJS.
-- [ ] Configure i18n for NextJS and React app.
+- [x] Configure i18n for NextJS and React app.
 - [ ] Consider advantages of logged in users (Store custom added data? Where/How?).
 
   - [ ] Check availability Twitter log in.
