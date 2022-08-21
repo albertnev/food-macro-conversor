@@ -12,15 +12,7 @@ const CompareFoods: NextPage = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [foodData, setFoodData] = useState<FoodSearchResultTd[]>();
   const [foodDetails, setFoodDetails] = useState<FoodDetailsTd>();
-
-  // const fetchFoodData = async (text: string) => {
-  //   const resp = await fetch(`/api/food/openfoodfacts/search?text=${text}`);
-  //   const parsedData = await resp.json();
-  //   setFoodDetails(undefined);
-  //   setFoodData(parsedData);
-  // };
-  // const dataSource = 'openfoodfacts';
-  const datasource = 'bedca';
+  const [datasource, setDatasource] = useState<string>('openfoodfacts');
 
   const fetchFoodData = async (text: string) => {
     const resp = await fetch(`/api/food/search?text=${text}`, {
@@ -55,6 +47,24 @@ const CompareFoods: NextPage = () => {
             {t('search')}
           </button>
         </div>
+        <br />
+        <div>
+          <button
+            type="button"
+            onClick={() =>
+              setDatasource((current) =>
+                current === 'openfoodfacts' ? 'bedca' : 'openfoodfacts',
+              )
+            }
+          >
+            Toggle data source
+          </button>
+          <br />
+          <span>
+            Data source: <b>{datasource}</b>
+          </span>
+        </div>
+        <br />
         <div>
           <span>
             {t('showingResultsFor')}: {searchText}
@@ -62,54 +72,65 @@ const CompareFoods: NextPage = () => {
         </div>
       </div>
       <div>
-        <ul
-          style={{
-            listStyleType: 'none',
-            margin: '0 auto',
-            marginTop: '100px',
-            width: '50%',
-          }}
-        >
-          {foodDetails && (
+        {foodDetails && (
+          <div
+            style={{
+              margin: '0 auto',
+              marginTop: '100px',
+              width: '40%',
+            }}
+          >
             <div>
-              <div>
-                Detalles del alimento <b>{foodDetails.name}</b>:
-              </div>
-              <ul>
-                <li>
-                  <div>Kcal: {foodDetails.kcals}kcal</div>
-                </li>
-                <li>
-                  <div>
-                    Alcohol: {foodDetails.macronutrients.alcohol.amount}
-                    {foodDetails.macronutrients.alcohol.units}
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    Proteínas: {foodDetails.macronutrients.protein.amount}
-                    {foodDetails.macronutrients.protein.units}
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    Grasas: {foodDetails.macronutrients.fat.amount}
-                    {foodDetails.macronutrients.fat.units}
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    Carbohidratos: {foodDetails.macronutrients.carbs.amount}
-                    {foodDetails.macronutrients.carbs.units}
-                  </div>
-                </li>
-              </ul>
+              Detalles del alimento <b>{foodDetails.name}</b>:
             </div>
-          )}
-          {!!foodData?.length &&
-            !foodDetails &&
-            foodData.map((food: any) => (
+            <ul
+              style={{
+                listStyleType: 'circle',
+                marginTop: '20px',
+                paddingLeft: '40px',
+              }}
+            >
+              <li>
+                <div>Kcal: {foodDetails.kcals}kcal</div>
+              </li>
+              <li>
+                <div>
+                  Alcohol: {foodDetails.macronutrients.alcohol.amount}
+                  {foodDetails.macronutrients.alcohol.units}
+                </div>
+              </li>
+              <li>
+                <div>
+                  Proteínas: {foodDetails.macronutrients.protein.amount}
+                  {foodDetails.macronutrients.protein.units}
+                </div>
+              </li>
+              <li>
+                <div>
+                  Grasas: {foodDetails.macronutrients.fat.amount}
+                  {foodDetails.macronutrients.fat.units}
+                </div>
+              </li>
+              <li>
+                <div>
+                  Carbohidratos: {foodDetails.macronutrients.carbs.amount}
+                  {foodDetails.macronutrients.carbs.units}
+                </div>
+              </li>
+            </ul>
+          </div>
+        )}
+        {!!foodData?.length && !foodDetails && (
+          <ul
+            style={{
+              margin: '0 auto',
+              marginTop: '100px',
+              width: '50%',
+            }}
+          >
+            {foodData.map((food: any) => (
               <li
+                key={`food-${food.id}`}
                 style={{
                   border: '1px solid lightgray',
                   borderRadius: '4px',
@@ -120,8 +141,8 @@ const CompareFoods: NextPage = () => {
                 {food.imageUrl && (
                   <Image
                     height="100"
-                    loader={() => food.imageUrl}
                     src={food.imageUrl}
+                    unoptimized
                     width="100"
                   />
                 )}
@@ -131,10 +152,11 @@ const CompareFoods: NextPage = () => {
                 </button>
               </li>
             ))}
-          {foodData && foodData.length === 0 && (
-            <div>No hay resultados para esta búsqueda</div>
-          )}
-        </ul>
+          </ul>
+        )}
+        {foodData && foodData.length === 0 && (
+          <div>No hay resultados para esta búsqueda</div>
+        )}
       </div>
     </>
   );
