@@ -12,12 +12,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - [ ] Check availability Google log in.
 
 - [ ] Check usage of SWR from NextJS team to make fetch calls.
-- [ ] Make initial fetch to a food database:
-  - [ ] MyFitnessPal
-  - [ ] FoodRepo.org
-  - [ ] OpenFoodFacts
-- [ ] Configure architecture to be able to use multiple data sources.
-- [ ] Save preferences about preferred units and data sources.
+- [x] Make initial fetch to a food database:
+  - :x: MyFitnessPal: CORS violation, private API.
+  - :x: FoodRepo.org: almost no images, not in spanish, inacurate search.
+  - :white_check_mark: OpenFoodFacts: success, but no results for non-brand generic foods (potato, bread...).
+  - :white_large_square: USDA API: only in English, but allows both branded and generic food search.
+  - :white_check_mark: BEDCA: generic food only, requests and responses must be XML formatted.
+- [x] Configure architecture to be able to use multiple data sources.
+- [ ] _Postponed: Save preferences about preferred units and data sources._
 
 ### App functionalities
 

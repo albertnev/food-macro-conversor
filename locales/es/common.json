@@ -1,3 +1,6 @@
 {
-  "hello": "Hola"
+  "hello": "Hola",
+  "results": "Resultados",
+  "search": "Buscar",
+  "showingResultsFor": "Mostrando resultados para"
 }
