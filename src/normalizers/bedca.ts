@@ -23,6 +23,7 @@ export const normalizeFoodDetailsResponse = (response: any): FoodDetailsTd => {
   const { foodvalue: nutritionalInfo } = food;
 
   return {
+    grams: 100,
     id: food.f_id,
     kcals: `${getKcalFromKj(
       nutritionalInfo.find(

@@ -27,6 +27,7 @@ export const normalizeFoodDetailsResponse = (response: any): FoodDetailsTd => {
 
   return {
     brand: food.brands,
+    grams: 100,
     id: food.code,
     imageUrl: food.image_url,
     kcals: `${
