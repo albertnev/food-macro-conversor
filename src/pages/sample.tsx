@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { Input } from '../components/Input';
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { FoodSearchResultTd } from '../types/FoodSearchResultTd';
+import { calcEquivalentFood } from '../utils/calcEquivalentFood';
 
 const CompareFoods: NextPage = () => {
   const { t } = useTranslation();
@@ -30,6 +31,44 @@ const CompareFoods: NextPage = () => {
     const parsedData = await resp.json();
     setFoodDetails(parsedData);
   };
+
+  if (foodDetails) {
+    console.log(
+      calcEquivalentFood(
+        foodDetails!,
+        250,
+        {
+          grams: 100,
+          id: '2620',
+          kcals: '298',
+          macronutrients: {
+            alcohol: {
+              amount: '0',
+              name: 'alcohol',
+              units: 'g',
+            },
+            carbs: {
+              amount: '12.01',
+              name: 'carbs',
+              units: 'g',
+            },
+            fat: {
+              amount: '18.11',
+              name: 'fat',
+              units: 'g',
+            },
+            protein: {
+              amount: '21.91',
+              name: 'protein',
+              units: 'g',
+            },
+          },
+          name: 'Empanada de carne',
+        }!,
+        ['fat', 'carbs'],
+      ),
+    );
+  }
 
   return (
     <>
