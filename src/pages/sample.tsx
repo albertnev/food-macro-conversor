@@ -33,7 +33,9 @@ const CompareFoods: NextPage = () => {
   };
 
   if (foodDetails) {
+    // eslint-disable-next-line no-console
     console.log(
+      'PROCESSED FOOD DETAILS: ',
       calcEquivalentFood(
         foodDetails!,
         250,

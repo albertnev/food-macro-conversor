@@ -1,8 +1,8 @@
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { PossibleMacrosKcalsTd } from '../types/PossibleMacrosKcalsTd';
 import { PossibleMacrosTd } from '../types/PossibleMacrosTd';
-import { calcMacrosForGrams } from './calcMacrosForGrams';
 import { getFoodDataForGrams } from './getFoodDataForGrams';
+import { getMacrosRatio } from './getMacrosRatio';
 
 export const calcEquivalentFood = (
   sourceFood: FoodDetailsTd,
@@ -16,33 +16,21 @@ export const calcEquivalentFood = (
     'fat',
   ], // Get all by default
 ): FoodDetailsTd => {
-  const sourceMaxMacroGrams = calcMacrosForGrams(sourceFood, sourceGrams);
+  const macrosRatio = getMacrosRatio(sourceFood, targetFood);
 
-  const sortedEntriesByQuantity = Object.entries(targetFood.macronutrients)
+  const sortedEntriesByLowerRatio = Object.entries(macrosRatio)
     .filter((macro) => targetMacros.includes(macro[0] as PossibleMacrosTd))
-    .sort(
-      (x, y) => Number.parseFloat(y[1].amount) - Number.parseFloat(x[1].amount),
-    ); // [['macroNameA', {FoodNutrientTd}], ['macroNameB', {FoodNutrientTd}]]
-  const highestMacro = sortedEntriesByQuantity[0]; // ['macroNameA', {FoodNutrientTd}]
-  const highestMacroKey = highestMacro[0] as PossibleMacrosTd; // macroNameA
-  let targetFoodGrams: number;
+    .sort((x, y) => x[1] - y[1]); // [['macroNameA', {FoodNutrientTd}], ['macroNameB', {FoodNutrientTd}]]
+  const lowestMacroRatio = sortedEntriesByLowerRatio[0]; // ['macroNameA', {FoodNutrientTd}]
 
-  if (
-    targetMacros.includes('kcals') &&
-    Number.parseFloat(highestMacro[1].amount) <
-      Number.parseFloat(targetFood.kcals)
-  ) {
-    // Calculate with Kcals
-    const sourceMaxKcals =
-      (Number.parseFloat(sourceFood.kcals) / sourceFood.grams) * sourceGrams;
-    targetFoodGrams =
-      (sourceMaxKcals / Number.parseFloat(targetFood.kcals)) * targetFood.grams;
-  } else {
-    // Calculate with higher macro
-    targetFoodGrams =
-      (Number.parseFloat(sourceMaxMacroGrams[highestMacroKey].amount) /
-        Number.parseFloat(targetFood.macronutrients[highestMacroKey].amount)) *
-      targetFood.grams;
+  let targetFoodGrams: number = lowestMacroRatio[1] * sourceGrams;
+  const kcalsRatio =
+    Number.parseFloat(sourceFood.kcals) /
+    sourceFood.grams /
+    (Number.parseFloat(targetFood.kcals) / targetFood.grams);
+
+  if (targetMacros.includes('kcals') && lowestMacroRatio[1] > kcalsRatio) {
+    targetFoodGrams = kcalsRatio * sourceGrams;
   }
 
   const processedTargetFood = getFoodDataForGrams(targetFood, targetFoodGrams);
