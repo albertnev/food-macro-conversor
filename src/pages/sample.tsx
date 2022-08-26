@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { Input } from '../components/Input';
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { FoodSearchResultTd } from '../types/FoodSearchResultTd';
-import { calcEquivalentFood } from '../utils/calcEquivalentFood';
+import { calcFoodEquivalence } from '../utils/calcFoodEquivalence';
 
 const CompareFoods: NextPage = () => {
   const { t } = useTranslation();
@@ -36,7 +36,7 @@ const CompareFoods: NextPage = () => {
     // eslint-disable-next-line no-console
     console.log(
       'PROCESSED FOOD DETAILS: ',
-      calcEquivalentFood(
+      calcFoodEquivalence(
         foodDetails!,
         250,
         {

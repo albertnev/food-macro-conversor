@@ -1,0 +1,31 @@
+.buttonCard {
+  padding: 10px;
+  border-radius: var(--bradius-input);
+  width: 120px;
+  height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  
+  background-color: white;
+  border: 2px solid var(--color-main-dark);
+  color: var(--color-main-dark);
+  cursor:pointer;
+
+  &.active {
+    border-color: var(--color-main-accent);
+    background-color: var(--color-main-accent);
+    color: var(--c-color-main-accent);
+  }
+
+  .icon {
+    font-size: 40px;
+  }
+
+  .label {
+    font-weight: bold;
+    font-size: 16px;
+  }
+}

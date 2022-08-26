@@ -59,6 +59,7 @@ module.exports = {
         reservedFirst: true,
       },
     ],
+    'react/no-danger': 'off',
     'react/react-in-jsx-scope': 'off',
     'sort-destructure-keys/sort-destructure-keys': [
       2,

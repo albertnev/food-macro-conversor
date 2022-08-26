@@ -1,5 +1,14 @@
 {
-  "hello": "Hola",
+  "back": "Atrás",
+  "foodDataSources": {
+    "bedca": "BEDCA",
+    "openfoodfacts": "Open Food Facts"
+  },
+  "foodDataSourcesDescription": {
+    "bedca": "La Base de Datos Española de Composición de Alimentos es una base de datos oficial de la Agencia Española de Seguridad Alimentaria y Nutrición. Sus datos son completamente fiables, aunque <b>no contienen datos de productos de marca</b>, ni tampoco fotografías.",
+    "openfoodfacts": "OpenFoodFacts es una base de datos de código abierto en la que puede añadir datos quien lo desee. Contiene <b>solo alimentos de marca añadidos por los usuarios</b>, por lo que la calidad de la información dependerá de la información proporcionada por estos."
+  },
+  "next": "Siguiente",
   "results": "Resultados",
   "search": "Buscar",
   "showingResultsFor": "Mostrando resultados para"

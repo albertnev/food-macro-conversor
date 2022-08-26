@@ -1,0 +1,12 @@
+.button {
+  border: none;
+  border-radius: var(--bradius-button);
+  padding: var(--padding-button);
+  background-color: var(--color-main-dark);
+  color: var(--c-color-main-dark);
+  cursor:pointer;
+
+  &:hover {
+    opacity:0.8;
+  }
+}

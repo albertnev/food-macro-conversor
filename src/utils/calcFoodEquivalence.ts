@@ -4,7 +4,7 @@ import { PossibleMacrosTd } from '../types/PossibleMacrosTd';
 import { getFoodDataForGrams } from './getFoodDataForGrams';
 import { getMacrosRatio } from './getMacrosRatio';
 
-export const calcEquivalentFood = (
+export const calcFoodEquivalence = (
   sourceFood: FoodDetailsTd,
   sourceGrams: number,
   targetFood: FoodDetailsTd,
