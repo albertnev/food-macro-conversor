@@ -1,5 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import React from 'react';
+import cx from 'classnames';
 
 import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { getCssVarValue } from '../../utils/getCssVarValue';
@@ -12,6 +13,7 @@ import styles from './MacroDisplay.module.scss';
 
 interface MacroDisplayProps {
   food: FoodDetailsTd;
+  verticalDisplay?: boolean;
 }
 
 interface MacroGraphProps {
@@ -67,12 +69,20 @@ MacroGraph.defaultProps = {
   secondaryColor: '',
 };
 
-const MacroDisplay: React.FC<MacroDisplayProps> = ({ food }) => {
+const MacroDisplay: React.FC<MacroDisplayProps> = ({
+  food,
+  verticalDisplay,
+}) => {
   const { t } = useTranslation();
   const macroPercentages = getMacrosPercentages(food);
 
   return (
-    <div className={styles.macroDisplayContainer}>
+    <div
+      className={cx({
+        [styles.macroDisplayContainer]: true,
+        [styles.verticalDisplay]: verticalDisplay,
+      })}
+    >
       <div className={styles.inQuantity}>
         {t('forEachNGrams', { count: food.grams })}
       </div>
@@ -138,6 +148,10 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({ food }) => {
       />
     </div>
   );
+};
+
+MacroDisplay.defaultProps = {
+  verticalDisplay: false,
 };
 
 export default MacroDisplay;

@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { Input } from '../components/Input';
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { FoodSearchResultTd } from '../types/FoodSearchResultTd';
-import { calcFoodEquivalence } from '../utils/calcFoodEquivalence';
+import { getFoodEquivalence } from '../utils/getFoodEquivalence';
 
 const CompareFoods: NextPage = () => {
   const { t } = useTranslation();
@@ -36,10 +36,11 @@ const CompareFoods: NextPage = () => {
     // eslint-disable-next-line no-console
     console.log(
       'PROCESSED FOOD DETAILS: ',
-      calcFoodEquivalence(
+      getFoodEquivalence(
         foodDetails!,
         250,
         {
+          datasource: 'bedca',
           grams: 100,
           id: '2620',
           kcals: '298',

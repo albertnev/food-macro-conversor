@@ -2,7 +2,7 @@ import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { PossibleMacrosTd } from '../types/PossibleMacrosTd';
 import { getValueOrZero } from './getValueOrZero';
 
-export const calcMacrosForGrams = (sourceFood: FoodDetailsTd, grams: number) =>
+export const getMacrosForGrams = (sourceFood: FoodDetailsTd, grams: number) =>
   (Object.keys(sourceFood.macronutrients) as PossibleMacrosTd[]).reduce(
     (prev, cur) => ({
       ...prev,

@@ -1,6 +1,6 @@
 import produce from 'immer';
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
-import { calcMacrosForGrams } from './calcMacrosForGrams';
+import { getMacrosForGrams } from './getMacrosForGrams';
 import { getValueOrZero } from './getValueOrZero';
 
 export const getFoodDataForGrams = (
@@ -19,5 +19,5 @@ export const getFoodDataForGrams = (
     immerDraft.kcals = getValueOrZero(
       (Number.parseFloat(sourceFood.kcals) / sourceFood.grams) * targetGrams,
     ) as string;
-    immerDraft.macronutrients = calcMacrosForGrams(sourceFood, targetGrams);
+    immerDraft.macronutrients = getMacrosForGrams(sourceFood, targetGrams);
   });
