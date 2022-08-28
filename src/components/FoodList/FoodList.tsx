@@ -8,10 +8,15 @@ import styles from './FoodList.module.scss';
 interface FoodListProps {
   foodList: FoodSearchResultTd[];
   onSelect?: (foodId: string) => void;
+  selectedFood?: string;
 }
 
-const FoodList: React.FC<FoodListProps> = ({ foodList, onSelect }) => {
-  const [selectedFoodId, setSelectedFoodId] = useState<string>();
+const FoodList: React.FC<FoodListProps> = ({
+  foodList,
+  onSelect,
+  selectedFood,
+}) => {
+  const [selectedFoodId, setSelectedFoodId] = useState<string>(selectedFood!);
 
   const selectFood = (foodId: string) => {
     if (onSelect) {
@@ -54,6 +59,7 @@ const FoodList: React.FC<FoodListProps> = ({ foodList, onSelect }) => {
 
 FoodList.defaultProps = {
   onSelect: undefined,
+  selectedFood: '',
 };
 
 export default FoodList;

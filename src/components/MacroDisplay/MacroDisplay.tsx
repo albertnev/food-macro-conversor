@@ -53,7 +53,9 @@ const MacroGraph: React.FC<MacroGraphProps> = ({
     </div>
     <div className={styles.macroAmounts}>
       <span>{amount}</span>{' '}
-      <span style={{ color: mainColor }}>({percentage}%)</span>
+      {!!percentage && (
+        <span style={{ color: mainColor }}>({percentage}%)</span>
+      )}
     </div>
   </div>
 );

@@ -14,7 +14,7 @@ const FoodDetails: React.FC<FoodDetailsProps> = ({ food }) => {
 
   return (
     <>
-      <div className={styles.nameContainer}>
+      <div className={styles.titleContainer}>
         <div
           className={styles.image}
           style={{
@@ -23,12 +23,17 @@ const FoodDetails: React.FC<FoodDetailsProps> = ({ food }) => {
             })`,
           }}
         />
-        <h2 className={styles.name}>{food.name}</h2>
+        <div className={styles.nameContainer}>
+          <h2 className={styles.name}>{food.name}</h2>
+          {food.brand && <div className={styles.brand}>{food.brand}</div>}
+        </div>
       </div>
       <MacroDisplay food={food} />
       <div className={styles.ingredientsContainer}>
         <span className={styles.detailTitle}>{t('ingredients')}:</span>{' '}
-        <span className={styles.detailValue}>{food.ingredients || '?'}</span>
+        <span className={styles.detailValue}>
+          {food.ingredients || t('withoutInformation')}
+        </span>
       </div>
     </>
   );
