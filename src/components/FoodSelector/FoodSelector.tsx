@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { GiOrange } from 'react-icons/gi';
-import { CgDatabase } from 'react-icons/cg';
-import { HiSearch } from 'react-icons/hi';
-
 import { useTranslation } from 'next-i18next';
-import { foodDataSources } from '../../constants/foodDataSources';
+
+import {
+  foodDataSources,
+  FoodDataSourcesType,
+} from '../../constants/foodDataSources';
 import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { FoodSearchResultTd } from '../../types/FoodSearchResultTd';
 import { Button } from '../Button';
-import { Input } from '../Input';
-import { ButtonCard } from '../ButtonCard';
 import styles from './FoodSelector.module.scss';
-import { FoodList } from '../FoodList';
-import { FoodDetails } from '../FoodDetails';
+import SelectSource from './components/SelectSource';
+import SearchFood from './components/SearchFood';
+import ShowFoodDetails from './components/ShowFoodDetails';
 
 interface FoodSelectorProps {
   onSelectFood: (selectedFood: FoodDetailsTd) => void;
@@ -20,119 +19,77 @@ interface FoodSelectorProps {
 
 const FoodSelector: React.FC<FoodSelectorProps> = ({ onSelectFood }) => {
   const { t } = useTranslation();
-
   const [searchStep, setSearchStep] = useState<number>(0);
-  const [searchText, setSearchText] = useState<string>('');
+
   const [foodList, setFoodList] = useState<FoodSearchResultTd[]>();
+  const [selectedFoodId, setSelectedFoodId] = useState<string>('');
   const [foodDetails, setFoodDetails] = useState<FoodDetailsTd>();
-  const [datasource, setDatasource] = useState<string>(
+  const [datasource, setDatasource] = useState<FoodDataSourcesType>(
     foodDataSources.openfoodfacts,
   );
 
-  const fetchFoodData = async (text: string) => {
-    const resp = await fetch(`/api/food/search?text=${text}`, {
-      headers: { datasource },
-    });
-    const parsedData = await resp.json();
-
-    setFoodDetails(undefined);
-    setFoodList(parsedData);
+  const prevStep = () => {
+    setSearchStep((current) => current - 1);
   };
 
-  const fetchFoodDetails = async (id: string) => {
-    const resp = await fetch(`/api/food/getDetails?id=${id}`, {
-      headers: { datasource },
-    });
-    const parsedData = await resp.json();
-    setFoodDetails(parsedData);
+  const nextStep = () => {
+    if (searchStep === 2) {
+      if (foodDetails) onSelectFood(foodDetails);
+      return;
+    }
+
+    if (
+      (searchStep === 0 && datasource) ||
+      (searchStep === 1 && selectedFoodId)
+    ) {
+      setSearchStep((current) => current + 1);
+    }
   };
 
   useEffect(() => {
     setFoodList([]);
   }, [datasource]);
 
+  useEffect(() => {
+    setSelectedFoodId('');
+  }, [foodList]);
+
+  useEffect(() => {
+    setFoodDetails(undefined);
+  }, [foodList, selectedFoodId]);
+
   return (
     <>
       {searchStep === 0 && (
-        <>
-          <h2>Selecciona origen de datos</h2>
-          <div className={styles.foodSourceButtonsContainer}>
-            <ButtonCard
-              icon={<GiOrange />}
-              isActive={datasource === foodDataSources.openfoodfacts}
-              label={t(`foodDataSources.openfoodfacts`)}
-              onClick={() => setDatasource(foodDataSources.openfoodfacts)}
-            />
-            <ButtonCard
-              icon={<CgDatabase />}
-              isActive={datasource === foodDataSources.bedca}
-              label={t(`foodDataSources.bedca`)}
-              onClick={() => setDatasource(foodDataSources.bedca)}
-            />
-          </div>
-          <div className={styles.foodSourceDescriptionContainer}>
-            <h3>{t(`foodDataSources.${datasource}`)}</h3>
-            <p
-              dangerouslySetInnerHTML={{
-                __html: t(`foodDataSourcesDescription.${datasource}`),
-              }}
-            />
-          </div>
-          <div className={styles.buttonsContainer}>
-            <Button
-              label={t('next')}
-              onClick={() => setSearchStep((current) => current + 1)}
-            />
-          </div>
-        </>
+        <SelectSource
+          selectedSource={datasource}
+          onSelectSource={setDatasource}
+        />
       )}
       {searchStep === 1 && (
-        <>
-          <h2>Búsqueda de alimento</h2>
-          <div className={styles.searchContainer}>
-            <Input
-              defaultValue={searchText}
-              icon={<HiSearch />}
-              placeholder={t('searchForYourFood')}
-              onChange={(val: string) => {
-                setSearchText(val);
-                fetchFoodData(val);
-              }}
-            />
-          </div>
-          {!!foodList?.length && (
-            <FoodList
-              foodList={foodList}
-              onSelect={(foodId) => fetchFoodDetails(foodId)}
-            />
-          )}
-          <div className={styles.buttonsContainer}>
-            <Button
-              label={t('back')}
-              onClick={() => setSearchStep((current) => current - 1)}
-            />
-            <Button
-              label={t('next')}
-              onClick={() => setSearchStep((current) => current + 1)}
-            />
-          </div>
-        </>
+        <SearchFood
+          datasource={datasource}
+          foodList={foodList}
+          selectedFood={foodDetails?.id}
+          onSearchResponse={setFoodList}
+          onSelect={setSelectedFoodId}
+        />
       )}
-      {searchStep === 2 && foodDetails && (
-        <>
-          <FoodDetails food={foodDetails} />
-          <div className={styles.buttonsContainer}>
-            <Button
-              label={t('back')}
-              onClick={() => setSearchStep((current) => current - 1)}
-            />
-            <Button
-              label={t('next')}
-              onClick={() => onSelectFood(foodDetails)}
-            />
-          </div>
-        </>
+      {searchStep === 2 && (
+        <ShowFoodDetails
+          datasource={datasource}
+          foodDetails={foodDetails}
+          foodId={selectedFoodId}
+          onDetailsLoad={setFoodDetails}
+        />
       )}
+      <div className={styles.buttonsContainer}>
+        {searchStep > 0 && <Button label={t('back')} onClick={prevStep} />}
+        <Button
+          label={t(searchStep === 2 ? 'select' : 'next')}
+          onClick={nextStep}
+        />
+      </div>
     </>
   );
 };
