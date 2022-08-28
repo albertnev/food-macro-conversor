@@ -4,6 +4,8 @@ import {
 } from '../utils/conversors/alcohol';
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { FoodSearchResultTd } from '../types/FoodSearchResultTd';
+import { getValueOrZero } from '../utils/getValueOrZero';
+import { foodDataSources } from '../constants/foodDataSources';
 
 export const normalizeSearchResponse = (
   response: any,
@@ -13,9 +15,10 @@ export const normalizeSearchResponse = (
   return foodArray.map(
     (food: any) =>
       ({
+        datasource: foodDataSources.openfoodfacts,
         id: food.code,
         imageUrl: food.image_url,
-        name: food.generic_name_es,
+        name: food.generic_name_es || food.product_name,
       } as FoodSearchResultTd),
   ) as FoodSearchResultTd[];
 };
@@ -27,9 +30,11 @@ export const normalizeFoodDetailsResponse = (response: any): FoodDetailsTd => {
 
   return {
     brand: food.brands,
+    datasource: foodDataSources.openfoodfacts,
     grams: 100,
     id: food.code,
     imageUrl: food.image_url,
+    ingredients: food.ingredients_text_es || food.ingredients_text,
     kcals: `${
       isAlcohol
         ? getKcalsFromGrams(
@@ -39,27 +44,29 @@ export const normalizeFoodDetailsResponse = (response: any): FoodDetailsTd => {
     }`,
     macronutrients: {
       alcohol: {
-        amount: `${getGramsFromVolume(food.nutriments.alcohol_100g || 0)}`,
+        amount: getValueOrZero(
+          getGramsFromVolume(food.nutriments.alcohol_100g),
+        ),
         name: 'alcohol',
         units: 'g',
       },
       carbs: {
-        amount: `${food.nutriments.carbohydrates_100g || 0}`,
+        amount: getValueOrZero(food.nutriments.carbohydrates_100g),
         name: 'carbs',
         units: 'g',
       },
       fat: {
-        amount: `${food.nutriments.fat_100g || 0}`,
+        amount: getValueOrZero(food.nutriments.fat_100g),
         name: 'fat',
         units: 'g',
       },
       protein: {
-        amount: `${food.nutriments.proteins_100g || 0}`,
+        amount: getValueOrZero(food.nutriments.proteins_100g),
         name: 'protein',
         units: 'g',
       },
     },
-    name: food.product_name,
+    name: food.generic_name_es || food.product_name,
     other: { ...food },
   } as FoodDetailsTd;
 };
