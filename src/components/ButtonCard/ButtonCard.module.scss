@@ -8,11 +8,11 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  
-  background-color: white;
+
+  background-color: var(--color-background);
   border: 2px solid var(--color-main-dark);
   color: var(--color-main-dark);
-  cursor:pointer;
+  cursor: pointer;
 
   &.active {
     border-color: var(--color-main-accent);
