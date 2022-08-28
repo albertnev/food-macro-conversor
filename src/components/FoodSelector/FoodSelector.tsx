@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GiOrange } from 'react-icons/gi';
 import { CgDatabase } from 'react-icons/cg';
+import { HiSearch } from 'react-icons/hi';
 
 import { useTranslation } from 'next-i18next';
 import { foodDataSources } from '../../constants/foodDataSources';
@@ -10,6 +11,8 @@ import { Button } from '../Button';
 import { Input } from '../Input';
 import { ButtonCard } from '../ButtonCard';
 import styles from './FoodSelector.module.scss';
+import { FoodList } from '../FoodList';
+import { FoodDetails } from '../FoodDetails';
 
 interface FoodSelectorProps {
   onSelectFood: (selectedFood: FoodDetailsTd) => void;
@@ -44,6 +47,10 @@ const FoodSelector: React.FC<FoodSelectorProps> = ({ onSelectFood }) => {
     setFoodDetails(parsedData);
   };
 
+  useEffect(() => {
+    setFoodList([]);
+  }, [datasource]);
+
   return (
     <>
       {searchStep === 0 && (
@@ -71,76 +78,59 @@ const FoodSelector: React.FC<FoodSelectorProps> = ({ onSelectFood }) => {
               }}
             />
           </div>
-          <Button
-            label={t('next')}
-            onClick={() => setSearchStep((current) => current + 1)}
-          />
+          <div className={styles.buttonsContainer}>
+            <Button
+              label={t('next')}
+              onClick={() => setSearchStep((current) => current + 1)}
+            />
+          </div>
         </>
       )}
       {searchStep === 1 && (
         <>
           <h2>Búsqueda de alimento</h2>
-          <Input onChange={(val: string) => setSearchText(val)} />
-          <Button label="Buscar" onClick={() => fetchFoodData(searchText)} />
-          <ul>
-            {foodList?.length &&
-              foodList.map(({ id, name }) => (
-                <li key={`food-${id}`}>
-                  <span>{name}</span>
-                  <Button
-                    label={t('select')}
-                    onClick={() => fetchFoodDetails(id)}
-                  />
-                </li>
-              ))}
-          </ul>
-          <Button
-            label={t('back')}
-            onClick={() => setSearchStep((current) => current - 1)}
-          />
-          <Button
-            label={t('next')}
-            onClick={() => setSearchStep((current) => current + 1)}
-          />
+          <div className={styles.searchContainer}>
+            <Input
+              defaultValue={searchText}
+              icon={<HiSearch />}
+              placeholder={t('searchForYourFood')}
+              onChange={(val: string) => {
+                setSearchText(val);
+                fetchFoodData(val);
+              }}
+            />
+          </div>
+          {!!foodList?.length && (
+            <FoodList
+              foodList={foodList}
+              onSelect={(foodId) => fetchFoodDetails(foodId)}
+            />
+          )}
+          <div className={styles.buttonsContainer}>
+            <Button
+              label={t('back')}
+              onClick={() => setSearchStep((current) => current - 1)}
+            />
+            <Button
+              label={t('next')}
+              onClick={() => setSearchStep((current) => current + 1)}
+            />
+          </div>
         </>
       )}
       {searchStep === 2 && foodDetails && (
         <>
-          <h2>{foodDetails.name}</h2>
-          <ul>
-            <li>
-              <div>Kcal: {foodDetails.kcals}kcal</div>
-            </li>
-            <li>
-              <div>
-                Alcohol: {foodDetails.macronutrients.alcohol.amount}
-                {foodDetails.macronutrients.alcohol.units}
-              </div>
-            </li>
-            <li>
-              <div>
-                Proteínas: {foodDetails.macronutrients.protein.amount}
-                {foodDetails.macronutrients.protein.units}
-              </div>
-            </li>
-            <li>
-              <div>
-                Grasas: {foodDetails.macronutrients.fat.amount}
-                {foodDetails.macronutrients.fat.units}
-              </div>
-            </li>
-            <li>
-              <div>
-                Carbohidratos: {foodDetails.macronutrients.carbs.amount}
-                {foodDetails.macronutrients.carbs.units}
-              </div>
-            </li>
-          </ul>
-          <Button
-            label={t('back')}
-            onClick={() => setSearchStep((current) => current - 1)}
-          />
-          <Button label={t('next')} onClick={() => onSelectFood(foodDetails)} />
+          <FoodDetails food={foodDetails} />
+          <div className={styles.buttonsContainer}>
+            <Button
+              label={t('back')}
+              onClick={() => setSearchStep((current) => current - 1)}
+            />
+            <Button
+              label={t('next')}
+              onClick={() => onSelectFood(foodDetails)}
+            />
+          </div>
         </>
       )}
     </>

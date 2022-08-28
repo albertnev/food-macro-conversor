@@ -1,6 +1,32 @@
-.foodSourceButtonsContainer{
-  display:flex;
-  margin:auto;
-  width:300px;
+.foodSourceButtonsContainer {
+  display: flex;
+  margin: auto;
+  width: 300px;
   justify-content: space-between;
+}
+
+.searchContainer {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  align-items: center;
+  width: 100%;
+
+  & div:global(.input) {
+    width: 40%;
+  }
+
+  button {
+    margin-left: 20px;
+  }
+}
+
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 24px;
+
+  button {
+    margin-right: 16px;
+  }
 }

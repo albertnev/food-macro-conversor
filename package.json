@@ -12,9 +12,14 @@
     "test-once": "npm test -- --watchAll=false"
   },
   "dependencies": {
+    "@nivo/core": "^0.79.0",
+    "@nivo/pie": "^0.79.1",
+    "@types/lodash": "^4.14.184",
+    "@types/lodash.debounce": "^4.0.7",
     "cheerio": "^1.0.0-rc.12",
     "classnames": "^2.3.1",
     "immer": "^9.0.15",
+    "lodash.debounce": "^4.0.8",
     "next": "12.2.5",
     "next-i18next": "^11.3.0",
     "react": "18.2.0",
