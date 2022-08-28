@@ -1,5 +1,6 @@
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { PossibleMacrosTd } from '../types/PossibleMacrosTd';
+import { getValueOrZero } from './getValueOrZero';
 
 export const calcMacrosForGrams = (sourceFood: FoodDetailsTd, grams: number) =>
   (Object.keys(sourceFood.macronutrients) as PossibleMacrosTd[]).reduce(
@@ -7,11 +8,14 @@ export const calcMacrosForGrams = (sourceFood: FoodDetailsTd, grams: number) =>
       ...prev,
       [cur]: {
         ...sourceFood.macronutrients[cur],
-        amount: `${
-          (Number.parseFloat(sourceFood.macronutrients[cur].amount || '0') /
+        amount: getValueOrZero(
+          ((getValueOrZero(
+            sourceFood.macronutrients[cur].amount,
+            true,
+          ) as number) /
             100) *
-          grams
-        }`,
+            grams,
+        ) as string,
       },
     }),
     {},

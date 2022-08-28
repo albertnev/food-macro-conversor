@@ -2,6 +2,7 @@ import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { PossibleMacrosKcalsTd } from '../types/PossibleMacrosKcalsTd';
 import { PossibleMacrosTd } from '../types/PossibleMacrosTd';
 import { getFoodDataForGrams } from './getFoodDataForGrams';
+import { getValueOrZero } from './getValueOrZero';
 import { getMacrosRatio } from './getMacrosRatio';
 
 export const calcFoodEquivalence = (
@@ -33,7 +34,10 @@ export const calcFoodEquivalence = (
     targetFoodGrams = kcalsRatio * sourceGrams;
   }
 
-  const processedTargetFood = getFoodDataForGrams(targetFood, targetFoodGrams);
+  const processedTargetFood = getFoodDataForGrams(
+    targetFood,
+    getValueOrZero(targetFoodGrams, true) as number,
+  );
 
   // eslint-disable-next-line no-console
   console.log({

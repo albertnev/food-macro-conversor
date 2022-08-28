@@ -5,6 +5,7 @@ export interface FoodDetailsTd extends FoodSearchResultTd {
   brand?: string;
   detailedNutrients?: FoodNutrientTd[];
   grams: number;
+  ingredients?: string;
   kcals: string;
   macronutrients: {
     alcohol: FoodNutrientTd;
