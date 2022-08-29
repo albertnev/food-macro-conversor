@@ -1,0 +1,37 @@
+.gramsInputContainer {
+  margin-bottom: 40px;
+
+  .gramsInputDescription {
+    font-size: 18px;
+
+    .foodName {
+      font-style: italic;
+      color: var(--color-secondary-dark);
+    }
+
+    .foodQuantity {
+      font-weight: bold;
+
+      input {
+        font-weight: bold;
+        color: var(--color-main-dark);
+      }
+    }
+
+    :global(.input) {
+      display: inline-block;
+      border: none;
+      box-shadow: none;
+      border-bottom: 2px solid var(--color-main-dark);
+      width: auto;
+      min-width: auto;
+      border-radius: 0;
+      width: 70px;
+
+      input {
+        padding: 0 10px;
+        text-align: center;
+      }
+    }
+  }
+}
