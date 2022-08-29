@@ -1,54 +1,64 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
 import Image from 'next/image';
-import { FoodSearchResultTd } from '../../types/FoodSearchResultTd';
+import { GiOrange } from 'react-icons/gi';
+import { CgDatabase } from 'react-icons/cg';
 
+import { FoodSearchResultTd } from '../../types/FoodSearchResultTd';
 import styles from './FoodList.module.scss';
+import { foodDataSources } from '../../constants/foodDataSources';
 
 interface FoodListProps {
   foodList: FoodSearchResultTd[];
-  onSelect?: (foodId: string) => void;
-  selectedFood?: string;
+  onSelect?: (food: FoodSearchResultTd) => void;
+  selectedFoodId?: string;
 }
 
 const FoodList: React.FC<FoodListProps> = ({
   foodList,
   onSelect,
-  selectedFood,
+  selectedFoodId: selectedFoodIdProp,
 }) => {
-  const [selectedFoodId, setSelectedFoodId] = useState<string>(selectedFood!);
+  const [selectedFoodId, setSelectedFoodId] = useState<string>(
+    selectedFoodIdProp!,
+  );
 
-  const selectFood = (foodId: string) => {
+  const selectFood = (food: FoodSearchResultTd) => {
     if (onSelect) {
-      setSelectedFoodId(foodId);
-      onSelect(foodId);
+      setSelectedFoodId(food.id);
+      onSelect(food);
     }
   };
 
   return (
     <ul className={styles.foodList}>
       {foodList?.length &&
-        foodList.map(({ id, imageUrl, name }) => (
+        foodList.map((food) => (
           <li
-            key={`food-${id}`}
-            className={cx({ [styles.selected]: selectedFoodId === id })}
+            key={`food-${food.id}`}
+            className={cx({ [styles.selected]: selectedFoodId === food.id })}
           >
             <div
               role="presentation"
-              onClick={() => selectFood(id)}
-              onKeyDown={() => selectFood(id)}
+              onClick={() => selectFood(food)}
+              onKeyDown={() => selectFood(food)}
             >
               <div className={styles.foodImage}>
                 <Image
                   height="100%"
                   objectFit="contain"
-                  src={imageUrl || '/images/foodNotFound.png'}
+                  src={food.imageUrl || '/images/foodNotFound.png'}
                   unoptimized
                   width="100%"
                 />
               </div>
               <div className={styles.foodDetails}>
-                <div className={styles.foodName}>{name}</div>
+                <div className={styles.foodName}>{food.name}</div>
+                <div className={styles.sourceIcon}>
+                  {(food.datasource === foodDataSources.bedca && (
+                    <CgDatabase />
+                  )) || <GiOrange />}
+                </div>
               </div>
             </div>
           </li>
@@ -59,7 +69,7 @@ const FoodList: React.FC<FoodListProps> = ({
 
 FoodList.defaultProps = {
   onSelect: undefined,
-  selectedFood: '',
+  selectedFoodId: '',
 };
 
 export default FoodList;

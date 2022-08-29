@@ -40,6 +40,7 @@
       padding: 12px;
       background-color: var(--color-main-dark);
       color: var(--c-color-main-dark);
+      position: relative;
 
       .foodName {
         font-weight: 500;
@@ -49,6 +50,13 @@
         -webkit-line-clamp: 2;
         overflow: hidden;
       }
+
+      .sourceIcon {
+        position: absolute;
+        bottom: 5px;
+        right: 10px;
+        opacity: 0.5;
+      }
     }
 
     &.selected,
@@ -56,48 +64,6 @@
       .foodDetails {
         background-color: var(--color-main-accent);
         color: var(--c-color-main-accent);
-      }
-    }
-  }
-
-  li.deprecated {
-    border: 1px solid var(--color-main-dark);
-    border-radius: var(--bradius-global);
-    margin-bottom: 12px;
-    background-color: var(--color-background-light);
-    position: relative;
-    cursor: pointer;
-
-    > div {
-      padding: 16px;
-      padding-right: 40px;
-    }
-
-    &:hover {
-      background-color: var(--color-main-accent);
-      color: var(--c-color-main-accent);
-      border-color: var(--color-main-accent);
-    }
-
-    &.selected {
-      background-color: var(--color-main-dark);
-      color: var(--c-color-main-dark);
-      border-color: var(--color-main-dark);
-
-      &::after {
-        content: '';
-        border-radius: 50%;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        display: block;
-        aspect-ratio: 1;
-        width: 10px;
-        height: 10px;
-        background-color: var(--color-background);
-        border: 2px solid var(--color-background);
-        outline: 2px solid var(--color-main-dark);
-        outline-offset: -4px;
       }
     }
   }

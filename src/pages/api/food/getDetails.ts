@@ -7,8 +7,8 @@ export default async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const source = req.headers.datasource || 'openfoodfacts';
 
   if (source === foodDataSources.bedca) {
-    bedca.getFoodDetails(req, res);
+    bedca.api.getFoodDetails(req, res);
   } else {
-    openfoodfacts.getFoodDetails(req, res);
+    openfoodfacts.api.getFoodDetails(req, res);
   }
 };

@@ -6,7 +6,22 @@ import {
 } from '../normalizers/openfoodfacts';
 import { ApiControllerTd } from '../types/ApiControllerTd';
 
-const getFoodDetails = async (
+/* RETURN INNER METHODS */
+
+const searchFood = async (searchText: string) => {
+  const resp = await fetch(
+    `https://es.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURI(
+      searchText,
+    )}&json=true`,
+  );
+
+  const parsedData = await resp.json();
+  return normalizeSearchResponse(parsedData);
+};
+
+/* API METHODS */
+
+const apiGetFoodDetails = async (
   req: NextApiRequest,
   res: NextApiResponse<any>,
 ) => {
@@ -20,15 +35,18 @@ const getFoodDetails = async (
   res.status(200).json(normalizeFoodDetailsResponse(parsedData));
 };
 
-const searchFood = async (req: NextApiRequest, res: NextApiResponse<any>) => {
-  const resp = await fetch(
-    `https://es.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURI(
-      req.query.text as string,
-    )}&json=true`,
-  );
-
-  const parsedData = await resp.json();
-  res.status(200).json(normalizeSearchResponse(parsedData));
+const apiSearchFood = async (
+  req: NextApiRequest,
+  res: NextApiResponse<any>,
+) => {
+  const normalizedData = await searchFood(req.query.text as string);
+  res.status(200).json(normalizedData);
 };
 
-export default { getFoodDetails, searchFood } as ApiControllerTd;
+export default {
+  api: {
+    getFoodDetails: apiGetFoodDetails,
+    searchFood: apiSearchFood,
+  },
+  searchFood,
+} as ApiControllerTd;

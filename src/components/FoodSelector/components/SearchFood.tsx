@@ -1,7 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
 import { HiSearch } from 'react-icons/hi';
-import { FoodDataSourcesType } from '../../../constants/foodDataSources';
 import { FoodSearchResultTd } from '../../../types/FoodSearchResultTd';
 
 import { FoodList } from '../../FoodList';
@@ -9,29 +8,25 @@ import { Input } from '../../Input';
 import styles from '../FoodSelector.module.scss';
 
 interface SearchFoodProps {
-  datasource: FoodDataSourcesType;
   foodList?: FoodSearchResultTd[];
   onSearchResponse?: (searchResponse: FoodSearchResultTd[]) => void;
-  onSelect: (foodId: string) => void;
-  selectedFood?: string;
+  onSelect: (food: FoodSearchResultTd) => void;
+  selectedFoodId?: string;
   title?: string;
 }
 
 const SearchFood: React.FC<SearchFoodProps> = ({
-  datasource,
   foodList,
   onSearchResponse,
   onSelect,
-  selectedFood,
+  selectedFoodId,
   title,
 }) => {
   const { t } = useTranslation();
   const [retrievedFoodList, setRetrievedFoodList] = useState(foodList);
 
   const fetchFoodData = async (text: string) => {
-    const resp = await fetch(`/api/food/search?text=${text}`, {
-      headers: { datasource },
-    });
+    const resp = await fetch(`/api/food/search?text=${text}`);
     const parsedData = await resp.json();
 
     onSearchResponse?.(parsedData);
@@ -55,8 +50,8 @@ const SearchFood: React.FC<SearchFoodProps> = ({
       {!!retrievedFoodList?.length && (
         <FoodList
           foodList={retrievedFoodList}
-          selectedFood={selectedFood}
-          onSelect={(foodId) => onSelect(foodId)}
+          selectedFoodId={selectedFoodId}
+          onSelect={(food) => onSelect(food)}
         />
       )}
     </>
@@ -66,7 +61,7 @@ const SearchFood: React.FC<SearchFoodProps> = ({
 SearchFood.defaultProps = {
   foodList: undefined,
   onSearchResponse: undefined,
-  selectedFood: '',
+  selectedFoodId: '',
   title: '',
 };
 
