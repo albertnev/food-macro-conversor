@@ -2,6 +2,7 @@
   "alcohol": "Alcohol",
   "back": "Atrás",
   "carbs": "Carbohidratos",
+  "doNotExceed": "No te excedas de",
   "fat": "Grasas",
   "foodDataSources": {
     "bedca": "BEDCA",
@@ -15,6 +16,7 @@
   "forEachNGrams_one": "Por cada gramo",
   "forEachNGrams_other": "Por cada {{count}}g",
   "ingredients": "Ingredientes",
+  "kcals": "Kcals",
   "next": "Siguiente",
   "protein": "Proteínas",
   "results": "Resultados",

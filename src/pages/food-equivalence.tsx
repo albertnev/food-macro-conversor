@@ -2,6 +2,7 @@ import { GetStaticProps, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React, { useState } from 'react';
 
+import Head from 'next/head';
 import { FoodSelector } from '../components/FoodSelector';
 import { PageWithMenu } from '../components/PageWithMenu';
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
@@ -26,6 +27,9 @@ const FoodEquivalence: NextPage = () => {
 
   return (
     <PageWithMenu>
+      <Head>
+        <title>Food macro conversor</title>
+      </Head>
       {activeStep === 0 && (
         <FoodSelector
           onSelectFood={(food) => {

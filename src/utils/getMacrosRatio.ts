@@ -18,11 +18,11 @@ export const getMacrosRatio = (
           targetFood.macronutrients[cur]?.amount,
           true,
         ) as number) / targetFood.grams;
-      const ratio = sourceMacroPerGram / targetMacroPerGram;
+      const ratio = sourceMacroPerGram / (targetMacroPerGram || 1);
 
       return {
         ...prev,
-        [cur]: ratio > 0 ? ratio : 1,
+        ...(ratio > 0 ? { [cur]: ratio } : {}),
       };
     },
     {},

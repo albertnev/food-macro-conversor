@@ -41,6 +41,7 @@
 
 .title {
   margin: 0;
+  margin-bottom: 50px;
   line-height: 1.15;
   font-size: 4rem;
 }
@@ -83,13 +84,20 @@
   border-radius: 10px;
   transition: color 0.15s ease, border-color 0.15s ease;
   max-width: 300px;
+  font-size: 36px;
+  color: var(--color-main-accent);
+  text-align: center;
+  cursor: pointer;
+}
+
+.card a {
+  display: block;
 }
 
 .card:hover,
 .card:focus,
 .card:active {
-  color: #0070f3;
-  border-color: #0070f3;
+  border-color: var(--color-main-accent);
 }
 
 .card h2 {

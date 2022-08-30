@@ -5,18 +5,24 @@ import { getFoodDataForGrams } from './getFoodDataForGrams';
 import { getValueOrZero } from './getValueOrZero';
 import { getMacrosRatio } from './getMacrosRatio';
 
+const defaultMacros: PossibleMacrosKcalsTd[] = [
+  'kcals',
+  'protein',
+  'alcohol',
+  'carbs',
+  'fat',
+];
+
 export const getFoodEquivalence = (
   sourceFood: FoodDetailsTd,
   sourceGrams: number,
   targetFood: FoodDetailsTd,
-  targetMacros: PossibleMacrosKcalsTd[] = [
-    'kcals',
-    'protein',
-    'alcohol',
-    'carbs',
-    'fat',
-  ], // Get all by default
+  macrosSelected: PossibleMacrosKcalsTd[] = defaultMacros, // Get all by default
 ): FoodDetailsTd => {
+  // Get default macros list if macrosSelected is empty
+  let targetMacros: PossibleMacrosKcalsTd[] = macrosSelected;
+  if (!macrosSelected.length) targetMacros = defaultMacros;
+
   let targetFoodGrams: number;
   // Calc ratios of kcals and macros
   const macrosRatio = getMacrosRatio(sourceFood, targetFood);
@@ -33,13 +39,18 @@ export const getFoodEquivalence = (
     const sortedEntriesByLowerRatio = Object.entries(macrosRatio)
       .filter((macro) => targetMacros.includes(macro[0] as PossibleMacrosTd))
       .sort((x, y) => x[1] - y[1]); // [['macroNameA', {FoodNutrientTd}], ['macroNameB', {FoodNutrientTd}]]
-    const lowestMacroRatio = sortedEntriesByLowerRatio[0]; // ['macroNameA', {FoodNutrientTd}]
+    const lowestMacroRatio = sortedEntriesByLowerRatio?.[0] || false; // ['macroNameA', {FoodNutrientTd}]
 
     // Calculate the target grams using the lowest ratio
-    targetFoodGrams = lowestMacroRatio[1] * sourceGrams;
+    targetFoodGrams = lowestMacroRatio?.length
+      ? lowestMacroRatio[1] * sourceGrams
+      : 0;
 
     // If kcals is even lower ratio, take kcals
-    if (targetMacros.includes('kcals') && lowestMacroRatio[1] > kcalsRatio) {
+    if (
+      !lowestMacroRatio ||
+      (targetMacros.includes('kcals') && lowestMacroRatio[1] > kcalsRatio)
+    ) {
       targetFoodGrams = kcalsRatio * sourceGrams;
     }
   }
