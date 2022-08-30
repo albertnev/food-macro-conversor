@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo } from 'react';
 import cx from 'classnames';
 import debounce from 'lodash.debounce';
-
-import styles from './Input.module.scss';
+import { StInputContainer } from './Input.styled';
 
 interface InputProps {
+  className?: string;
   defaultValue?: string;
   icon?: React.ReactNode;
   onChange: (val: string) => void;
@@ -12,6 +12,7 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({
+  className,
   defaultValue,
   icon,
   onChange,
@@ -34,19 +35,23 @@ const Input: React.FC<InputProps> = ({
   );
 
   return (
-    <div className={cx('input', styles.inputContainer)}>
-      {icon && <div className={styles.icon}>{icon}</div>}
+    <StInputContainer
+      className={cx({ [className!]: !!className, input: true })}
+    >
+      {icon && <div className="input__icon">{icon}</div>}
       <input
+        className="input__inputControl"
         defaultValue={defaultValue}
         placeholder={placeholder}
         type="text"
         onChange={({ target: { value } }) => debouncedOnChange(value)}
       />
-    </div>
+    </StInputContainer>
   );
 };
 
 Input.defaultProps = {
+  className: '',
   defaultValue: '',
   icon: undefined,
   placeholder: '',

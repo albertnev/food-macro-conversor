@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import cx from 'classnames';
 
 import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { FoodSearchResultTd } from '../../types/FoodSearchResultTd';
 import { Button } from '../Button';
-import styles from './FoodSelector.module.scss';
 import SearchFood from './components/SearchFood';
 import ShowFoodDetails from './components/ShowFoodDetails';
+import { StFoodSelectorContainer } from './FoodSelector.styled';
 
 interface FoodSelectorProps {
+  className?: string;
   onSelectFood: (selectedFood: FoodDetailsTd) => void;
 }
 
-const FoodSelector: React.FC<FoodSelectorProps> = ({ onSelectFood }) => {
+const FoodSelector: React.FC<FoodSelectorProps> = ({
+  className,
+  onSelectFood,
+}) => {
   const { t } = useTranslation();
   const [searchStep, setSearchStep] = useState<number>(0);
 
@@ -44,7 +49,7 @@ const FoodSelector: React.FC<FoodSelectorProps> = ({ onSelectFood }) => {
   }, [foodList, selectedFood]);
 
   return (
-    <>
+    <StFoodSelectorContainer className={cx({ [className!]: !!className })}>
       {searchStep === 0 && (
         <SearchFood
           foodList={foodList}
@@ -61,15 +66,19 @@ const FoodSelector: React.FC<FoodSelectorProps> = ({ onSelectFood }) => {
           onDetailsLoad={setFoodDetails}
         />
       )}
-      <div className={styles.buttonsContainer}>
+      <div className="foodSelector__buttonsContainer">
         {searchStep > 0 && <Button label={t('back')} onClick={prevStep} />}
         <Button
           label={t(searchStep === 1 ? 'select' : 'next')}
           onClick={nextStep}
         />
       </div>
-    </>
+    </StFoodSelectorContainer>
   );
+};
+
+FoodSelector.defaultProps = {
+  className: '',
 };
 
 export default FoodSelector;

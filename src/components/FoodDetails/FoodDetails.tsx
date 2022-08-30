@@ -4,16 +4,17 @@ import cx from 'classnames';
 
 import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { MacroDisplay } from '../MacroDisplay';
-
-import styles from './FoodDetails.module.scss';
+import { StFoodDetailsContainer } from './FoodDetails.styled';
 
 interface FoodDetailsProps {
+  className?: string;
   food: FoodDetailsTd;
   isSummary?: boolean;
   verticalDisplay?: boolean;
 }
 
 const FoodDetails: React.FC<FoodDetailsProps> = ({
+  className,
   food,
   isSummary,
   verticalDisplay,
@@ -21,40 +22,42 @@ const FoodDetails: React.FC<FoodDetailsProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div
+    <StFoodDetailsContainer
       className={cx({
-        [styles.foodDetailsContainer]: true,
-        [styles.verticalDisplay]: verticalDisplay,
+        [className!]: !!className,
+        foodDetails__verticalDisplay: verticalDisplay,
+        foodDetailsContainer: true,
       })}
     >
-      <div className={styles.titleContainer}>
+      <div className="foodDetails__titleContainer">
         <div
-          className={styles.image}
+          className="foodDetails__image"
           style={{
             backgroundImage: `url(${
               food.imageUrl || '/images/foodNotFound.png'
             })`,
           }}
         />
-        <div className={styles.nameContainer}>
-          <h2 className={styles.name}>{food.name}</h2>
-          {food.brand && <div className={styles.brand}>{food.brand}</div>}
+        <div className="foodDetails__nameContainer">
+          <h2 className="foodDetails__nameTitle">{food.name}</h2>
+          {food.brand && <div className="foodDetails__brand">{food.brand}</div>}
         </div>
       </div>
       <MacroDisplay food={food} verticalDisplay={verticalDisplay} />
       {!isSummary && (
-        <div className={styles.ingredientsContainer}>
-          <span className={styles.detailTitle}>{t('ingredients')}:</span>{' '}
-          <span className={styles.detailValue}>
+        <div className="foodDetails__ingredientsContainer">
+          <span className="foodDetails__detailTitle">{t('ingredients')}:</span>{' '}
+          <span className="foodDetails__detailValue">
             {food.ingredients || t('withoutInformation')}
           </span>
         </div>
       )}
-    </div>
+    </StFoodDetailsContainer>
   );
 };
 
 FoodDetails.defaultProps = {
+  className: '',
   isSummary: false,
   verticalDisplay: false,
 };

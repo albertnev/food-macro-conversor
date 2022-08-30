@@ -1,15 +1,14 @@
 import React from 'react';
-
-import styles from './AppContainer.module.scss';
+import { StAppContainer } from './AppContainer.styled';
 
 interface AppContainerProps {
   children?: React.ReactNode;
 }
 
 const AppContainer: React.FC<AppContainerProps> = ({ children }) => (
-  <div className={styles.appContainer}>
-    <div className={styles.appContent}>{children}</div>
-  </div>
+  <StAppContainer className="appContainer">
+    <div className="appContent">{children}</div>
+  </StAppContainer>
 );
 
 AppContainer.defaultProps = {

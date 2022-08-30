@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { AppContainer } from '../AppContainer';
 import { MainMenu } from '../MainMenu';
 
-import styles from './PageWithMenu.module.scss';
+import { StPageWithMenuContainer } from './PageWithMenu.styled';
 
 interface PageWithMenuProps {
   children?: React.ReactNode;
@@ -12,9 +12,11 @@ interface PageWithMenuProps {
 const PageWithMenu: React.FC<PageWithMenuProps> = ({ children }) => (
   <AppContainer>
     <MainMenu />
-    <div className={cx(styles.contentContainer, 'width-container')}>
+    <StPageWithMenuContainer
+      className={cx('pageWithMenuContainer', 'width-container')}
+    >
       {children}
-    </div>
+    </StPageWithMenuContainer>
   </AppContainer>
 );
 

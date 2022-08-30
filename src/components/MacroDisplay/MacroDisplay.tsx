@@ -9,9 +9,10 @@ import { getValueOrZero } from '../../utils/getValueOrZero';
 import { hexToRgba } from '../../utils/hexToRgba';
 import { DoughnutChart } from '../DoughnutChart';
 
-import styles from './MacroDisplay.module.scss';
+import { StMacroDisplayContainer } from './MacroDisplay.styled';
 
 interface MacroDisplayProps {
+  className?: string;
   food: FoodDetailsTd;
   verticalDisplay?: boolean;
 }
@@ -33,9 +34,9 @@ const MacroGraph: React.FC<MacroGraphProps> = ({
   percentage,
   secondaryColor,
 }) => (
-  <div className={styles.macroGraph}>
-    <div className={styles.macroName}>{name}</div>
-    <div className={styles.graphContainer}>
+  <div className="macroGraph">
+    <div className="macroName">{name}</div>
+    <div className="graphContainer">
       {graph || (
         <DoughnutChart
           data={[
@@ -53,7 +54,7 @@ const MacroGraph: React.FC<MacroGraphProps> = ({
         />
       )}
     </div>
-    <div className={styles.macroAmounts}>
+    <div className="macroAmounts">
       <span>{amount}</span>{' '}
       {!!percentage && (
         <span style={{ color: mainColor }}>({percentage}%)</span>
@@ -70,6 +71,7 @@ MacroGraph.defaultProps = {
 };
 
 const MacroDisplay: React.FC<MacroDisplayProps> = ({
+  className,
   food,
   verticalDisplay,
 }) => {
@@ -77,13 +79,14 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({
   const macroPercentages = getMacrosPercentages(food);
 
   return (
-    <div
+    <StMacroDisplayContainer
       className={cx({
-        [styles.macroDisplayContainer]: true,
-        [styles.verticalDisplay]: verticalDisplay,
+        className,
+        macroDisplayContainer: true,
+        verticalDisplay,
       })}
     >
-      <div className={styles.inQuantity}>
+      <div className="inQuantity">
         {t('forEachNGrams', { count: food.grams })}
       </div>
       {macroPercentages.alcohol > 0 && (
@@ -146,11 +149,12 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({
         }
         name="Kcals"
       />
-    </div>
+    </StMacroDisplayContainer>
   );
 };
 
 MacroDisplay.defaultProps = {
+  className: '',
   verticalDisplay: false,
 };
 

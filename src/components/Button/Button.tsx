@@ -1,24 +1,35 @@
 import React from 'react';
 import cx from 'classnames';
-import styles from './Button.module.scss';
+import { StButton } from './Button.styled';
 
 interface ButtonProps {
+  className?: string;
   label: string;
   onClick: () => void;
   small?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({ label, onClick, small }) => (
-  <button
-    className={cx({ [styles.button]: true, [styles['button--small']]: small })}
+const Button: React.FC<ButtonProps> = ({
+  className,
+  label,
+  onClick,
+  small,
+}) => (
+  <StButton
+    className={cx({
+      button: true,
+      'button--small': small,
+      [className!]: !!className,
+    })}
     type="button"
     onClick={onClick}
   >
     {label}
-  </button>
+  </StButton>
 );
 
 Button.defaultProps = {
+  className: '',
   small: false,
 };
 

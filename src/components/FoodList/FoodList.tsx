@@ -5,16 +5,18 @@ import { GiOrange } from 'react-icons/gi';
 import { CgDatabase } from 'react-icons/cg';
 
 import { FoodSearchResultTd } from '../../types/FoodSearchResultTd';
-import styles from './FoodList.module.scss';
 import { foodDataSources } from '../../constants/foodDataSources';
+import { StFoodList } from './FoodList.styled';
 
 interface FoodListProps {
+  className?: string;
   foodList: FoodSearchResultTd[];
   onSelect?: (food: FoodSearchResultTd) => void;
   selectedFoodId?: string;
 }
 
 const FoodList: React.FC<FoodListProps> = ({
+  className,
   foodList,
   onSelect,
   selectedFoodId: selectedFoodIdProp,
@@ -31,19 +33,22 @@ const FoodList: React.FC<FoodListProps> = ({
   };
 
   return (
-    <ul className={styles.foodList}>
+    <StFoodList className={cx({ [className!]: !!className, foodList: true })}>
       {foodList?.length &&
         foodList.map((food) => (
           <li
             key={`food-${food.id}`}
-            className={cx({ [styles.selected]: selectedFoodId === food.id })}
+            className={cx({
+              foodList__item: true,
+              'foodList__item--selected': selectedFoodId === food.id,
+            })}
           >
             <div
               role="presentation"
               onClick={() => selectFood(food)}
               onKeyDown={() => selectFood(food)}
             >
-              <div className={styles.foodImage}>
+              <div className="foodList__foodImage">
                 <Image
                   height="100%"
                   objectFit="contain"
@@ -52,9 +57,9 @@ const FoodList: React.FC<FoodListProps> = ({
                   width="100%"
                 />
               </div>
-              <div className={styles.foodDetails}>
-                <div className={styles.foodName}>{food.name}</div>
-                <div className={styles.sourceIcon}>
+              <div className="foodList__foodDetails">
+                <div className="foodList__foodName">{food.name}</div>
+                <div className="foodList__sourceIcon">
                   {(food.datasource === foodDataSources.bedca && (
                     <CgDatabase />
                   )) || <GiOrange />}
@@ -63,11 +68,12 @@ const FoodList: React.FC<FoodListProps> = ({
             </div>
           </li>
         ))}
-    </ul>
+    </StFoodList>
   );
 };
 
 FoodList.defaultProps = {
+  className: '',
   onSelect: undefined,
   selectedFoodId: '',
 };

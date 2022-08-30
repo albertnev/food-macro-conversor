@@ -1,8 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
-import styles from './ButtonCard.module.scss';
 
 interface ButtonCardProps {
+  className?: string;
   icon: React.ReactNode;
   isActive?: boolean;
   label: string;
@@ -10,6 +10,7 @@ interface ButtonCardProps {
 }
 
 const ButtonCard: React.FC<ButtonCardProps> = ({
+  className,
   icon,
   isActive,
   label,
@@ -17,18 +18,20 @@ const ButtonCard: React.FC<ButtonCardProps> = ({
 }) => (
   <button
     className={cx({
-      [styles.buttonCard]: true,
-      [styles.active]: isActive,
+      active: isActive,
+      buttonCard: true,
+      [className!]: !!className,
     })}
     type="button"
     onClick={onClick}
   >
-    <div className={styles.icon}>{icon}</div>
-    <div className={styles.label}>{label}</div>
+    <div className="buttonCard__icon">{icon}</div>
+    <div className="buttonCard__label">{label}</div>
   </button>
 );
 
 ButtonCard.defaultProps = {
+  className: '',
   isActive: false,
 };
 
