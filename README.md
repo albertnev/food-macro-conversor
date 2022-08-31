@@ -25,15 +25,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 #### v1.0
 
-- [ ] Select food from incoming external database fetched data.
-- [ ] Display selected food macronutrients and information.
-- [ ] Compare two selected foods.
-- [ ] Conversion between foods selecting one or more macronutrients.
+- [x] Select food from incoming external database fetched data.
+- [x] Display selected food macronutrients and information.
+- [x] Compare two selected foods.
+- [x] Conversion between foods selecting one or more macronutrients.
   - The food amount will be according to the first macronutrient limit reached.
 
 #### v2.0
 
-- [ ] Change on demand source to get food data.
+- [x] Change on demand source to get food data: deprecated as now all calls to all sources are made parallel.
 - [ ] Add measurement equivalences in conversion (100g -> 6 tablespoon).
 - [ ] Conversion between more than 2 selected foods to be able to compare.
   - [ ] Highlight the food with overall closer values.
