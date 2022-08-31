@@ -78,6 +78,5 @@ export const normalizeFoodDetailsResponse = (response: any): FoodDetailsTd => {
       },
     },
     name: food.f_ori_name,
-    others: { ...food },
   } as FoodDetailsTd;
 };

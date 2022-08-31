@@ -7,20 +7,28 @@ import { FoodSearchResultTd } from '../types/FoodSearchResultTd';
 import { getValueOrZero } from '../utils/getValueOrZero';
 import { foodDataSources } from '../constants/foodDataSources';
 
+const getFoodName = (food: any) =>
+  food.generic_name_es || food.product_name || food.abbreviated_product_name;
+
 export const normalizeSearchResponse = (
   response: any,
 ): FoodSearchResultTd[] => {
   const foodArray = response.products;
 
-  return foodArray.map(
-    (food: any) =>
-      ({
-        datasource: foodDataSources.openfoodfacts,
-        id: food.code,
-        imageUrl: food.image_url,
-        name: food.generic_name_es || food.product_name,
-      } as FoodSearchResultTd),
-  ) as FoodSearchResultTd[];
+  return foodArray
+    .filter(
+      (food: any) =>
+        !!food.nutriments?.['energy-kcal_100g'] || food.nutriments.alcohol_100g,
+    )
+    .map(
+      (food: any) =>
+        ({
+          datasource: foodDataSources.openfoodfacts,
+          id: food.code,
+          imageUrl: food.image_url,
+          name: getFoodName(food),
+        } as FoodSearchResultTd),
+    ) as FoodSearchResultTd[];
 };
 
 export const normalizeFoodDetailsResponse = (response: any): FoodDetailsTd => {
@@ -66,7 +74,6 @@ export const normalizeFoodDetailsResponse = (response: any): FoodDetailsTd => {
         units: 'g',
       },
     },
-    name: food.generic_name_es || food.product_name,
-    other: { ...food },
+    name: getFoodName(food),
   } as FoodDetailsTd;
 };
