@@ -2,8 +2,6 @@ import styled, { css } from 'styled-components';
 
 export const StLoaderContainer = styled.div(
   () => css`
-    $animation-duration: 1.8s;
-
     position: absolute;
     z-index: 999;
     top: 0;
@@ -32,13 +30,13 @@ export const StLoaderContainer = styled.div(
       height: 10px;
       background: var(--carbs-color);
       border-radius: 5px;
-      animation: load $animation-duration ease-in-out infinite;
+      animation: load 1.8s ease-in-out infinite;
       &:before,
       &:after {
         position: absolute;
         display: block;
         content: '';
-        animation: load $animation-duration ease-in-out infinite;
+        animation: load 1.8s ease-in-out infinite;
         height: 10px;
         border-radius: 5px;
       }
