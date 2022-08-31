@@ -19,12 +19,17 @@ export const StFoodEquivalenceContainer = styled.div(
           .foodEquivalence__foodName {
             font-style: italic;
             color: var(--color-secondary-dark);
+
+            @media (prefers-color-scheme: dark) {
+              color: var(--fat-color);
+            }
           }
 
           .foodEquivalence__foodQuantity {
             font-weight: bold;
 
             .foodEquivalence__gramsInput {
+              background-color: transparent;
               display: inline-block;
               border: none;
               box-shadow: none;

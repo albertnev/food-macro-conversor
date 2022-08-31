@@ -1,9 +1,8 @@
 import styled, { css } from 'styled-components';
 
-export const StPageWithMenuContainer = styled.div(
+export const StPageWithMenuContent = styled.div(
   () => css`
     display: flex;
-    position: relative;
     flex-direction: column;
     padding: 20px 0px;
     align-items: flex-start;

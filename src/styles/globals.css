@@ -33,7 +33,8 @@
   --input-box-shadow: rgb(0 0 0 / 12%) 0px 1px 1px 0px;
   --input-focused-box-shadow: rgb(0 0 0 / 20%) 0px 1px 2px 1px;
 
-  /* Macros and displays */
+  /* Macros and other colors */
+  --color-main: #284b63;
   --protein-color: #9c0f0f;
   --fat-color: #feb13d;
   --carbs-color: #36a7a9;
@@ -111,11 +112,29 @@ h2 {
 }
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #333;
+    --color-main-menu: #333;
+    --color-main-dark: white;
+
+    /* Contrast colors */
+    --c-color-body: white;
+    --c-color-background: var(--c-color-body);
+    --c-color-main-menu: var(--c-color-body);
+    --c-color-main-dark: #284b63;
+
+    /* Borders and addornments */
+    --input-box-shadow: rgb(255 255 255 / 12%) 0px 1px 1px 0px;
+    --input-focused-box-shadow: rgb(255 255 255 / 20%) 0px 1px 2px 1px;
+
+    /* Macros and displays */
+    --protein-color: #de4343;
+  }
+
   html {
     color-scheme: dark;
   }
   body {
     color: white;
-    background: black;
   }
 }

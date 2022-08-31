@@ -32,5 +32,17 @@ export const StInputContainer = styled.label(
         color: var(--color-main-accent);
       }
     }
+
+    @media (prefers-color-scheme: dark) {
+      background-color: white;
+
+      .input__inputControl {
+        color: var(--color-background);
+      }
+
+      .input__icon {
+        color: var(--color-background);
+      }
+    }
   `,
 );

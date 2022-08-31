@@ -69,6 +69,36 @@ export const StFormWizardStepsContainer = styled.div(
           }
         }
       }
+
+      @media (prefers-color-scheme: dark) {
+        .wizardSteps__list {
+          .wizardSteps__stepItem {
+            .wizardSteps__stepNumber {
+              background-color: var(--color-main);
+              color: var(--c-color-background);
+            }
+
+            /* Active step */
+            &.wizardSteps__stepItem--active {
+              .wizardSteps__stepNumber {
+                border: none;
+                background-color: var(--c-color-background);
+                color: var(--color-background);
+              }
+            }
+
+            /* Completed step */
+            &.wizardSteps__stepItem--completed:not(.wizardSteps__stepItem--active) {
+              .wizardSteps__stepNumber {
+                background-color: transparent;
+                color: var(--c-color-background);
+                border: 2px solid white;
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
     }
   `,
 );

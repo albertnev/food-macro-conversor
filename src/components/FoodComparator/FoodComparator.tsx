@@ -24,6 +24,7 @@ const FoodComparator: React.FC<FoodComparatorProps> = ({
   verticalDisplay,
 }) => {
   const { t } = useTranslation();
+
   return (
     <StFoodComparatorContainer
       className={cx({

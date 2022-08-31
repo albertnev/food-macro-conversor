@@ -27,7 +27,7 @@ export const StButton = styled.button(
     &.button--secondary {
       border: 3px solid var(--color-main-dark);
       font-weight: bold;
-      background-color: var(--color-background);
+      background-color: transparent;
       color: var(--color-main-dark);
 
       &:hover {
