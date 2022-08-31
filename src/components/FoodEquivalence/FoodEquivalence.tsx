@@ -1,5 +1,9 @@
 import { useTranslation } from 'next-i18next';
+import cx from 'classnames';
 import React, { useEffect, useState } from 'react';
+
+import { TbArrowsUpDown } from 'react-icons/tb';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { PossibleMacrosKcalsTd } from '../../types/PossibleMacrosKcalsTd';
 import { getFoodDataForGrams } from '../../utils/getFoodDataForGrams';
@@ -11,6 +15,7 @@ import { Input } from '../Input';
 import { StFoodEquivalenceContainer } from './FoodEquivalence.styled';
 
 interface FoodEquivalenceProps {
+  className?: string;
   foodsToCompare: FoodDetailsTd[];
   onMacrosChange?: (macros: PossibleMacrosKcalsTd[]) => void;
   onQuantityChange?: (quantity: number) => void;
@@ -19,6 +24,7 @@ interface FoodEquivalenceProps {
 }
 
 const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
+  className,
   foodsToCompare,
   onMacrosChange,
   onQuantityChange,
@@ -26,6 +32,7 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
   selectedMacros,
 }) => {
   const { t } = useTranslation();
+  const isMobile = useMediaQuery(780);
   const [sourceGrams, setSourceGrams] = useState(quantity || 0);
   const [macrosSelected, setMacrosSelected] = useState(selectedMacros);
 
@@ -57,7 +64,9 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
   }, [macrosSelected, onMacrosChange]);
 
   return (
-    <StFoodEquivalenceContainer>
+    <StFoodEquivalenceContainer
+      className={cx({ foodEquivalence: true, [className!]: !!className })}
+    >
       <div className="foodEquivalence__filtersHeader">
         <div className="foodEquivalence__gramsInputContainer">
           <div>
@@ -96,34 +105,33 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
           <div className="foodEquivalence__macroSelectorText">
             {t('doNotExceed')}:
           </div>
-          <Checkbox
-            checked={macrosSelected?.includes('kcals')}
-            label={t('kcals')}
-            onChange={(checked) => toggleMacro('kcals', checked)}
-          />
-          <Checkbox
-            checked={macrosSelected?.includes('carbs')}
-            label={t('carbs')}
-            onChange={(checked) => toggleMacro('carbs', checked)}
-          />
-          <Checkbox
-            checked={macrosSelected?.includes('fat')}
-            label={t('fat')}
-            onChange={(checked) => toggleMacro('fat', checked)}
-          />
-          <Checkbox
-            checked={macrosSelected?.includes('protein')}
-            label={t('protein')}
-            onChange={(checked) => toggleMacro('protein', checked)}
-          />
+          {(
+            ['kcals', 'carbs', 'fat', 'protein'] as PossibleMacrosKcalsTd[]
+          ).map((macro) => (
+            <Checkbox
+              key={`macro-selector-${macro}`}
+              checked={macrosSelected?.includes(macro)}
+              className="foodEquivalence__macroCheckbox"
+              label={t(macro)}
+              onChange={(checked) => toggleMacro(macro, checked)}
+            />
+          ))}
         </div>
       </div>
-      <div className="foodEquivalence__foodComparatorContainer">
+      <div
+        className={cx({
+          foodEquivalence__foodComparatorContainer: true,
+          'foodEquivalence__foodComparatorContainer--mobile': isMobile,
+        })}
+      >
         <FoodComparator
+          className="foodEquivalence__foodComparator"
           foodsToCompare={[
             getFoodDataForGrams(foodsToCompare[0], sourceGrams),
             convertedFood,
           ]}
+          icon={isMobile ? <TbArrowsUpDown /> : undefined}
+          verticalDisplay={!isMobile}
         />
       </div>
     </StFoodEquivalenceContainer>
@@ -131,6 +139,7 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
 };
 
 FoodEquivalence.defaultProps = {
+  className: '',
   onMacrosChange: undefined,
   onQuantityChange: undefined,
   quantity: 100,

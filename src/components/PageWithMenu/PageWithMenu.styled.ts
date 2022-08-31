@@ -7,5 +7,6 @@ export const StPageWithMenuContainer = styled.div(
     padding: 20px 0px;
     align-items: flex-start;
     overflow-y: auto;
+    overflow-x: hidden;
   `,
 );

@@ -10,22 +10,24 @@ interface FoodComparatorProps {
   className?: string;
   foodsToCompare: FoodDetailsTd[];
   icon?: React.ReactNode;
+  verticalDisplay?: boolean;
 }
 
 const FoodComparator: React.FC<FoodComparatorProps> = ({
   className,
   foodsToCompare,
   icon,
+  verticalDisplay,
 }) => (
   <StFoodComparatorContainer
     className={cx({
       [className!]: !!className,
-      foodDetailsContainer: true,
+      foodComparator: true,
     })}
   >
     {foodsToCompare.map((food, i) => (
       <React.Fragment key={`food-${food.id}`}>
-        <FoodDetails food={food} isSummary verticalDisplay />
+        <FoodDetails food={food} isSummary verticalDisplay={verticalDisplay} />
         {i < foodsToCompare.length - 1 && (
           <div className="foodComparator__equivalenceIconContainer">
             {icon || <TbArrowsRightLeft />}
@@ -39,6 +41,7 @@ const FoodComparator: React.FC<FoodComparatorProps> = ({
 FoodComparator.defaultProps = {
   className: '',
   icon: undefined,
+  verticalDisplay: true,
 };
 
 export default FoodComparator;

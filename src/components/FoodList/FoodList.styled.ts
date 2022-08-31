@@ -13,25 +13,23 @@ export const StFoodList = styled.ul(
     justify-content: space-between;
 
     .foodList__item {
-      box-shadow: var(--input-focused-box-shadow);
-      width: 200px;
-      height: 200px;
+      width: 100%;
       border-radius: var(--bradius-global);
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       cursor: pointer;
       overflow: hidden;
 
       > div {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         height: 100%;
+        width: 100%;
       }
 
       .foodList__foodImage {
-        width: 100%;
-        height: 100px;
-        margin: 0 auto;
-        padding-bottom: 12px;
+        width: 50px;
+        height: 100%;
+        margin: 0;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -67,6 +65,28 @@ export const StFoodList = styled.ul(
         .foodList__foodDetails {
           background-color: var(--color-main-accent);
           color: var(--c-color-main-accent);
+        }
+      }
+    }
+
+    @media (min-width: 680px) {
+      .foodList__item {
+        box-shadow: var(--input-focused-box-shadow);
+        width: 200px;
+        height: 200px;
+        margin-bottom: 20px;
+
+        > div {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
+
+        .foodList__foodImage {
+          width: 100%;
+          height: 100px;
+          margin: 0 auto;
+          padding-bottom: 12px;
         }
       }
     }

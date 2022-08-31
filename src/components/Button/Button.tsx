@@ -6,19 +6,19 @@ interface ButtonProps {
   className?: string;
   label: string;
   onClick: () => void;
-  small?: boolean;
+  secondary?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
   className,
   label,
   onClick,
-  small,
+  secondary,
 }) => (
   <StButton
     className={cx({
       button: true,
-      'button--small': small,
+      'button--secondary': secondary,
       [className!]: !!className,
     })}
     type="button"
@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
 
 Button.defaultProps = {
   className: '',
-  small: false,
+  secondary: false,
 };
 
 export default Button;

@@ -9,6 +9,7 @@ export const StFoodComparatorContainer = styled.div(
     align-items: center;
 
     .foodComparator__equivalenceIconContainer {
+      margin: 15px;
       font-size: 50px;
       color: var(--color-main-accent);
     }

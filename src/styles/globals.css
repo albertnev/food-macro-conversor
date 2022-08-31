@@ -93,7 +93,6 @@ h5 {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  margin-left: 40px;
   background: var(--color-background-light);
 }
 

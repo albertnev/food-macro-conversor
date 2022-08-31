@@ -13,7 +13,7 @@ const PageWithMenu: React.FC<PageWithMenuProps> = ({ children }) => (
   <AppContainer>
     <MainMenu />
     <StPageWithMenuContainer
-      className={cx('pageWithMenuContainer', 'width-container')}
+      className={cx('pageWithMenuContent', 'width-container')}
     >
       {children}
     </StPageWithMenuContainer>
