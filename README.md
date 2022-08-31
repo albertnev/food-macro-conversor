@@ -30,6 +30,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - [x] Compare two selected foods.
 - [x] Conversion between foods selecting one or more macronutrients.
   - The food amount will be according to the first macronutrient limit reached.
+- [x] Change selected foods on conversion page.
+- [x] Be able to switch selected foods.
 
 #### v2.0
 

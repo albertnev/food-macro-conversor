@@ -20,6 +20,10 @@ const FoodEquivalence: NextPage = () => {
     [],
   );
 
+  const onSwitchFoods = () => {
+    setSelectedFoods([selectedFoods[1], selectedFoods[0]]);
+  };
+
   const changeFood = (food: FoodDetailsTd) => {
     let foodIndex;
     selectedFoods.some((f, i) => {
@@ -89,6 +93,7 @@ const FoodEquivalence: NextPage = () => {
           onChangeFood={changeFood}
           onMacrosChange={setSelectedMacros}
           onQuantityChange={setSourceGrams}
+          onSwitchFoods={onSwitchFoods}
         />
       )}
     </PageWithMenu>

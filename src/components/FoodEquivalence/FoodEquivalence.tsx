@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import cx from 'classnames';
 import React, { useEffect, useState } from 'react';
+import { MdCompareArrows } from 'react-icons/md';
 
 import { TbArrowsUpDown } from 'react-icons/tb';
 import useMediaQuery from '../../hooks/useMediaQuery';
@@ -13,6 +14,7 @@ import { Input } from '../Input';
 
 import { StFoodEquivalenceContainer } from './FoodEquivalence.styled';
 import { FoodComparatorProps } from '../FoodComparator/FoodComparator';
+import { Button } from '../Button';
 
 interface FoodEquivalenceProps {
   className?: string;
@@ -20,6 +22,7 @@ interface FoodEquivalenceProps {
   onChangeFood?: FoodComparatorProps['onChangeFood'];
   onMacrosChange?: (macros: PossibleMacrosKcalsTd[]) => void;
   onQuantityChange?: (quantity: number) => void;
+  onSwitchFoods?: () => void;
   quantity?: number;
   selectedMacros?: PossibleMacrosKcalsTd[];
 }
@@ -30,6 +33,7 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
   onChangeFood,
   onMacrosChange,
   onQuantityChange,
+  onSwitchFoods,
   quantity,
   selectedMacros,
 }) => {
@@ -103,6 +107,16 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
             </div>
           </div>
         </div>
+        {onSwitchFoods && (
+          <div className="foodEquivalence__swapFoodsContainer">
+            <Button
+              className="foodEquivalence__switchFoodsIcon"
+              icon={<MdCompareArrows />}
+              label="Intercambiar alimentos"
+              onClick={onSwitchFoods}
+            />
+          </div>
+        )}
         <div className="foodEquivalence__macroSelectorContainer">
           <div className="foodEquivalence__macroSelectorText">
             {t('doNotExceed')}:
@@ -146,6 +160,7 @@ FoodEquivalence.defaultProps = {
   onChangeFood: undefined,
   onMacrosChange: undefined,
   onQuantityChange: undefined,
+  onSwitchFoods: undefined,
   quantity: 100,
   selectedMacros: [],
 };

@@ -20,6 +20,12 @@ export const StButton = styled.button(
       min-width: 150px;
     }
 
+    .button__icon {
+      font-size: 24px;
+      display: inline-flex;
+      margin-right: 10px;
+    }
+
     &:hover {
       background-color: var(--color-main-accent);
     }

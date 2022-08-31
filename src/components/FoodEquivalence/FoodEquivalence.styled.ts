@@ -8,6 +8,18 @@ export const StFoodEquivalenceContainer = styled.div(
       margin-bottom: 30px;
       width: 100%;
 
+      .foodEquivalence__switchFoodsIcon {
+        padding: 6px 12px;
+
+        &:not(:hover) {
+          background-color: var(--color-secondary-dark);
+
+          @media (prefers-color-scheme: dark) {
+            background-color: var(--fat-color);
+          }
+        }
+      }
+
       .foodEquivalence__gramsInputContainer {
         .foodEquivalence__gramsInputDescription {
           font-size: 18px;

@@ -4,6 +4,7 @@ import { StButton } from './Button.styled';
 
 interface ButtonProps {
   className?: string;
+  icon?: React.ReactNode;
   label: string;
   onClick: () => void;
   secondary?: boolean;
@@ -11,6 +12,7 @@ interface ButtonProps {
 
 const Button: React.FC<ButtonProps> = ({
   className,
+  icon,
   label,
   onClick,
   secondary,
@@ -24,12 +26,14 @@ const Button: React.FC<ButtonProps> = ({
     type="button"
     onClick={onClick}
   >
-    {label}
+    {icon && <span className="button__icon">{icon}</span>}
+    <span className="button__label">{label}</span>
   </StButton>
 );
 
 Button.defaultProps = {
   className: '',
+  icon: undefined,
   secondary: false,
 };
 
