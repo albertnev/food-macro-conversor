@@ -3,12 +3,13 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { CgCalculator } from 'react-icons/cg';
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '../styles/Home.module.css';
+import { TbChartArcs } from 'react-icons/tb';
+import { StHomeContainer } from '../styles/Home.styled';
 
 const Home: NextPage = () => (
-  <div className={styles.container}>
+  <StHomeContainer>
     <Head>
-      <title>Food Macro Conversor</title>
+      <title>Macro Conversor</title>
       <meta
         content="Convert your macros from one food to another"
         name="description"
@@ -16,10 +17,15 @@ const Home: NextPage = () => (
       <link href="/favicon.ico" rel="icon" />
     </Head>
 
-    <main className={styles.main}>
-      <h2 className={styles.title}>Food macro conversor</h2>
-      <div className={styles.grid}>
-        <div className={styles.card}>
+    <main className="main">
+      <h2 className="title home__brandTitle">
+        <span className="home__brandIcon">
+          <TbChartArcs />
+        </span>
+        <span>Macro Conversor</span>
+      </h2>
+      <div className="grid">
+        <div className="card">
           <Link href="/food-equivalence">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a>
@@ -30,7 +36,7 @@ const Home: NextPage = () => (
         </div>
       </div>
     </main>
-  </div>
+  </StHomeContainer>
 );
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
