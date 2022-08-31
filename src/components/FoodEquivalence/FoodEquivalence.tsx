@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 
 import { TbArrowsUpDown } from 'react-icons/tb';
 import useMediaQuery from '../../hooks/useMediaQuery';
-import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { PossibleMacrosKcalsTd } from '../../types/PossibleMacrosKcalsTd';
 import { getFoodDataForGrams } from '../../utils/getFoodDataForGrams';
 import { getFoodEquivalence } from '../../utils/getFoodEquivalence';
@@ -13,10 +12,12 @@ import { FoodComparator } from '../FoodComparator';
 import { Input } from '../Input';
 
 import { StFoodEquivalenceContainer } from './FoodEquivalence.styled';
+import { FoodComparatorProps } from '../FoodComparator/FoodComparator';
 
 interface FoodEquivalenceProps {
   className?: string;
-  foodsToCompare: FoodDetailsTd[];
+  foodsToCompare: FoodComparatorProps['foodsToCompare'];
+  onChangeFood?: FoodComparatorProps['onChangeFood'];
   onMacrosChange?: (macros: PossibleMacrosKcalsTd[]) => void;
   onQuantityChange?: (quantity: number) => void;
   quantity?: number;
@@ -26,6 +27,7 @@ interface FoodEquivalenceProps {
 const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
   className,
   foodsToCompare,
+  onChangeFood,
   onMacrosChange,
   onQuantityChange,
   quantity,
@@ -132,6 +134,7 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
           ]}
           icon={isMobile ? <TbArrowsUpDown /> : undefined}
           verticalDisplay={!isMobile}
+          onChangeFood={onChangeFood}
         />
       </div>
     </StFoodEquivalenceContainer>
@@ -140,6 +143,7 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
 
 FoodEquivalence.defaultProps = {
   className: '',
+  onChangeFood: undefined,
   onMacrosChange: undefined,
   onQuantityChange: undefined,
   quantity: 100,

@@ -86,6 +86,10 @@ h5 {
   color: var(--color-main-dark);
 }
 
+h2 {
+  font-size: 1.4rem;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

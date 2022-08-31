@@ -10,6 +10,7 @@ interface FoodDetailsProps {
   className?: string;
   food: FoodDetailsTd;
   isSummary?: boolean;
+  titleDecorator?: React.ReactNode;
   verticalDisplay?: boolean;
 }
 
@@ -17,6 +18,7 @@ const FoodDetails: React.FC<FoodDetailsProps> = ({
   className,
   food,
   isSummary,
+  titleDecorator,
   verticalDisplay,
 }) => {
   const { t } = useTranslation();
@@ -41,6 +43,7 @@ const FoodDetails: React.FC<FoodDetailsProps> = ({
         <div className="foodDetails__nameContainer">
           <h2 className="foodDetails__nameTitle">{food.name}</h2>
           {food.brand && <div className="foodDetails__brand">{food.brand}</div>}
+          {titleDecorator}
         </div>
       </div>
       <MacroDisplay food={food} verticalDisplay={verticalDisplay} />
@@ -59,6 +62,7 @@ const FoodDetails: React.FC<FoodDetailsProps> = ({
 FoodDetails.defaultProps = {
   className: '',
   isSummary: false,
+  titleDecorator: null,
   verticalDisplay: false,
 };
 

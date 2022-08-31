@@ -2,8 +2,11 @@
   "alcohol": "Alcohol",
   "back": "Atrás",
   "carbs": "Carbohidratos",
+  "changeFood": "Cambiar alimento",
   "doNotExceed": "No te excedas de",
+  "equivalence": "Equivalencia",
   "fat": "Grasas",
+  "firstFood": "Primer alimento",
   "foodDataSources": {
     "bedca": "BEDCA",
     "openfoodfacts": "Open Food Facts"
@@ -22,6 +25,7 @@
   "results": "Resultados",
   "search": "Buscar",
   "searchForYourFood": "Busca tu comida...",
+  "secondFood": "Segundo alimento",
   "select": "Seleccionar",
   "selectDataSource": "Selecciona origen de datos",
   "showingResultsFor": "Mostrando resultados para",
