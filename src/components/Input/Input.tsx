@@ -22,7 +22,7 @@ const Input: React.FC<InputProps> = ({
     () =>
       debounce((val: string) => {
         onChange(val);
-      }, 500),
+      }, 850),
     [onChange],
   );
 

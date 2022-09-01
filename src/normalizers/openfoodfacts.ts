@@ -8,7 +8,10 @@ import { getValueOrZero } from '../utils/getValueOrZero';
 import { foodDataSources } from '../constants/foodDataSources';
 
 const getFoodName = (food: any) =>
-  food.generic_name_es || food.product_name || food.abbreviated_product_name;
+  food.generic_name_es ||
+  food.product_name ||
+  food.product_name_es ||
+  food.abbreviated_product_name;
 
 export const normalizeSearchResponse = (
   response: any,

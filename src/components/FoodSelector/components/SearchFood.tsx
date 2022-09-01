@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
 import { HiSearch } from 'react-icons/hi';
+import useFetch from '../../../hooks/useFetch';
 
 import { FoodSearchResultTd } from '../../../types/FoodSearchResultTd';
 import { FoodList } from '../../FoodList';
@@ -23,18 +24,23 @@ const SearchFood: React.FC<SearchFoodProps> = ({
   title,
 }) => {
   const { t } = useTranslation();
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    data: fetchedFoodList,
+    fetchData,
+    isLoading,
+  } = useFetch<FoodSearchResultTd[]>(`/api/food/search`);
   const [retrievedFoodList, setRetrievedFoodList] = useState(foodList);
 
   const fetchFoodData = async (text: string) => {
-    setIsLoading(true);
-    const resp = await fetch(`/api/food/search?text=${text}`);
-    const parsedData = await resp.json();
-    setIsLoading(false);
-
-    onSearchResponse?.(parsedData);
-    setRetrievedFoodList(parsedData);
+    fetchData(undefined, `?text=${text}`);
   };
+
+  useEffect(() => {
+    if (fetchedFoodList) {
+      onSearchResponse?.(fetchedFoodList);
+      setRetrievedFoodList(fetchedFoodList);
+    }
+  }, [fetchedFoodList, onSearchResponse]);
 
   useEffect(() => {
     if (foodList) setRetrievedFoodList(foodList);

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FoodDataSourcesType } from '../../../constants/foodDataSources';
+import useFetch from '../../../hooks/useFetch';
 import { FoodDetailsTd } from '../../../types/FoodDetailsTd';
 import { FoodDetails } from '../../FoodDetails';
 import { Loader } from '../../Loader';
@@ -17,31 +18,29 @@ const ShowFoodDetails: React.FC<ShowFoodDetailsProps> = ({
   foodId,
   onDetailsLoad,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    data: fetchedFoodData,
+    fetchData,
+    isLoading,
+  } = useFetch<FoodDetailsTd>(`/api/food/getDetails?id=${foodId}`);
   const [foodData, setFoodData] = useState<FoodDetailsTd | undefined>(
     foodDetails,
   );
 
   useEffect(() => {
-    const fetchFoodDetails = async () => {
-      setIsLoading(true);
-      const resp = await fetch(`/api/food/getDetails?id=${foodId}`, {
+    if (!foodDetails || foodDetails.id !== foodId) {
+      fetchData({
         headers: { datasource },
       });
-      const parsedData = await resp.json();
-      setIsLoading(false);
-
-      setFoodData(parsedData);
-    };
-
-    if (!foodDetails || foodDetails.id !== foodId) {
-      fetchFoodDetails();
     }
-  }, [foodId, foodDetails, datasource]);
+  }, [foodId, foodDetails, datasource, fetchData]);
 
   useEffect(() => {
-    if (foodData) onDetailsLoad?.(foodData);
-  }, [foodData, onDetailsLoad]);
+    if (fetchedFoodData) {
+      setFoodData(fetchedFoodData);
+      onDetailsLoad?.(fetchedFoodData);
+    }
+  }, [fetchedFoodData, onDetailsLoad]);
 
   return (
     <>
