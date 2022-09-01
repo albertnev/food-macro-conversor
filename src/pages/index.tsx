@@ -26,7 +26,7 @@ const Home: NextPage = () => (
       </h2>
       <div className="grid">
         <div className="card">
-          <Link href="/food-equivalence">
+          <Link href="/equivalence">
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
             <a>
               <h2>Food calculator</h2>
