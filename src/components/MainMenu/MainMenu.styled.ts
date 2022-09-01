@@ -37,6 +37,10 @@ export const StMenuContainer = styled.div(
         flex-direction: row;
 
         .menu__page {
+          margin-left: 32px;
+          &--active {
+            color: var(--color-main-accent);
+          }
         }
       }
     }
