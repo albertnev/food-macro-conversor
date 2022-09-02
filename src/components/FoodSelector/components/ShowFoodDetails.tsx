@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import { FoodDataSourcesType } from '../../../constants/foodDataSources';
 import useFetch from '../../../hooks/useFetch';
 import { FoodDetailsTd } from '../../../types/FoodDetailsTd';
+import { getErrorMessage } from '../../../utils/getErrorMessage';
 import { FoodDetails } from '../../FoodDetails';
 import { Loader } from '../../Loader';
 
@@ -28,10 +30,18 @@ const ShowFoodDetails: React.FC<ShowFoodDetailsProps> = ({
   );
 
   useEffect(() => {
+    const fetchFoodInfo = async () => {
+      try {
+        await fetchData({
+          headers: { datasource },
+        });
+      } catch (err) {
+        toast.error(getErrorMessage(err));
+      }
+    };
+
     if (!foodDetails || foodDetails.id !== foodId) {
-      fetchData({
-        headers: { datasource },
-      });
+      fetchFoodInfo();
     }
   }, [foodId, foodDetails, datasource, fetchData]);
 

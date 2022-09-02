@@ -1,9 +1,13 @@
 import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
 import { HiSearch } from 'react-icons/hi';
+import { TbZoomQuestion } from 'react-icons/tb';
+import { toast } from 'react-toastify';
 import useFetch from '../../../hooks/useFetch';
 
 import { FoodSearchResultTd } from '../../../types/FoodSearchResultTd';
+import { getErrorMessage } from '../../../utils/getErrorMessage';
+import { notifyIfDatabaseError } from '../../../utils/showDatabaseError';
 import { FoodList } from '../../FoodList';
 import { Input } from '../../Input';
 import { SmallLoader } from '../../SmallLoader';
@@ -30,9 +34,14 @@ const SearchFood: React.FC<SearchFoodProps> = ({
     isLoading,
   } = useFetch<FoodSearchResultTd[]>(`/api/food/search`);
   const [retrievedFoodList, setRetrievedFoodList] = useState(foodList);
+  const [alreadySearched, setAlreadySearched] = useState(false);
 
   const fetchFoodData = async (text: string) => {
-    fetchData(undefined, `?text=${text}`);
+    try {
+      notifyIfDatabaseError(await fetchData(undefined, `?text=${text}`));
+    } catch (err) {
+      toast.error(t(getErrorMessage(err)));
+    }
   };
 
   useEffect(() => {
@@ -54,7 +63,10 @@ const SearchFood: React.FC<SearchFoodProps> = ({
           className="searchFood__input"
           icon={<HiSearch />}
           placeholder={t('searchForYourFood')}
-          onChange={fetchFoodData}
+          onChange={(val) => {
+            fetchFoodData(val);
+            setAlreadySearched(!!val);
+          }}
         />
         {isLoading && (
           <div className="searchFood__loaderContainer">
@@ -62,6 +74,18 @@ const SearchFood: React.FC<SearchFoodProps> = ({
           </div>
         )}
       </div>
+      {alreadySearched &&
+        fetchedFoodList !== undefined &&
+        !fetchedFoodList?.length &&
+        !retrievedFoodList?.length && (
+          <div className="searchFood__noResults">
+            <div className="searchFood__noResultsIcon">
+              <TbZoomQuestion />
+            </div>
+            <div>{t('noResultsRetrieved')}</div>
+            <div>{t('tryAnotherSearch')}</div>
+          </div>
+        )}
       {!!retrievedFoodList?.length && (
         <FoodList
           foodList={retrievedFoodList}

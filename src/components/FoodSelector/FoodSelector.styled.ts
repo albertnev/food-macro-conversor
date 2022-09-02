@@ -34,6 +34,18 @@ export const StFoodSelectorContainer = styled.div(
       }
     }
 
+    .searchFood__noResults {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      opacity: 0.8;
+
+      .searchFood__noResultsIcon {
+        font-size: 40px;
+      }
+    }
+
     .foodSelector__buttonsContainer {
       display: flex;
       flex-direction: row;

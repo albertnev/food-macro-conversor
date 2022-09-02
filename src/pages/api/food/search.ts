@@ -3,6 +3,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import openfoodfacts from '../../../controllers/openfoodfacts';
 import bedca from '../../../controllers/bedca';
 import { interleaveArrays } from '../../../utils/interleaveArrays';
+import { ErrorResponse } from '../../../types/ErrorResponse';
+import { databaseErrorCodes } from '../../../constants/databaseErrorCodes';
 
 export default async (req: NextApiRequest, res: NextApiResponse<any>) => {
   const searchText = req.query.text as string;
@@ -21,8 +23,11 @@ export default async (req: NextApiRequest, res: NextApiResponse<any>) => {
     );
     res.status(200).json(mixedResponses);
   } else if (bedcaResponse.status === 'fulfilled') {
-    res.status(220).json(bedcaResponse.value);
+    res.status(databaseErrorCodes.openfoodfacts).json(bedcaResponse.value);
   } else if (openFoodResponse.status === 'fulfilled') {
-    res.status(221).json(openFoodResponse.value);
+    res.status(databaseErrorCodes.bedca).json(openFoodResponse.value);
+  } else {
+    const error = { key: 'unavailableDatabases' } as ErrorResponse;
+    res.status(510).json(error);
   }
 };

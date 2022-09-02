@@ -1,15 +1,14 @@
-interface ErrorResponse {
-  originalResponse: any;
-  parsedResponse: any;
-  response: any;
+import { ErrorResponse } from '../types/ErrorResponse';
+
+export interface FetchResponse<T> {
+  response: T;
   status: number;
-  statusText: string;
 }
 
 export const fetchServer = async <T>(
   url: string,
   options: any = {},
-): Promise<T> => {
+): Promise<FetchResponse<T>> => {
   const defaultOptions = {
     method: 'get',
     ...options,
@@ -19,10 +18,14 @@ export const fetchServer = async <T>(
   };
 
   const rawResponse = await fetch(url, { ...defaultOptions });
+  const fetchResponse: Partial<FetchResponse<T>> = {
+    status: rawResponse.status,
+  };
 
   // Throw an error with all properties parsed and available
   if (!rawResponse.ok) {
     const errorResponse: Partial<ErrorResponse> = {
+      key: 'genericError',
       originalResponse: rawResponse,
       status: rawResponse.status,
       statusText: rawResponse.statusText,
@@ -33,6 +36,7 @@ export const fetchServer = async <T>(
 
     try {
       errorObj = JSON.parse(errorText);
+      errorResponse.key = errorObj?.key;
     } catch (err) {
       errorObj = errorText;
     }
@@ -42,14 +46,13 @@ export const fetchServer = async <T>(
   }
 
   const textResponse: string = await rawResponse.text();
-  let parsedResponse;
 
   try {
-    parsedResponse = JSON.parse(textResponse);
+    fetchResponse.response = JSON.parse(textResponse);
   } catch (err) {
     // JSON.parse error, means received answer is not JSON, is a string
-    return textResponse as unknown as T;
+    fetchResponse.response = textResponse as T;
   }
 
-  return parsedResponse as T;
+  return fetchResponse as FetchResponse<T>;
 };

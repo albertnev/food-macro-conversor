@@ -6,6 +6,12 @@
   "comparative": "Comparativa",
   "doNotExceed": "No te excedas de",
   "equivalence": "Equivalencia",
+  "errorOcurred": "Ha ocurrido un error. Vuelve a intentarlo.",
+  "errors": {
+    "bedcaDatabase": "La base de datos de BEDCA no está disponible en este momento. Se muestran el resto de resultados.",
+    "openfoodfactsDatabase": "La base de datos de OpenFoodFacts no está disponible en este momento. Se muestran el resto de resultados.",
+    "unavailableDatabases": "Las bases de datos no están disponibles en este momento. Vuelve a intentarlo en unos minutos."
+  },
   "fat": "Grasas",
   "firstFood": "Primer alimento",
   "foodDataSources": {
@@ -22,6 +28,7 @@
   "ingredients": "Ingredientes",
   "kcals": "Kcals",
   "next": "Siguiente",
+  "noResultsRetrieved": "No se han encontrado resultados.",
   "protein": "Proteínas",
   "results": "Resultados",
   "search": "Buscar",
@@ -30,5 +37,6 @@
   "select": "Seleccionar",
   "selectDataSource": "Selecciona origen de datos",
   "showingResultsFor": "Mostrando resultados para",
+  "tryAnotherSearch": "Prueba a buscar con otras palabras.",
   "withoutInformation": "Sin información"
 }
