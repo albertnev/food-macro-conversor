@@ -1,8 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
 import { TbArrowsRightLeft } from 'react-icons/tb';
-
 import { useTranslation } from 'next-i18next';
+
 import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { FoodDetails } from '../FoodDetails';
 import { StFoodComparatorContainer } from './FoodComparator.styled';

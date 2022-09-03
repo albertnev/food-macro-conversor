@@ -31,6 +31,16 @@ module.exports = {
     '@typescript-eslint/no-use-before-define': ['error'],
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'import/order': [
+      'error',
+      {
+        groups: [
+          ['builtin', 'external'],
+          ['parent', 'sibling', 'index'],
+        ],
+        'newlines-between': 'always',
+      },
+    ],
     'import/prefer-default-export': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     'no-param-reassign': [

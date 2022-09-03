@@ -1,8 +1,8 @@
 import React from 'react';
 import cx from 'classnames';
+
 import { AppContainer } from '../AppContainer';
 import { MainMenu } from '../MainMenu';
-
 import { StPageWithMenuContent } from './PageWithMenu.styled';
 
 interface PageWithMenuProps {

@@ -8,7 +8,6 @@ import { getMacrosPercentages } from '../../utils/getMacrosPercentage';
 import { getValueOrZero } from '../../utils/getValueOrZero';
 import { hexToRgba } from '../../utils/hexToRgba';
 import { DoughnutChart } from '../DoughnutChart';
-
 import { StMacroDisplayContainer } from './MacroDisplay.styled';
 
 interface MacroDisplayProps {

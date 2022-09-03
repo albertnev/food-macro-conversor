@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+
 import { FoodDataSourcesType } from '../../../constants/foodDataSources';
 import useFetch from '../../../hooks/useFetch';
 import { FoodDetailsTd } from '../../../types/FoodDetailsTd';

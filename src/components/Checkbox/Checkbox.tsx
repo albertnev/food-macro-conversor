@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import { BsCheck } from 'react-icons/bs';
+
 import { StCheckboxContainer } from './Checkbox.styled';
 
 interface CheckboxProps {

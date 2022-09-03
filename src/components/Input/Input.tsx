@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import cx from 'classnames';
 import debounce from 'lodash.debounce';
+
 import { StInputContainer } from './Input.styled';
 
 interface InputProps {

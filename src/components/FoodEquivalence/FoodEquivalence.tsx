@@ -2,8 +2,8 @@ import { useTranslation } from 'next-i18next';
 import cx from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { MdCompareArrows } from 'react-icons/md';
-
 import { TbArrowsUpDown } from 'react-icons/tb';
+
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { PossibleMacrosKcalsTd } from '../../types/PossibleMacrosKcalsTd';
 import { getFoodDataForGrams } from '../../utils/getFoodDataForGrams';
@@ -11,7 +11,6 @@ import { getFoodEquivalence } from '../../utils/getFoodEquivalence';
 import { Checkbox } from '../Checkbox';
 import { FoodComparator } from '../FoodComparator';
 import { Input } from '../Input';
-
 import { StFoodEquivalenceContainer } from './FoodEquivalence.styled';
 import { FoodComparatorProps } from '../FoodComparator/FoodComparator';
 import { Button } from '../Button';

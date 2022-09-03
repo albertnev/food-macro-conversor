@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { HiSearch } from 'react-icons/hi';
 import { TbZoomQuestion } from 'react-icons/tb';
 import { toast } from 'react-toastify';
-import useFetch from '../../../hooks/useFetch';
 
+import useFetch from '../../../hooks/useFetch';
 import { FoodSearchResultTd } from '../../../types/FoodSearchResultTd';
 import { getErrorMessage } from '../../../utils/getErrorMessage';
 import { notifyIfDatabaseError } from '../../../utils/showDatabaseError';

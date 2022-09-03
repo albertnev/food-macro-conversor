@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
-
 import { BsCheck } from 'react-icons/bs';
+
 import { StFormWizardStepsContainer } from './FormWizardSteps.styled';
 
 export interface StepProps {

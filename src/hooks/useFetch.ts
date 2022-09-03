@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+
 import { FetchResponse, fetchServer } from '../utils/fetchServer';
 
 const useFetch = <T>(url: string) => {
