@@ -4,40 +4,65 @@ import { CgCalculator } from 'react-icons/cg';
 import Head from 'next/head';
 import Link from 'next/link';
 import { TbChartArcs } from 'react-icons/tb';
+import { FaBalanceScale } from 'react-icons/fa';
+import { BiGitCompare } from 'react-icons/bi';
+import { useTranslation } from 'next-i18next';
+
 import { StHomeContainer } from '../styles/Home.styled';
 
-const Home: NextPage = () => (
-  <StHomeContainer>
-    <Head>
-      <title>Macro Conversor</title>
-      <meta
-        content="Convert your macros from one food to another"
-        name="description"
-      />
-      <link href="/favicon.ico" rel="icon" />
-    </Head>
+const Home: NextPage = () => {
+  const { t } = useTranslation();
+  return (
+    <StHomeContainer>
+      <Head>
+        <title>Macro Conversor</title>
+        <meta
+          content="Convert your macros from one food to another"
+          name="description"
+        />
+        <link href="/favicon.ico" rel="icon" />
+      </Head>
 
-    <main className="main">
-      <h2 className="title home__brandTitle">
-        <span className="home__brandIcon">
-          <TbChartArcs />
-        </span>
-        <span>Macro Conversor</span>
-      </h2>
-      <div className="grid">
-        <div className="card">
-          <Link href="/equivalence">
-            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-            <a>
-              <h2>Food calculator</h2>
-              <CgCalculator />
-            </a>
-          </Link>
+      <main className="main">
+        <h2 className="title home__brandTitle">
+          <span className="home__brandIcon">
+            <TbChartArcs />
+          </span>
+          <span>Macro Conversor</span>
+        </h2>
+        <div className="grid">
+          <div className="card">
+            <Link href="/equivalence">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a>
+                <h2>{t('equivalence')}</h2>
+                <FaBalanceScale />
+              </a>
+            </Link>
+          </div>
+          <div className="card">
+            <Link href="/comparator">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a>
+                <h2>{t('comparator')}</h2>
+                <BiGitCompare />
+              </a>
+            </Link>
+          </div>
+          <div className="card">
+            <Link href="/calculator">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a>
+                <h2>{t('calculator')}</h2>
+                <CgCalculator />
+              </a>
+            </Link>
+          </div>
         </div>
-      </div>
-    </main>
-  </StHomeContainer>
-);
+      </main>
+    </StHomeContainer>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
   props: {

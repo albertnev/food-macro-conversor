@@ -1,11 +1,14 @@
 {
   "alcohol": "Alcohol",
   "back": "Atrás",
+  "calculator": "Calculadora",
   "carbs": "Carbohidratos",
   "changeFood": "Cambiar alimento",
   "comparative": "Comparativa",
+  "comparator": "Comparador",
   "doNotExceed": "No te excedas de",
   "equivalence": "Equivalencia",
+  "selectFood": "Elige alimento",
   "errorOcurred": "Ha ocurrido un error. Vuelve a intentarlo.",
   "errors": {
     "bedcaDatabase": "La base de datos de BEDCA no está disponible en este momento. Se muestran el resto de resultados.",

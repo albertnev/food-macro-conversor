@@ -4,12 +4,14 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { TbChartArcs } from 'react-icons/tb';
+import { useTranslation } from 'next-i18next';
 
 import navigation from '../../constants/navigation';
 import { StMenuContainer } from './MainMenu.styled';
 
 const MainMenu: React.FC = () => {
   const { pathname } = useRouter();
+  const { t } = useTranslation();
 
   return (
     <StMenuContainer>
@@ -26,8 +28,9 @@ const MainMenu: React.FC = () => {
         </div>
         <ul className="menu__pageList">
           {[
-            [navigation.equivalence, 'Equivalence'],
-            [navigation.comparator, 'Comparator'],
+            [navigation.equivalence, t('equivalence')],
+            [navigation.comparator, t('comparator')],
+            [navigation.calculator, t('calculator')],
           ].map(([pageUrl, title]) => (
             <li
               key={`menu-page-${pageUrl}`}
