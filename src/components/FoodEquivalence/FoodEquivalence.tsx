@@ -10,10 +10,10 @@ import { getFoodDataForGrams } from '../../utils/getFoodDataForGrams';
 import { getFoodEquivalence } from '../../utils/getFoodEquivalence';
 import { Checkbox } from '../Checkbox';
 import { FoodComparator } from '../FoodComparator';
-import { Input } from '../Input';
 import { StFoodEquivalenceContainer } from './FoodEquivalence.styled';
 import { FoodComparatorProps } from '../FoodComparator/FoodComparator';
 import { Button } from '../Button';
+import { SimpleInput } from '../SimpleInput';
 
 interface FoodEquivalenceProps {
   className?: string;
@@ -79,7 +79,7 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
               <div>
                 Cada{' '}
                 <span className="foodEquivalence__foodQuantity">
-                  <Input
+                  <SimpleInput
                     className="foodEquivalence__gramsInput"
                     defaultValue={`${sourceGrams}`}
                     placeholder={t('grams')}
