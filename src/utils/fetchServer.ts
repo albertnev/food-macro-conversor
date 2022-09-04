@@ -51,7 +51,7 @@ export const fetchServer = async <T>(
     fetchResponse.response = JSON.parse(textResponse);
   } catch (err) {
     // JSON.parse error, means received answer is not JSON, is a string
-    fetchResponse.response = textResponse as T;
+    fetchResponse.response = textResponse as unknown as T;
   }
 
   return fetchResponse as FetchResponse<T>;
