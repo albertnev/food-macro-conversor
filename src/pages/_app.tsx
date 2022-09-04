@@ -72,7 +72,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           name="twitter:description"
         />
         <meta
-          content="https://yourdomain.com/icons/android-chrome-192x192.png"
+          content="https://food-macro-conversor.vercel.app/icons/android-chrome-192x192.png"
           name="twitter:image"
         />
         <meta content="website" property="og:type" />
@@ -83,7 +83,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta content="Macro Conversor" property="og:site_name" />
         <meta
-          content="https://yourdomain.com/icons/apple-touch-icon.png"
+          content="https://food-macro-conversor.vercel.app/icons/apple-touch-icon.png"
           property="og:image"
         />
       </Head>
