@@ -4,7 +4,7 @@ import debounce from 'lodash.debounce';
 
 import { StInputContainer } from './Input.styled';
 
-interface InputProps {
+export interface InputProps {
   className?: string;
   defaultValue?: string;
   icon?: React.ReactNode;
