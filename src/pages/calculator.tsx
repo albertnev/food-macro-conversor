@@ -8,7 +8,7 @@ import { FoodSelector } from '../components/FoodSelector';
 import { PageWithMenu } from '../components/PageWithMenu';
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { FormWizardSteps } from '../components/FormWizardSteps';
-import { FoodComparator } from '../components/FoodComparator';
+import { FoodCalculator } from '../components/FoodCalculator';
 
 const FoodEquivalence: NextPage = () => {
   const { t } = useTranslation();
@@ -39,8 +39,8 @@ const FoodEquivalence: NextPage = () => {
         />
       )}
       {activeStep === 1 && (
-        <FoodComparator
-          foodsToCompare={[selectedFood!]}
+        <FoodCalculator
+          selectedFood={selectedFood!}
           onChangeFood={() => setActiveStep(0)}
         />
       )}
