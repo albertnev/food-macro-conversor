@@ -12,15 +12,11 @@ import { StHomeContainer } from '../styles/Home.styled';
 
 const Home: NextPage = () => {
   const { t } = useTranslation();
+
   return (
     <StHomeContainer>
       <Head>
         <title>Macro Conversor</title>
-        <meta
-          content="Convert your macros from one food to another"
-          name="description"
-        />
-        <link href="/favicon.ico" rel="icon" />
       </Head>
 
       <main className="main">
