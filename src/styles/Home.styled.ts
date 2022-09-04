@@ -124,14 +124,24 @@ export const StHomeContainer = styled.div(
 
     .home__brandTitle {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       align-items: center;
+      justify-content: center;
 
       .home__brandIcon {
         display: inline-flex;
         align-items: center;
-        margin-right: 20px;
+        margin-bottom: 20px;
         font-size: 5rem;
+      }
+
+      @media (min-width: 650px) {
+        flex-direction: row;
+
+        .home__brandIcon {
+          margin-bottom: 0;
+          margin-right: 20px;
+        }
       }
     }
 
