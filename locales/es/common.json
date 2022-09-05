@@ -12,6 +12,7 @@
   "errorOcurred": "Ha ocurrido un error. Vuelve a intentarlo.",
   "errors": {
     "bedcaDatabase": "La base de datos de BEDCA no está disponible en este momento. Se muestran el resto de resultados.",
+    "genericError": "Ha ocurrido un error. Por favor, vuelve a intentarlo en unos minutos.",
     "openfoodfactsDatabase": "La base de datos de OpenFoodFacts no está disponible en este momento. Se muestran el resto de resultados.",
     "unavailableDatabases": "Las bases de datos no están disponibles en este momento. Vuelve a intentarlo en unos minutos."
   },
