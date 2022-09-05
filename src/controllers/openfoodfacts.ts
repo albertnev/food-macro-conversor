@@ -25,14 +25,18 @@ const apiGetFoodDetails = async (
   req: NextApiRequest,
   res: NextApiResponse<any>,
 ) => {
-  const resp = await fetch(
-    `https://world.openfoodfacts.org/api/v2/search?code=${encodeURI(
-      req.query.id as string,
-    )}&json=true`,
-  );
+  try {
+    const resp = await fetch(
+      `https://world.openfoodfacts.org/api/v2/search?code=${encodeURI(
+        req.query.id as string,
+      )}&json=true`,
+    );
 
-  const parsedData = await resp.json();
-  res.status(200).json(normalizeFoodDetailsResponse(parsedData));
+    const parsedData = await resp.json();
+    res.status(200).json(normalizeFoodDetailsResponse(parsedData));
+  } catch (err) {
+    res.status(421).send(err);
+  }
 };
 
 const apiSearchFood = async (

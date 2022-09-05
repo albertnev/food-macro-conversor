@@ -62,7 +62,7 @@ const apiGetFoodDetails = async (
     const parsedData = parser.toJson(responseText, { object: true });
     res.status(200).json(normalizeFoodDetailsResponse(parsedData));
   } catch (err) {
-    res.status(425).send(err);
+    res.status(420).send(err);
   }
 };
 
