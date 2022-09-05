@@ -32,6 +32,9 @@ const searchFood = async (searchText: string) => {
 
   return new Promise((resolve, reject) => {
     exec(`curl ${args.join(' ')}`, (error: any, stdout: any, stderr: any) => {
+      // eslint-disable-next-line no-console
+      if (stderr || error) console.log('BEDCA error:', stdout, stderr, error);
+
       if (stdout) {
         try {
           const obj = parser.toJson(stdout, { object: true });
