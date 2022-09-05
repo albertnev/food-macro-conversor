@@ -7,7 +7,7 @@ interface AppContainerProps {
 }
 
 const AppContainer: React.FC<AppContainerProps> = ({ children }) => (
-  <StAppContainer className="appContainer">
+  <StAppContainer className="appContainer" data-testid="app-container">
     <div className="appContent">{children}</div>
   </StAppContainer>
 );
