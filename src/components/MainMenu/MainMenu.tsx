@@ -8,7 +8,7 @@ import { useTranslation } from 'next-i18next';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaBalanceScale } from 'react-icons/fa';
 import { BiGitCompare } from 'react-icons/bi';
-import { CgCalculator } from 'react-icons/cg';
+import { CgCalculator, CgInfo } from 'react-icons/cg';
 
 import navigation from '../../constants/navigation';
 import { StMenuContainer, StMenuDrawerContainer } from './MainMenu.styled';
@@ -24,6 +24,7 @@ const MenuList: React.FC<{ withIcon?: boolean }> = ({ withIcon }) => {
         [navigation.equivalence, t('equivalence'), <FaBalanceScale />],
         [navigation.comparator, t('comparator'), <BiGitCompare />],
         [navigation.calculator, t('calculator'), <CgCalculator />],
+        [navigation.about, t('aboutApp'), <CgInfo />],
       ].map(([pageUrl, title, icon]) => (
         <li
           key={`menu-page-${pageUrl}`}
@@ -50,7 +51,7 @@ MenuList.defaultProps = {
 
 const MainMenu: React.FC = () => {
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
-  const menuDrawerMode = useMediaQuery(540);
+  const menuDrawerMode = useMediaQuery(700);
 
   const toggleMenuDrawer = () => {
     setIsDrawerOpened((current) => !current);

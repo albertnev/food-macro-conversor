@@ -1,6 +1,6 @@
 import type { GetServerSideProps, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { CgCalculator } from 'react-icons/cg';
+import { CgCalculator, CgInfo } from 'react-icons/cg';
 import Head from 'next/head';
 import Link from 'next/link';
 import { TbChartArcs } from 'react-icons/tb';
@@ -51,6 +51,15 @@ const Home: NextPage = () => {
               <a>
                 <h2>{t('calculator')}</h2>
                 <CgCalculator />
+              </a>
+            </Link>
+          </div>
+          <div className="card">
+            <Link href="/about">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+              <a>
+                <h2>{t('aboutApp')}</h2>
+                <CgInfo />
               </a>
             </Link>
           </div>

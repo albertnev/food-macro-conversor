@@ -1,0 +1,28 @@
+{
+  "responsabilityDisclaimer": {
+    "title": "Exención de responsabilidad",
+    "fiabilityWarning": "Esta aplicación simplemente busca facilitar la gestión de las cantidades de macronutrientes en las dietas de los usuarios. Aun así, hay que tener en cuenta que <b>la información que aparece sobre los distintos alimentos proviene de fuentes externas</b> y, por tanto, <b>no se puede asegurar su fiabilidad</b>.",
+    "userIsResponsible": "Los resultados que se muestran en cada una de las funcionalidades de esta aplicación son meramente orientativos y el usuario es conocedor que la información sobre los alimentos puede no ser del todo fiable. <b>El usuario se hace responsable de cualquier uso que haga de cualquier información que aparezca en esta aplicación</b>."
+  },
+  "objectivesAndDev": {
+    "title": "Objetivos y desarrollo",
+    "withoutProfit": "Esta aplicación no tiene ningún ánimo de lucro y está desarrollada por una sola persona en su tiempo libre. Por ello, puede ser que el resultado final no esté exento de errores y que el diseño y los flujos no sean coherentes en todas las páginas y funciones.",
+    "completelyFunctional": "Aun así, se intenta que la aplicación sea completamente funcional y lo más fácil de usar posible para que el usuario pueda utilizarla sin necesidad de explicación previa.",
+    "freeHosting": "Por sus características, la aplicación <b>se aloja en un dominio gratuito</b>, por lo que puede ser que no esté siempre disponible o que tarde en responder y en cargar los datos."
+  },
+  "appFunctionalities": {
+    "title": "Funcionalidades de la aplicación",
+    "functionalitiesAim": "Esta aplicación pretende ofrecer herramientas para poder calcular con mayor precisión las cantidades de comida y/o macronutrientes que queremos ingerir. Por el momento, <b>las funcionalidades son</b>:",
+    "equivalenceDescription": "permite calcular cuántos gramos de un alimento podemos comer teniendo en cuenta un alimento de referencia y con qué macronutrientes no queremos excedernos.",
+    "comparatorDescription": "permite comparar la información nutricional entre dos alimentos distintos.",
+    "calculatorDescription": "permite calcular cuántos gramos de un alimento tenemos que comer para llegar a la cantidad que queramos de un macronutriente en concreto."
+  },
+  "dataSources": {
+    "title": "Fuentes de datos de los alimentos",
+    "noManipulation": "Por el momento, la aplicación realiza dos búsquedas en paralelo a dos bases de datos distintas y luego muestra todos los resultados recibidos al usuario, tal y como se han recibido de las fuentes de los datos. La aplicación no realiza ninguna manipulación (salvo eliminar resultados sin datos) sobre los datos recibidos.{' '} <b>Las bases de datos que consulta la aplicación son</b>:",
+    "bedcaDescription": "la Base de Datos Española de Composición de Alimentos. Contiene información de alimentos básicos sin marca (patatas, lentejas, aguacate...). La información está validada y es más fiable, pero estar menos disponible.",
+    "openfoodfactsDescription": "contiene información introducida por los usuarios de alimentos de marca que podemos encontrar en el supermercado. Puesto que la información la introducen usuarios y <b>no hay una validación exhaustiva</b>, la precisión de los datos varía según el producto.",
+    "identifyingSource": "Se puede ver a qué base de datos pertenece un producto según el icono que aparece en la esquina inferior derecha de los resultados.",
+    "databaseNotResponding": "En caso de que una de las bases de datos no esté disponible, se mostrará una alerta indicando qué base de datos no response y se procederá a mostrar los datos de los alimentos disponibles."
+  }
+}

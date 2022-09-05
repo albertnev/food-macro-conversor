@@ -1,4 +1,5 @@
 const navigation = {
+  about: '/about',
   calculator: '/calculator',
   comparator: '/comparator',
   equivalence: '/equivalence',
