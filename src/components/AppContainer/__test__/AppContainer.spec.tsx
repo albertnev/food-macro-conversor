@@ -1,12 +1,13 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import AppContainer from '../AppContainer';
+import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component AppContainer', () => {
   const defaultProps: any = {};
   const renderWithProps = (props: any = {}, children: React.ReactNode = null) =>
-    render(
+    renderComponent(
       <AppContainer {...defaultProps} {...props}>
         {children}
       </AppContainer>,

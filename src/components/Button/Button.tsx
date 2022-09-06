@@ -24,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
       'button--secondary': secondary,
       [className!]: !!className,
     })}
+    data-testid="button"
     type="button"
     onClick={onClick}
   >
