@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import Button from '../Button';
+import { Button } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component Button', () => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 
-import AppContainer from '../AppContainer';
+import { AppContainer } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component AppContainer', () => {

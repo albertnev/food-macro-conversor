@@ -22,6 +22,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
       checkbox: true,
       [className!]: !!className,
     })}
+    data-testid="checkbox"
   >
     <input
       className="checkbox__inputControl"
