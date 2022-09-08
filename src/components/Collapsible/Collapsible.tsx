@@ -26,6 +26,7 @@ const Collapsible: React.FC<CollapsibleProps> = ({
   return (
     <StCollapsibleContainer
       className={cx({ collapsible: true, [className!]: !!className })}
+      data-testid="collapsible"
     >
       <h2
         className={cx({
