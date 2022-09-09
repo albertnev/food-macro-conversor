@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
-import { useTranslation } from 'next-i18next';
+import { Trans, useTranslation } from 'next-i18next';
 
 import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { FoodDetails } from '../FoodDetails';
@@ -17,6 +17,53 @@ export interface FoodCalculatorProps {
   onChangeFood?: (food: FoodDetailsTd) => void;
   selectedFood: FoodDetailsTd;
 }
+
+const FoodQuantityInput: React.FC<{
+  sourceGrams: number;
+  updateSourceGrams: (g: string) => void;
+}> = ({ sourceGrams, updateSourceGrams }) => {
+  const { t } = useTranslation();
+
+  return (
+    <span className="foodCalculator__foodQuantity">
+      <SimpleInput
+        className="foodCalculator__gramsInput"
+        defaultValue={`${sourceGrams}`}
+        placeholder={t('grams')}
+        onChange={updateSourceGrams}
+      />
+      g
+    </span>
+  );
+};
+
+const MacroSelector: React.FC<{
+  selectedMacro: PossibleMacrosTd;
+  setSelectedMacro: (macro: PossibleMacrosTd) => void;
+}> = ({ selectedMacro, setSelectedMacro }) => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="foodCalculator__macroSelector">
+      <SimpleSelect
+        defaultValue={selectedMacro as any}
+        options={['carbs', 'fat', 'protein'].map((macro) => ({
+          label: t(macro),
+          value: macro,
+        }))}
+        onChange={(val: any) => setSelectedMacro(val?.value || '')}
+      />
+    </div>
+  );
+};
+
+const FoodName: React.FC<{ foodName: string }> = ({ foodName }) => (
+  <span className="foodCalculator__foodName">{foodName}</span>
+);
+
+const FoodQuantity: React.FC<{ quantity: number }> = ({ quantity }) => (
+  <span className="foodCalculator__foodQuantity">{quantity}g</span>
+);
 
 const FoodCalculator: React.FC<FoodCalculatorProps> = ({
   className,
@@ -51,38 +98,32 @@ const FoodCalculator: React.FC<FoodCalculatorProps> = ({
           <div>
             <div className="foodCalculator__gramsInputDescription">
               <div>
-                Para llegar a{' '}
-                <span className="foodCalculator__foodQuantity">
-                  <SimpleInput
-                    className="foodCalculator__gramsInput"
-                    defaultValue={`${sourceGrams}`}
-                    placeholder={t('grams')}
-                    onChange={updateSourceGrams}
-                  />
-                  g
-                </span>{' '}
-                de{' '}
-                <div className="foodCalculator__macroSelector">
-                  <SimpleSelect
-                    defaultValue={selectedMacro as any}
-                    options={['carbs', 'fat', 'protein'].map((macro) => ({
-                      label: t(macro),
-                      value: macro,
-                    }))}
-                    onChange={(val: any) => setSelectedMacro(val?.value || '')}
-                  />
-                </div>
+                <Trans
+                  components={{
+                    input: (
+                      <FoodQuantityInput
+                        sourceGrams={sourceGrams}
+                        updateSourceGrams={updateSourceGrams}
+                      />
+                    ),
+                    selector: (
+                      <MacroSelector
+                        selectedMacro={selectedMacro}
+                        setSelectedMacro={setSelectedMacro}
+                      />
+                    ),
+                  }}
+                  i18nKey="foodCalculatorText_toGet"
+                />
               </div>
               <div>
-                Necesitas{' '}
-                <span className="foodCalculator__foodQuantity">
-                  {foodForGrams.grams}g
-                </span>{' '}
-                de{' '}
-                <span className="foodCalculator__foodName">
-                  {foodForGrams.name}
-                </span>
-                .
+                <Trans
+                  components={{
+                    food: <FoodName foodName={foodForGrams.name} />,
+                    quantity: <FoodQuantity quantity={foodForGrams.grams} />,
+                  }}
+                  i18nKey="foodCalculatorText_youNeed"
+                />
               </div>
             </div>
           </div>

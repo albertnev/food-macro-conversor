@@ -1,4 +1,4 @@
-import { useTranslation } from 'next-i18next';
+import { Trans, useTranslation } from 'next-i18next';
 import cx from 'classnames';
 import React, { useEffect, useState } from 'react';
 import { MdCompareArrows } from 'react-icons/md';
@@ -25,6 +25,33 @@ interface FoodEquivalenceProps {
   quantity?: number;
   selectedMacros?: PossibleMacrosKcalsTd[];
 }
+
+const FoodQuantityInput: React.FC<{
+  sourceGrams: number;
+  updateSourceGrams: (g: string) => void;
+}> = ({ sourceGrams, updateSourceGrams }) => {
+  const { t } = useTranslation();
+
+  return (
+    <span className="foodCalculator__foodQuantity">
+      <SimpleInput
+        className="foodCalculator__gramsInput"
+        defaultValue={`${sourceGrams}`}
+        placeholder={t('grams')}
+        onChange={updateSourceGrams}
+      />
+      g
+    </span>
+  );
+};
+
+const FoodName: React.FC<{ foodName: string }> = ({ foodName }) => (
+  <span className="foodEquivalence__foodName">{foodName}</span>
+);
+
+const FoodQuantity: React.FC<{ quantity: number }> = ({ quantity }) => (
+  <span className="foodEquivalence__foodQuantity">{quantity}g</span>
+);
 
 const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
   className,
@@ -77,31 +104,27 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
           <div>
             <div className="foodEquivalence__gramsInputDescription">
               <div>
-                Cada{' '}
-                <span className="foodEquivalence__foodQuantity">
-                  <SimpleInput
-                    className="foodEquivalence__gramsInput"
-                    defaultValue={`${sourceGrams}`}
-                    placeholder={t('grams')}
-                    onChange={updateSourceGrams}
-                  />
-                  g
-                </span>{' '}
-                de{' '}
-                <span className="foodEquivalence__foodName">
-                  {foodsToCompare[0].name}
-                </span>
+                <Trans
+                  components={{
+                    food: <FoodName foodName={foodsToCompare[0].name} />,
+                    input: (
+                      <FoodQuantityInput
+                        sourceGrams={sourceGrams}
+                        updateSourceGrams={updateSourceGrams}
+                      />
+                    ),
+                  }}
+                  i18nKey="foodEquivalenceText_forEach"
+                />
               </div>
               <div>
-                Equivalen a{' '}
-                <span className="foodEquivalence__foodQuantity">
-                  {convertedFood.grams}g
-                </span>{' '}
-                de{' '}
-                <span className="foodEquivalence__foodName">
-                  {convertedFood.name}
-                </span>
-                .
+                <Trans
+                  components={{
+                    food: <FoodName foodName={convertedFood.name} />,
+                    quantity: <FoodQuantity quantity={convertedFood.grams} />,
+                  }}
+                  i18nKey="foodEquivalenceText_equals"
+                />
               </div>
             </div>
           </div>
