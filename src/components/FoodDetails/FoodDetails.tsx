@@ -30,10 +30,12 @@ const FoodDetails: React.FC<FoodDetailsProps> = ({
         foodDetails__verticalDisplay: verticalDisplay,
         foodDetailsContainer: true,
       })}
+      data-testid="food-details"
     >
       <div className="foodDetails__titleContainer">
         <div
           className="foodDetails__image"
+          data-testid="food-details-image"
           style={{
             backgroundImage: `url(${
               food.imageUrl || '/images/foodNotFound.png'

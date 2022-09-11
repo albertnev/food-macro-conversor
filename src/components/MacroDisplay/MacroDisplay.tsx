@@ -84,6 +84,7 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({
         macroDisplayContainer: true,
         verticalDisplay,
       })}
+      data-testid="macro-display"
     >
       <div className="inQuantity">
         {t('forEachNGrams', { count: food.grams })}
