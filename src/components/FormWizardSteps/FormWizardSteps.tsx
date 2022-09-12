@@ -18,7 +18,10 @@ const FormWizardSteps: React.FC<FormWizardStepsProps> = ({
   activeStep,
   steps,
 }) => (
-  <StFormWizardStepsContainer className={cx({ wizardStepsContainer: true })}>
+  <StFormWizardStepsContainer
+    className={cx({ wizardStepsContainer: true })}
+    data-testid="form-wizard-steps"
+  >
     <div className="wizardSteps__positioner">
       <ul className="wizardSteps__list width-container">
         {steps.map(({ completed, name }, i) => {
@@ -26,19 +29,24 @@ const FormWizardSteps: React.FC<FormWizardStepsProps> = ({
           const isActive = i === activeStep;
 
           return (
-            <div
+            <li
               key={`form-wizard-step-${name}`}
               className={cx({
                 wizardSteps__stepItem: true,
                 'wizardSteps__stepItem--active': isActive,
                 'wizardSteps__stepItem--completed': isCompleted,
               })}
+              data-testid="wizard-steps-step"
             >
               <div className="wizardSteps__stepNumber">
-                {!isActive && isCompleted ? <BsCheck /> : i + 1}
+                {!isActive && isCompleted ? (
+                  <BsCheck data-testid="icon-check" />
+                ) : (
+                  i + 1
+                )}
               </div>
               <span className="wizardSteps__stepName">{name}</span>
-            </div>
+            </li>
           );
         })}
       </ul>
