@@ -33,7 +33,10 @@ const FoodList: React.FC<FoodListProps> = ({
   };
 
   return (
-    <StFoodList className={cx({ [className!]: !!className, foodList: true })}>
+    <StFoodList
+      className={cx({ [className!]: !!className, foodList: true })}
+      data-testid="food-list"
+    >
       {foodList?.length &&
         foodList.map((food) => (
           <li
@@ -44,6 +47,7 @@ const FoodList: React.FC<FoodListProps> = ({
             })}
           >
             <div
+              data-testid="food-list-item-wrapper"
               role="presentation"
               onClick={() => selectFood(food)}
               onKeyDown={() => selectFood(food)}
@@ -61,8 +65,8 @@ const FoodList: React.FC<FoodListProps> = ({
                 <div className="foodList__foodName">{food.name}</div>
                 <div className="foodList__sourceIcon">
                   {(food.datasource === foodDataSources.bedca && (
-                    <CgDatabase />
-                  )) || <GiOrange />}
+                    <CgDatabase data-testid="icon-bedca" />
+                  )) || <GiOrange data-testid="icon-openfoodfacts" />}
                 </div>
               </div>
             </div>

@@ -7,13 +7,15 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig = {
+  collectCoverage: true,
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   coverageReporters: ['html'],
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
     '^@/src/components/(.*)$': '<rootDir>/src/components/$1',
     '^@/src/pages/(.*)$': '<rootDir>/src/pages/$1',
   },
-  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.jsx'],
   testEnvironment: 'jest-environment-jsdom',
 };
 
