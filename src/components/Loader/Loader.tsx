@@ -10,6 +10,7 @@ interface LoaderProps {
 const Loader: React.FC<LoaderProps> = ({ className }) => (
   <StLoaderContainer
     className={cx({ [className!]: !!className, loader: true })}
+    data-testid="loader"
   >
     <span className="loader__loading" />
   </StLoaderContainer>
