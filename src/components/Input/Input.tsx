@@ -38,10 +38,16 @@ const Input: React.FC<InputProps> = ({
   return (
     <StInputContainer
       className={cx({ [className!]: !!className, input: true })}
+      data-testid="input"
     >
-      {icon && <div className="input__icon">{icon}</div>}
+      {icon && (
+        <div className="input__icon" data-testid="input-icon">
+          {icon}
+        </div>
+      )}
       <input
         className="input__inputControl"
+        data-testid="input-control"
         defaultValue={defaultValue}
         placeholder={placeholder}
         type="text"
