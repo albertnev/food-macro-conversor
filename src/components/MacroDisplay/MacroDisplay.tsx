@@ -80,9 +80,9 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({
   return (
     <StMacroDisplayContainer
       className={cx({
-        className,
+        [className!]: !!className,
         macroDisplayContainer: true,
-        verticalDisplay,
+        'macroDisplayContainer--verticalDisplay': !!verticalDisplay,
       })}
       data-testid="macro-display"
     >

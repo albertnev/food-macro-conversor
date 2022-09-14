@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ResizeObserver from 'resize-observer-polyfill';
 
 import { FoodDetails } from '..';
 
@@ -40,8 +39,6 @@ describe('Component FoodDetails', () => {
       name: 'Pan de Fibra y Sésamo',
     },
   };
-
-  global.ResizeObserver = ResizeObserver;
 
   const renderWithProps = (props: any = {}) =>
     render(<FoodDetails {...defaultProps} {...props} />);

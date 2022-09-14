@@ -41,7 +41,7 @@ export const StMacroDisplayContainer = styled.div(
       }
     }
 
-    &.verticalDisplay {
+    &.macroDisplayContainer--verticalDisplay {
       flex-direction: column;
       align-items: flex-start;
       margin-top: 20px;

@@ -4,9 +4,19 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
+import ResizeObserver from 'resize-observer-polyfill';
 
 jest.mock('react-i18next', () => ({
-  useTranslation: () => ({ t: (key) => `T_${key}` }),
+  useTranslation: () => ({
+    t: (key, interpolation) =>
+      `T_${key}${
+        interpolation
+          ? `--${Object.keys(interpolation)
+              ?.map((k) => `${k}:${interpolation[k]}`)
+              .join('--')}`
+          : ''
+      }`,
+  }),
 }));
 
 jest.mock('next/image', () => ({
@@ -16,3 +26,5 @@ jest.mock('next/image', () => ({
     <img alt={alt} height={height} src={src} width={width} />
   ),
 }));
+
+global.ResizeObserver = ResizeObserver;
