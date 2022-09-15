@@ -19,12 +19,28 @@ const MenuList: React.FC<{ withIcon?: boolean }> = ({ withIcon }) => {
   const { t } = useTranslation();
 
   return (
-    <ul className="menu__pageList">
+    <ul className="menu__pageList" data-testid="menu-list">
       {[
-        [navigation.equivalence, t('equivalence'), <FaBalanceScale />],
-        [navigation.comparator, t('comparator'), <BiGitCompare />],
-        [navigation.calculator, t('calculator'), <CgCalculator />],
-        [navigation.about, t('aboutApp'), <CgInfo />],
+        [
+          navigation.equivalence,
+          t('equivalence'),
+          <FaBalanceScale data-testid="menu-icon-equivalence" />,
+        ],
+        [
+          navigation.comparator,
+          t('comparator'),
+          <BiGitCompare data-testid="menu-icon-comparator" />,
+        ],
+        [
+          navigation.calculator,
+          t('calculator'),
+          <CgCalculator data-testid="menu-icon-calculator" />,
+        ],
+        [
+          navigation.about,
+          t('aboutApp'),
+          <CgInfo data-testid="menu-icon-about" />,
+        ],
       ].map(([pageUrl, title, icon]) => (
         <li
           key={`menu-page-${pageUrl}`}
@@ -59,7 +75,7 @@ const MainMenu: React.FC = () => {
 
   return (
     <>
-      <StMenuContainer>
+      <StMenuContainer data-testid="main-menu">
         <div className="menu__content width-container">
           <div className="menu__brandName">
             <Link href={navigation.home}>
@@ -73,13 +89,19 @@ const MainMenu: React.FC = () => {
           </div>
           {(menuDrawerMode && (
             <div className="menu__drawerIcon">
-              <GiHamburgerMenu onClick={toggleMenuDrawer} />
+              <GiHamburgerMenu
+                data-testid="main-menu-drawer-icon"
+                onClick={toggleMenuDrawer}
+              />
             </div>
           )) || <MenuList />}
         </div>
       </StMenuContainer>
       {isDrawerOpened && (
-        <StMenuDrawerContainer className="menu__drawerContainer">
+        <StMenuDrawerContainer
+          className="menu__drawerContainer"
+          data-testid="main-menu-drawer"
+        >
           <div
             className="menu__background"
             role="presentation"
