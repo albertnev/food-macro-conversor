@@ -23,6 +23,7 @@ const Select: React.FC<SelectProps> = ({ className, ...rest }) => {
         [className!]: !!className,
         select: true,
       })}
+      data-testid="select"
     >
       <ReactSelect
         isMulti={false}
