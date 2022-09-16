@@ -8,7 +8,10 @@ interface SmallLoaderProps {
 }
 
 const SmallLoader: React.FC<SmallLoaderProps> = ({ className }) => (
-  <StSmallLoader className={cx({ [className!]: !!className })} />
+  <StSmallLoader
+    className={cx({ [className!]: !!className })}
+    data-testid="small-loader"
+  />
 );
 
 SmallLoader.defaultProps = {
