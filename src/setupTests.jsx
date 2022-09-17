@@ -6,18 +6,25 @@ import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
 import ResizeObserver from 'resize-observer-polyfill';
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (key, interpolation) =>
-      `T_${key}${
-        interpolation
-          ? `--${Object.keys(interpolation)
-              ?.map((k) => `${k}:${interpolation[k]}`)
-              .join('--')}`
-          : ''
-      }`,
-  }),
-}));
+jest.mock('next-i18next', () => {
+  const t = (key, interpolation) =>
+    `T_${key}${
+      interpolation
+        ? `--${Object.keys(interpolation)
+            ?.map((k) => `${k}:${interpolation[k]}`)
+            .join('--')}`
+        : ''
+    }`;
+
+  return {
+    i18n: {
+      t,
+    },
+    useTranslation: () => ({
+      t,
+    }),
+  };
+});
 
 jest.mock('next/image', () => ({
   __esModule: true,

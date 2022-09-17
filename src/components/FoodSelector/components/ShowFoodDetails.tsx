@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -21,6 +22,7 @@ const ShowFoodDetails: React.FC<ShowFoodDetailsProps> = ({
   foodId,
   onDetailsLoad,
 }) => {
+  const { t } = useTranslation();
   const {
     data: fetchedFoodData,
     fetchData,
@@ -37,14 +39,15 @@ const ShowFoodDetails: React.FC<ShowFoodDetailsProps> = ({
           headers: { datasource },
         });
       } catch (err) {
-        toast.error(getErrorMessage(err));
+        toast.error(t(getErrorMessage(err)));
       }
     };
 
     if (!foodDetails || foodDetails.id !== foodId) {
       fetchFoodInfo();
     }
-  }, [foodId, foodDetails, datasource, fetchData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [foodId, foodDetails, datasource]);
 
   useEffect(() => {
     if (fetchedFoodData) {

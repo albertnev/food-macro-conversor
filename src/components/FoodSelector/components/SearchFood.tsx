@@ -58,7 +58,7 @@ const SearchFood: React.FC<SearchFoodProps> = ({
   return (
     <>
       <h2>{title || t('foodSearch')}</h2>
-      <div className="searchFood__searchContainer">
+      <div className="searchFood__searchContainer" data-testid="search-food">
         <Input
           className="searchFood__input"
           icon={<HiSearch />}
@@ -78,7 +78,10 @@ const SearchFood: React.FC<SearchFoodProps> = ({
         fetchedFoodList !== undefined &&
         !fetchedFoodList?.length &&
         !retrievedFoodList?.length && (
-          <div className="searchFood__noResults">
+          <div
+            className="searchFood__noResults"
+            data-testid="search-food-no-results"
+          >
             <div className="searchFood__noResultsIcon">
               <TbZoomQuestion />
             </div>
