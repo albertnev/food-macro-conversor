@@ -6,7 +6,7 @@ import { FoodList } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component FoodList', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     foodList: [
       {
         datasource: 'bedca',

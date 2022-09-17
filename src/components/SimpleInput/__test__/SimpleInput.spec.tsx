@@ -1,16 +1,17 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SimpleInput } from '..';
+import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component SimpleInput', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     onChange: jest.fn(),
   };
 
   const renderWithProps = (props: any = {}) =>
-    render(<SimpleInput {...defaultProps} {...props} />);
+    renderComponent(<SimpleInput {...defaultProps} {...props} />);
 
   it('renders the component successfully', () => {
     renderWithProps();

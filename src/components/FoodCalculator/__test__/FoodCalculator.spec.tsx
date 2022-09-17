@@ -1,17 +1,14 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import { AppContainer } from '..';
+import FoodCalculator from '../FoodCalculator';
 import { renderComponent } from '../../../testUtils/renderComponent';
 
-describe('Component AppContainer', () => {
+describe.skip('Component FoodCalculator', () => {
   const defaultProps = {};
-  const renderWithProps = (props: any = {}, children: React.ReactNode = null) =>
-    renderComponent(
-      <AppContainer {...defaultProps} {...props}>
-        {children}
-      </AppContainer>,
-    );
+  const renderWithProps = (props: any = {}) =>
+    renderComponent(<FoodCalculator {...defaultProps} {...props} />);
 
   it('renders the component successfully', () => {
     renderWithProps();
@@ -19,7 +16,7 @@ describe('Component AppContainer', () => {
   });
 
   it('renders the provided children correctly', () => {
-    renderWithProps(undefined, <span>Testing</span>);
+    renderWithProps();
     expect(screen.getByText('Testing')).toBeInTheDocument();
   });
 });

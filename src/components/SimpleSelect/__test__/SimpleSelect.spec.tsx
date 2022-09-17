@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { SimpleSelect } from '..';
+import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component SimpleSelect', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     onChange: jest.fn(),
     options: [
       { label: 'Opt A', value: 'opt-a' },
@@ -30,7 +31,7 @@ describe('Component SimpleSelect', () => {
   };
 
   const renderWithProps = (props: any = {}) =>
-    render(<SimpleSelect {...defaultProps} {...props} />);
+    renderComponent(<SimpleSelect {...defaultProps} {...props} />);
 
   it('renders the component successfully', () => {
     renderWithProps();

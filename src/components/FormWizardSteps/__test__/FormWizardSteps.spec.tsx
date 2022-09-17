@@ -5,7 +5,7 @@ import { FormWizardSteps } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component FormWizardSteps', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     activeStep: 0,
     steps: [{ name: 'Step 1' }, { name: 'Step 2' }, { name: 'Step 3' }],
   };

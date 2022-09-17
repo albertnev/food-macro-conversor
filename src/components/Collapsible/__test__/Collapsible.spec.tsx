@@ -1,16 +1,17 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Collapsible } from '..';
+import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component Collapsible', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     title: 'Test title',
   };
 
   const renderWithProps = (props: any = {}, children: React.ReactNode = null) =>
-    render(
+    renderComponent(
       <Collapsible {...defaultProps} {...props}>
         {children}
       </Collapsible>,

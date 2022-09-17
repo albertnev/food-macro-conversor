@@ -6,7 +6,7 @@ import { Button } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component Button', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     label: 'Test button',
     onClick: jest.fn(),
   };

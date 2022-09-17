@@ -1,16 +1,17 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import { PageWithMenu } from '..';
+import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component PageWithMenu', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     children: <div>Test children</div>,
     precontent: <span>Test Precontent</span>,
   };
 
   const renderWithProps = (props: any = {}) =>
-    render(<PageWithMenu {...defaultProps} {...props} />);
+    renderComponent(<PageWithMenu {...defaultProps} {...props} />);
 
   it('renders the component successfully', () => {
     renderWithProps();

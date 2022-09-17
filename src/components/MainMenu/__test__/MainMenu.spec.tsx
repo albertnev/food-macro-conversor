@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useRouter } from 'next/router';
 
 import { MainMenu } from '..';
 import navigation from '../../../constants/navigation';
+import { renderComponent } from '../../../testUtils/renderComponent';
 
 let mockIsSmallerThanWidth = false;
 jest.mock('../../../hooks/useMediaQuery', () =>
@@ -14,7 +15,7 @@ jest.mock('../../../hooks/useMediaQuery', () =>
 // Skipping this tests until someone in NextJS gives some docs on how to mock navigation with next/link and next/router
 // eslint-disable-next-line jest/no-disabled-tests
 describe.skip('Component MainMenu', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     label: 'Test button',
     onChange: jest.fn(),
   };
@@ -43,7 +44,7 @@ describe.skip('Component MainMenu', () => {
   ];
 
   const renderWithProps = (props: any = {}) =>
-    render(<MainMenu {...defaultProps} {...props} />);
+    renderComponent(<MainMenu {...defaultProps} {...props} />);
 
   describe('Desktop mode', () => {
     it('renders the component successfully', () => {

@@ -5,7 +5,7 @@ import { SmallLoader } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component SmallLoader', () => {
-  const defaultProps: any = {};
+  const defaultProps = {};
 
   const renderWithProps = (props: any = {}) =>
     renderComponent(<SmallLoader {...defaultProps} {...props} />);

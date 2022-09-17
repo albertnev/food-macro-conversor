@@ -1,11 +1,12 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Select } from '..';
+import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component Select', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     onChange: jest.fn(),
     options: [
       {
@@ -20,7 +21,7 @@ describe('Component Select', () => {
   };
 
   const renderWithProps = (props: any = {}) =>
-    render(<Select {...defaultProps} {...props} />);
+    renderComponent(<Select {...defaultProps} {...props} />);
 
   beforeEach(() => {
     jest.resetAllMocks();

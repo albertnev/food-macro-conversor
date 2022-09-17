@@ -6,7 +6,7 @@ import { Input } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component Input', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     onChange: jest.fn(),
   };
 

@@ -5,7 +5,7 @@ import { Loader } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component Loader', () => {
-  const defaultProps: any = {};
+  const defaultProps = {};
 
   const renderWithProps = (props: any = {}) =>
     renderComponent(<Loader {...defaultProps} {...props} />);

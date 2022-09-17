@@ -1,17 +1,18 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { Checkbox } from '..';
+import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component Checkbox', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     label: 'Test button',
     onChange: jest.fn(),
   };
 
   const renderWithProps = (props: any = {}) =>
-    render(<Checkbox {...defaultProps} {...props} />);
+    renderComponent(<Checkbox {...defaultProps} {...props} />);
 
   it('renders the component successfully', () => {
     renderWithProps();

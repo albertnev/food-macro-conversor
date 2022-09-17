@@ -1,10 +1,11 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import { FoodDetails } from '..';
+import { renderComponent } from '../../../testUtils/renderComponent';
 
 describe('Component FoodDetails', () => {
-  const defaultProps: any = {
+  const defaultProps = {
     food: {
       brand: 'Hacendado',
       datasource: 'openfoodfacts',
@@ -41,7 +42,7 @@ describe('Component FoodDetails', () => {
   };
 
   const renderWithProps = (props: any = {}) =>
-    render(<FoodDetails {...defaultProps} {...props} />);
+    renderComponent(<FoodDetails {...defaultProps} {...props} />);
 
   it('renders the component successfully', () => {
     renderWithProps();
