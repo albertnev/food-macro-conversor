@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 import Image from 'next/image';
 import { GiOrange } from 'react-icons/gi';
@@ -21,9 +21,7 @@ const FoodList: React.FC<FoodListProps> = ({
   onSelect,
   selectedFoodId: selectedFoodIdProp,
 }) => {
-  const [selectedFoodId, setSelectedFoodId] = useState<string>(
-    selectedFoodIdProp!,
-  );
+  const [selectedFoodId, setSelectedFoodId] = useState(selectedFoodIdProp);
 
   const selectFood = (food: FoodSearchResultTd) => {
     if (onSelect) {
@@ -31,6 +29,10 @@ const FoodList: React.FC<FoodListProps> = ({
       onSelect(food);
     }
   };
+
+  useEffect(() => {
+    setSelectedFoodId(selectedFoodIdProp);
+  }, [selectedFoodIdProp]);
 
   return (
     <StFoodList

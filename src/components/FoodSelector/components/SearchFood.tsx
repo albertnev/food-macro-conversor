@@ -49,7 +49,8 @@ const SearchFood: React.FC<SearchFoodProps> = ({
       onSearchResponse?.(fetchedFoodList);
       setRetrievedFoodList(fetchedFoodList);
     }
-  }, [fetchedFoodList, onSearchResponse]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchedFoodList]);
 
   useEffect(() => {
     if (foodList) setRetrievedFoodList(foodList);
@@ -93,7 +94,7 @@ const SearchFood: React.FC<SearchFoodProps> = ({
         <FoodList
           foodList={retrievedFoodList}
           selectedFoodId={selectedFoodId}
-          onSelect={(food) => onSelect(food)}
+          onSelect={onSelect}
         />
       )}
     </>

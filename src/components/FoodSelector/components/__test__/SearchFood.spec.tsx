@@ -7,20 +7,7 @@ import SearchFood from '../SearchFood';
 import { databaseErrorCodes } from '../../../../constants/databaseErrorCodes';
 import { renderComponent } from '../../../../testUtils/renderComponent';
 import { sleep } from '../../../../testUtils/sleep';
-
-const mockedFoodList = [
-  {
-    datasource: 'bedca',
-    id: '2260',
-    name: 'Cerdo, panceta, cruda',
-  },
-  {
-    datasource: 'openfoodfacts',
-    id: '8710445020878',
-    imageUrl: 'http://images.com/test-image.png',
-    name: 'Pan de Fibra y Sésamo',
-  },
-];
+import { mockedFoodList } from '../../../../testUtils/mocks/foodList';
 
 describe('Component SearchFood', () => {
   const defaultProps = {

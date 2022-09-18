@@ -4,53 +4,19 @@ import fetchMockJest from 'fetch-mock-jest';
 
 import ShowFoodDetails from '../ShowFoodDetails';
 import { renderComponent } from '../../../../testUtils/renderComponent';
-
-const mockedFood = {
-  brand: 'Bimbo',
-  datasource: 'openfoodfacts',
-  grams: 100,
-  id: '8412600009345',
-  imageUrl:
-    'https://images.openfoodfacts.org/images/products/841/260/000/9345/front_en.33.400.jpg',
-  ingredients:
-    'Harina de _trigo_ , agua, levadura, aceite vegetal (oliva refinado 1,4 %), sal, masa madre inactiva de _trigo_ y _centeno_ integral.',
-  kcals: '252',
-  macronutrients: {
-    alcohol: {
-      amount: '0',
-      name: 'alcohol',
-      units: 'g',
-    },
-    carbs: {
-      amount: '45',
-      name: 'carbs',
-      units: 'g',
-    },
-    fat: {
-      amount: '2.8',
-      name: 'fat',
-      units: 'g',
-    },
-    protein: {
-      amount: '9.6',
-      name: 'protein',
-      units: 'g',
-    },
-  },
-  name: 'Pan de molde de trigo',
-};
+import { mockedFoodDetails } from '../../../../testUtils/mocks/foodDetails';
 
 describe('Component ShowFoodDetails', () => {
   const defaultProps = {
-    datasource: mockedFood.datasource,
-    foodId: mockedFood.id,
+    datasource: mockedFoodDetails.datasource,
+    foodId: mockedFoodDetails.id,
     onDetailsLoad: jest.fn(),
   };
 
   const fetchedUrl = '/api/food/getDetails';
   let mockedFetch: any;
   const mockDetailsFetch = (
-    mockedResponse: any = mockedFood,
+    mockedResponse: any = mockedFoodDetails,
     config: any = {},
   ) =>
     fetchMockJest.mock(
@@ -100,13 +66,13 @@ describe('Component ShowFoodDetails', () => {
   });
 
   it('does not make any fetch call if foodDetails are provided', async () => {
-    await renderWithPropsAwaiting({ foodDetails: mockedFood });
+    await renderWithPropsAwaiting({ foodDetails: mockedFoodDetails });
     expect(mockedFetch).not.toHaveFetched();
   });
 
   it('fetches for details if the foodId provided is not the same as the one in foodDetails provided', async () => {
     const foodId = '1234';
-    await renderWithPropsAwaiting({ foodDetails: mockedFood, foodId });
+    await renderWithPropsAwaiting({ foodDetails: mockedFoodDetails, foodId });
 
     expect(mockedFetch).toHaveFetched();
     expect(mockedFetch.calls()[0][0].includes(foodId)).toBeTruthy();
@@ -114,7 +80,7 @@ describe('Component ShowFoodDetails', () => {
 
   it('calls the provided onDetailsLoad method when the data fetch is completed', async () => {
     await renderWithPropsAwaiting();
-    expect(defaultProps.onDetailsLoad).toBeCalledWith(mockedFood);
+    expect(defaultProps.onDetailsLoad).toBeCalledWith(mockedFoodDetails);
   });
 
   it('displays an error notification if the fetch call fails', async () => {

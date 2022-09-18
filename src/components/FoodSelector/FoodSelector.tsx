@@ -41,7 +41,9 @@ const FoodSelector: React.FC<FoodSelectorProps> = ({
   };
 
   useEffect(() => {
-    setSelectedFood(undefined);
+    if (selectedFood && !foodList?.find((food) => food.id === selectedFood.id))
+      setSelectedFood(undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [foodList]);
 
   useEffect(() => {
@@ -49,7 +51,10 @@ const FoodSelector: React.FC<FoodSelectorProps> = ({
   }, [foodList, selectedFood]);
 
   return (
-    <StFoodSelectorContainer className={cx({ [className!]: !!className })}>
+    <StFoodSelectorContainer
+      className={cx({ [className!]: !!className })}
+      data-testid="food-selector"
+    >
       {searchStep === 0 && (
         <SearchFood
           foodList={foodList}
