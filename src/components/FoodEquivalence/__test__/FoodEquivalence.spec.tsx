@@ -3,12 +3,12 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import fetchMockJest from 'fetch-mock-jest';
 
-import { FoodCalculator } from '..';
+import { FoodEquivalence } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 import { mockedFoodList } from '../../../testUtils/mocks/foodList';
 import { mockedFoodDetails } from '../../../testUtils/mocks/foodDetails';
 
-describe.skip('Component FoodCalculator', () => {
+describe.skip('Component FoodEquivalence', () => {
   const defaultProps = {};
 
   fetchMockJest.mock(
@@ -45,7 +45,7 @@ describe.skip('Component FoodCalculator', () => {
   };
 
   const renderWithProps = (props: any = {}) =>
-    renderComponent(<FoodCalculator {...defaultProps} {...props} />);
+    renderComponent(<FoodEquivalence {...defaultProps} {...props} />);
 
   it('renders the component successfully', () => {
     renderWithProps();

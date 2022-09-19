@@ -46,9 +46,7 @@ describe('Component FoodSelector', () => {
     renderWithProps();
 
     userEvent.type(screen.getByTestId('input-control'), 'test');
-    await screen.findByText(mockedFoodList[0].name);
-
-    userEvent.click(screen.getByText(mockedFoodList[0].name));
+    userEvent.click(await screen.findByText(mockedFoodList[0].name));
 
     await waitFor(() => {
       expect(
@@ -78,9 +76,7 @@ describe('Component FoodSelector', () => {
     renderWithProps();
 
     userEvent.type(screen.getByTestId('input-control'), 'test');
-    await screen.findByText(mockedFoodList[0].name);
-
-    userEvent.click(screen.getByText(mockedFoodList[0].name));
+    userEvent.click(await screen.findByText(mockedFoodList[0].name));
 
     await waitFor(() => {
       expect(
@@ -105,9 +101,7 @@ describe('Component FoodSelector', () => {
     renderWithProps();
 
     userEvent.type(screen.getByTestId('input-control'), 'test');
-    await screen.findByText(mockedFoodList[0].name);
-
-    userEvent.click(screen.getByText(mockedFoodList[0].name));
+    userEvent.click(await screen.findByText(mockedFoodList[0].name));
 
     await waitFor(() => {
       expect(
