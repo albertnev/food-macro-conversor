@@ -4,11 +4,11 @@ import userEvent from '@testing-library/user-event';
 
 import { FoodCalculator } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
-import { mockedFoodDetails } from '../../../testUtils/mocks/foodDetails';
+import { mockedOpenFoodDetails } from '../../../testUtils/mocks/foodDetails';
 import { getFoodAmountForMacros } from '../../../utils/getFoodAmountForMacros';
 
 describe('Component FoodCalculator', () => {
-  const defaultProps = { selectedFood: mockedFoodDetails };
+  const defaultProps = { selectedFood: mockedOpenFoodDetails };
   const defaultSelectedMacro = 'carbs';
 
   const renderWithProps = (props: any = {}) =>
@@ -28,10 +28,10 @@ describe('Component FoodCalculator', () => {
     expect(getByTestId('select-macro-selector')).toBeInTheDocument();
     expect(getByTestId('input-food-quantity')).toBeInTheDocument();
 
-    expect(getByText(mockedFoodDetails.name)).toBeInTheDocument();
+    expect(getByText(mockedOpenFoodDetails.name)).toBeInTheDocument();
 
     const foodQuantity = getFoodAmountForMacros(
-      mockedFoodDetails,
+      mockedOpenFoodDetails,
       defaultSelectedMacro,
       50,
     );
@@ -49,7 +49,11 @@ describe('Component FoodCalculator', () => {
     );
     userEvent.click(getByText('T_fat'));
 
-    const foodQuantity = getFoodAmountForMacros(mockedFoodDetails, 'fat', 50);
+    const foodQuantity = getFoodAmountForMacros(
+      mockedOpenFoodDetails,
+      'fat',
+      50,
+    );
 
     expect(getByText(`${foodQuantity}g`)).toBeInTheDocument();
   });
@@ -71,7 +75,7 @@ describe('Component FoodCalculator', () => {
     });
 
     const foodQuantity = getFoodAmountForMacros(
-      mockedFoodDetails,
+      mockedOpenFoodDetails,
       defaultSelectedMacro,
       150,
     );
@@ -86,7 +90,7 @@ describe('Component FoodCalculator', () => {
     const { getByText } = within(screen.getByTestId('food-details'));
 
     const foodQuantity = getFoodAmountForMacros(
-      mockedFoodDetails,
+      mockedOpenFoodDetails,
       defaultSelectedMacro,
       50,
     );

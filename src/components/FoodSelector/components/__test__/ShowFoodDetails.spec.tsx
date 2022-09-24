@@ -4,19 +4,19 @@ import fetchMockJest from 'fetch-mock-jest';
 
 import ShowFoodDetails from '../ShowFoodDetails';
 import { renderComponent } from '../../../../testUtils/renderComponent';
-import { mockedFoodDetails } from '../../../../testUtils/mocks/foodDetails';
+import { mockedOpenFoodDetails } from '../../../../testUtils/mocks/foodDetails';
 
 describe('Component ShowFoodDetails', () => {
   const defaultProps = {
-    datasource: mockedFoodDetails.datasource,
-    foodId: mockedFoodDetails.id,
+    datasource: mockedOpenFoodDetails.datasource,
+    foodId: mockedOpenFoodDetails.id,
     onDetailsLoad: jest.fn(),
   };
 
   const fetchedUrl = '/api/food/getDetails';
   let mockedFetch: any;
   const mockDetailsFetch = (
-    mockedResponse: any = mockedFoodDetails,
+    mockedResponse: any = mockedOpenFoodDetails,
     config: any = {},
   ) =>
     fetchMockJest.mock(
@@ -66,13 +66,16 @@ describe('Component ShowFoodDetails', () => {
   });
 
   it('does not make any fetch call if foodDetails are provided', async () => {
-    await renderWithPropsAwaiting({ foodDetails: mockedFoodDetails });
+    await renderWithPropsAwaiting({ foodDetails: mockedOpenFoodDetails });
     expect(mockedFetch).not.toHaveFetched();
   });
 
   it('fetches for details if the foodId provided is not the same as the one in foodDetails provided', async () => {
     const foodId = '1234';
-    await renderWithPropsAwaiting({ foodDetails: mockedFoodDetails, foodId });
+    await renderWithPropsAwaiting({
+      foodDetails: mockedOpenFoodDetails,
+      foodId,
+    });
 
     expect(mockedFetch).toHaveFetched();
     expect(mockedFetch.calls()[0][0].includes(foodId)).toBeTruthy();
@@ -80,7 +83,7 @@ describe('Component ShowFoodDetails', () => {
 
   it('calls the provided onDetailsLoad method when the data fetch is completed', async () => {
     await renderWithPropsAwaiting();
-    expect(defaultProps.onDetailsLoad).toBeCalledWith(mockedFoodDetails);
+    expect(defaultProps.onDetailsLoad).toBeCalledWith(mockedOpenFoodDetails);
   });
 
   it('displays an error notification if the fetch call fails', async () => {

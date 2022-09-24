@@ -6,7 +6,7 @@ import fetchMockJest from 'fetch-mock-jest';
 import { FoodEquivalence } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 import { mockedFoodList } from '../../../testUtils/mocks/foodList';
-import { mockedFoodDetails } from '../../../testUtils/mocks/foodDetails';
+import { mockedOpenFoodDetails } from '../../../testUtils/mocks/foodDetails';
 
 describe.skip('Component FoodEquivalence', () => {
   const defaultProps = {};
@@ -20,7 +20,7 @@ describe.skip('Component FoodEquivalence', () => {
   );
 
   const mockFetchDetails = (
-    mockedFood: any = mockedFoodDetails,
+    mockedFood: any = mockedOpenFoodDetails,
     opts: any = {},
   ) => {
     fetchMockJest.once(

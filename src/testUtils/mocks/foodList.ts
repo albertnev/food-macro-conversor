@@ -6,8 +6,9 @@ export const mockedFoodList = [
   },
   {
     datasource: 'openfoodfacts',
-    id: '8710445020878',
-    imageUrl: 'http://images.com/test-image.png',
-    name: 'Pan de Fibra y Sésamo',
+    id: '8412600009345',
+    imageUrl:
+      'https://images.openfoodfacts.org/images/products/841/260/000/9345/front_es.29.400.jpg',
+    name: 'Pan de molde de trigo',
   },
 ];

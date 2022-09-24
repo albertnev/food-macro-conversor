@@ -6,7 +6,7 @@ import fetchMockJest from 'fetch-mock-jest';
 import { FoodSelector } from '..';
 import { renderComponent } from '../../../testUtils/renderComponent';
 import { mockedFoodList } from '../../../testUtils/mocks/foodList';
-import { mockedFoodDetails } from '../../../testUtils/mocks/foodDetails';
+import { mockedOpenFoodDetails } from '../../../testUtils/mocks/foodDetails';
 
 describe('Component FoodSelector', () => {
   const defaultProps = {
@@ -23,7 +23,7 @@ describe('Component FoodSelector', () => {
 
   fetchMockJest.mock(
     /\/api\/food\/getDetails/,
-    { body: mockedFoodDetails, status: 200 },
+    { body: mockedOpenFoodDetails, status: 200 },
     {
       overwriteRoutes: true,
     },
@@ -117,7 +117,7 @@ describe('Component FoodSelector', () => {
 
     userEvent.click(screen.getByText('T_select'));
 
-    expect(defaultProps.onSelectFood).toBeCalledWith(mockedFoodDetails);
+    expect(defaultProps.onSelectFood).toBeCalledWith(mockedOpenFoodDetails);
   });
 
   it('adds the provided className to the element', () => {
