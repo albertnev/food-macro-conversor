@@ -16,7 +16,7 @@ export const getFoodDataForGrams = (
         amount: getValueOrZero(
           Number.parseFloat(nutrient.amount) * targetGrams,
         ) as string,
-      })) || [];
+      })) || sourceFood.detailedNutrients;
     immerDraft.kcals = getValueOrZero(
       (Number.parseFloat(sourceFood.kcals) / sourceFood.grams) * targetGrams,
     ) as string;

@@ -36,6 +36,7 @@ const FoodQuantityInput: React.FC<{
     <span className="foodCalculator__foodQuantity">
       <SimpleInput
         className="foodCalculator__gramsInput"
+        data-testid="input-food-quantity"
         defaultValue={`${sourceGrams}`}
         placeholder={t('grams')}
         onChange={updateSourceGrams}
@@ -98,11 +99,15 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
   return (
     <StFoodEquivalenceContainer
       className={cx({ foodEquivalence: true, [className!]: !!className })}
+      data-testid="food-equivalence"
     >
       <div className="foodEquivalence__filtersHeader">
         <div className="foodEquivalence__gramsInputContainer">
           <div>
-            <div className="foodEquivalence__gramsInputDescription">
+            <div
+              className="foodEquivalence__gramsInputDescription"
+              data-testid="food-equivalence-calculated-description"
+            >
               <div>
                 <Trans
                   components={{
@@ -130,11 +135,11 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
           </div>
         </div>
         {onSwitchFoods && (
-          <div className="foodEquivalence__swapFoodsContainer">
+          <div className="foodEquivalence__switchFoodsContainer">
             <Button
               className="foodEquivalence__switchFoodsIcon"
               icon={<MdCompareArrows />}
-              label="Intercambiar alimentos"
+              label={t('switchFoods')}
               onClick={onSwitchFoods}
             />
           </div>
@@ -150,6 +155,7 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
               key={`macro-selector-${macro}`}
               checked={macrosSelected?.includes(macro)}
               className="foodEquivalence__macroCheckbox"
+              data-testid={`checkbox-${macro}`}
               label={t(macro)}
               onChange={(checked) => toggleMacro(macro, checked)}
             />
@@ -168,7 +174,11 @@ const FoodEquivalence: React.FC<FoodEquivalenceProps> = ({
             getFoodDataForGrams(foodsToCompare[0], sourceGrams),
             convertedFood,
           ]}
-          icon={isMobile ? <TbArrowsUpDown /> : undefined}
+          icon={
+            isMobile ? (
+              <TbArrowsUpDown data-testid="food-provided-icon-mobile" />
+            ) : undefined
+          }
           verticalDisplay={!isMobile}
           onChangeFood={onChangeFood}
         />
