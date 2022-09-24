@@ -11,10 +11,15 @@ interface OptionProps {
 }
 
 export interface SelectProps extends Props<OptionProps> {
+  'data-testid'?: string;
   options: OptionProps[];
 }
 
-const Select: React.FC<SelectProps> = ({ className, ...rest }) => {
+const Select: React.FC<SelectProps> = ({
+  className,
+  'data-testid': dataTestId,
+  ...rest
+}) => {
   const { t } = useTranslation();
 
   return (
@@ -23,7 +28,7 @@ const Select: React.FC<SelectProps> = ({ className, ...rest }) => {
         [className!]: !!className,
         select: true,
       })}
-      data-testid="select"
+      data-testid={dataTestId || 'select'}
     >
       <ReactSelect
         isMulti={false}
@@ -38,6 +43,10 @@ const Select: React.FC<SelectProps> = ({ className, ...rest }) => {
       />
     </StSelectContainer>
   );
+};
+
+Select.defaultProps = {
+  'data-testid': '',
 };
 
 export default Select;

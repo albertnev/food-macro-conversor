@@ -7,6 +7,7 @@ import { StCheckboxContainer } from './Checkbox.styled';
 interface CheckboxProps {
   checked?: boolean;
   className?: string;
+  'data-testid'?: string;
   label: string;
   onChange: (isChecked: boolean) => void;
 }
@@ -14,6 +15,7 @@ interface CheckboxProps {
 const Checkbox: React.FC<CheckboxProps> = ({
   checked,
   className,
+  'data-testid': dataTestId,
   label,
   onChange,
 }) => (
@@ -22,7 +24,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
       checkbox: true,
       [className!]: !!className,
     })}
-    data-testid="checkbox"
+    data-testid={dataTestId || 'checkbox'}
   >
     <input
       className="checkbox__inputControl"
@@ -42,6 +44,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
 Checkbox.defaultProps = {
   checked: false,
   className: '',
+  'data-testid': '',
 };
 
 export default Checkbox;

@@ -6,6 +6,7 @@ import { StInputContainer } from './Input.styled';
 
 export interface InputProps {
   className?: string;
+  'data-testid'?: string;
   defaultValue?: string;
   icon?: React.ReactNode;
   onChange: (val: string) => void;
@@ -14,6 +15,7 @@ export interface InputProps {
 
 const Input: React.FC<InputProps> = ({
   className,
+  'data-testid': dataTestId,
   defaultValue,
   icon,
   onChange,
@@ -38,7 +40,7 @@ const Input: React.FC<InputProps> = ({
   return (
     <StInputContainer
       className={cx({ [className!]: !!className, input: true })}
-      data-testid="input"
+      data-testid={dataTestId || 'input'}
     >
       {icon && (
         <div className="input__icon" data-testid="input-icon">
@@ -59,6 +61,7 @@ const Input: React.FC<InputProps> = ({
 
 Input.defaultProps = {
   className: '',
+  'data-testid': '',
   defaultValue: '',
   icon: undefined,
   placeholder: '',
