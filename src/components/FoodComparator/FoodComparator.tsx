@@ -31,6 +31,7 @@ const FoodComparator: React.FC<FoodComparatorProps> = ({
         [className!]: !!className,
         foodComparator: true,
       })}
+      data-testid="food-comparator"
     >
       {foodsToCompare.map((food, i) => (
         <React.Fragment key={`food-${food.id}`}>
@@ -51,7 +52,7 @@ const FoodComparator: React.FC<FoodComparatorProps> = ({
           />
           {i < foodsToCompare.length - 1 && (
             <div className="foodComparator__equivalenceIconContainer">
-              {icon || <TbArrowsRightLeft />}
+              {icon || <TbArrowsRightLeft data-testid="food-comparator-icon" />}
             </div>
           )}
         </React.Fragment>
