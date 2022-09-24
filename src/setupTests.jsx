@@ -4,6 +4,7 @@
 // learn more: https://github.com/testing-library/jest-dom
 import '@testing-library/jest-dom';
 import '@testing-library/jest-dom/extend-expect';
+import React from 'react';
 import ResizeObserver from 'resize-observer-polyfill';
 
 jest.mock('next-i18next', () => {
@@ -16,10 +17,29 @@ jest.mock('next-i18next', () => {
         : ''
     }`;
 
+  // eslint-disable-next-line react/prop-types
+  const Trans = ({ children, components, i18nKey }) => (
+    <>
+      {`T_${i18nKey}`}
+      {components &&
+        Object.keys(components).map((key) => (
+          <div
+            key={`${i18nKey}-component-${key}`}
+            data-testid={`${i18nKey}-${key}`}
+          >
+            {components[key]}
+          </div>
+        ))}
+      {children}
+    </>
+  );
+
   return {
     i18n: {
       t,
+      Trans,
     },
+    Trans,
     useTranslation: () => ({
       t,
     }),
