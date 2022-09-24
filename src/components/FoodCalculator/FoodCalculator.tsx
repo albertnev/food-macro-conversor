@@ -28,6 +28,7 @@ const FoodQuantityInput: React.FC<{
     <span className="foodCalculator__foodQuantity">
       <SimpleInput
         className="foodCalculator__gramsInput"
+        data-testid="input-food-quantity"
         defaultValue={`${sourceGrams}`}
         placeholder={t('grams')}
         onChange={updateSourceGrams}
@@ -46,6 +47,7 @@ const MacroSelector: React.FC<{
   return (
     <div className="foodCalculator__macroSelector">
       <SimpleSelect
+        data-testid="select-macro-selector"
         defaultValue={selectedMacro as any}
         options={['carbs', 'fat', 'protein'].map((macro) => ({
           label: t(macro),
@@ -71,17 +73,17 @@ const FoodCalculator: React.FC<FoodCalculatorProps> = ({
   selectedFood,
 }) => {
   const { t } = useTranslation();
-  const [sourceGrams, setSourceGrams] = useState<number>(50);
+  const [macroGrams, setMacroGrams] = useState<number>(50);
   const [selectedMacro, setSelectedMacro] = useState<PossibleMacrosTd>('carbs');
 
   const updateSourceGrams = (grams: string) => {
-    setSourceGrams(Number.parseInt(grams || '0', 10));
+    setMacroGrams(Number.parseInt(grams || '0', 10));
   };
 
   const targetGrams = getFoodAmountForMacros(
     selectedFood,
     selectedMacro,
-    sourceGrams,
+    macroGrams,
   );
 
   const foodForGrams = getFoodDataForGrams(selectedFood, targetGrams);
@@ -92,17 +94,21 @@ const FoodCalculator: React.FC<FoodCalculatorProps> = ({
         [className!]: !!className,
         foodComparator: true,
       })}
+      data-testid="food-calculator"
     >
       <div className="foodCalculator__filtersHeader">
         <div className="foodCalculator__gramsInputContainer">
           <div>
-            <div className="foodCalculator__gramsInputDescription">
+            <div
+              className="foodCalculator__gramsInputDescription"
+              data-testid="food-calculated-description"
+            >
               <div>
                 <Trans
                   components={{
                     input: (
                       <FoodQuantityInput
-                        sourceGrams={sourceGrams}
+                        sourceGrams={macroGrams}
                         updateSourceGrams={updateSourceGrams}
                       />
                     ),

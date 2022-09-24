@@ -29,6 +29,8 @@ const Input: React.FC<InputProps> = ({
     [onChange],
   );
 
+  const testId = dataTestId || 'input';
+
   // Cancel the debounced call if unmounted
   useEffect(
     () => () => {
@@ -40,16 +42,16 @@ const Input: React.FC<InputProps> = ({
   return (
     <StInputContainer
       className={cx({ [className!]: !!className, input: true })}
-      data-testid={dataTestId || 'input'}
+      data-testid={testId}
     >
       {icon && (
-        <div className="input__icon" data-testid="input-icon">
+        <div className="input__icon" data-testid={`${testId}-icon`}>
           {icon}
         </div>
       )}
       <input
         className="input__inputControl"
-        data-testid="input-control"
+        data-testid={`${testId}-control`}
         defaultValue={defaultValue}
         placeholder={placeholder}
         type="text"
