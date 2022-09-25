@@ -1,0 +1,13 @@
+{
+  "login": "Inicia sesión",
+  "signInWith": "Inicia sesión con {{provider}}",
+  "description": {
+    "introduction": "Puedes seguir usando las funcionalidades básicas de la aplicación aunque no inicies sesión, pero si lo haces podrás:",
+    "notPublishingSocial": "Los únicos datos que recopilará la aplicación serán tu correo electrónico y tu nombre de usuario para poder guardar tus preferencias y asociarlas a tu perfil. En ningún caso se publicará contenido en tus redes sociales.",
+    "list": {
+      "saveSettings": "Guardar tus ajustes y configuración.",
+      "createFood": "Crear tus propios alimentos y usarlos en comparativas y cálculos.",
+      "saveFavourites": "Guardar en favoritos tus equivalencias más usadas."
+    }
+  }
+}

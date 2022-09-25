@@ -3,20 +3,32 @@ import cx from 'classnames';
 
 import { StButton } from './Button.styled';
 
-interface ButtonProps {
+interface ButtonCommonProps {
   className?: string;
   'data-testid'?: string;
   icon?: React.ReactNode;
-  label: string;
   onClick: () => void;
   secondary?: boolean;
 }
 
-const Button: React.FC<ButtonProps> = ({
+interface ButtonPropsWithChildren {
+  children?: React.ReactNode;
+  label?: never;
+}
+
+interface ButtonPropsWithLabel {
+  children?: never;
+  label?: string;
+}
+
+const Button: React.FC<
+  ButtonCommonProps & (ButtonPropsWithLabel | ButtonPropsWithChildren)
+> = ({
+  children = null,
   className,
   'data-testid': dataTestId,
   icon,
-  label,
+  label = undefined,
   onClick,
   secondary,
 }) => (
@@ -31,11 +43,12 @@ const Button: React.FC<ButtonProps> = ({
     onClick={onClick}
   >
     {icon && <span className="button__icon">{icon}</span>}
-    <span className="button__label">{label}</span>
+    {children || <span className="button__label">{label}</span>}
   </StButton>
 );
 
 Button.defaultProps = {
+  children: null,
   className: '',
   'data-testid': '',
   icon: undefined,

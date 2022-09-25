@@ -4,6 +4,8 @@ const navigation = {
   comparator: '/comparator',
   equivalence: '/equivalence',
   home: '/',
+  login: '/login',
+  logout: '/logout',
 };
 
 export default navigation;

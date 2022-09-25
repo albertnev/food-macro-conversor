@@ -4,56 +4,70 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { TbChartArcs } from 'react-icons/tb';
-import { useTranslation } from 'next-i18next';
+import { IoMdLogIn, IoMdLogOut } from 'react-icons/io';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { FaBalanceScale } from 'react-icons/fa';
 import { BiGitCompare } from 'react-icons/bi';
 import { CgCalculator, CgInfo } from 'react-icons/cg';
+import { useTranslation } from 'next-i18next';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 import navigation from '../../constants/navigation';
 import { StMenuContainer, StMenuDrawerContainer } from './MainMenu.styled';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 const MenuList: React.FC<{ withIcon?: boolean }> = ({ withIcon }) => {
+  const { status } = useSession();
   const { pathname } = useRouter();
   const { t } = useTranslation();
 
   return (
     <ul className="menu__pageList" data-testid="menu-list">
       {[
-        [
-          navigation.equivalence,
-          t('equivalence'),
-          <FaBalanceScale data-testid="menu-icon-equivalence" />,
-        ],
-        [
-          navigation.comparator,
-          t('comparator'),
-          <BiGitCompare data-testid="menu-icon-comparator" />,
-        ],
-        [
-          navigation.calculator,
-          t('calculator'),
-          <CgCalculator data-testid="menu-icon-calculator" />,
-        ],
-        [
-          navigation.about,
-          t('aboutApp'),
-          <CgInfo data-testid="menu-icon-about" />,
-        ],
-      ].map(([pageUrl, title, icon]) => (
+        {
+          icon: <FaBalanceScale data-testid="menu-icon-equivalence" />,
+          label: t('equivalence'),
+          url: navigation.equivalence,
+        },
+        {
+          icon: <BiGitCompare data-testid="menu-icon-comparator" />,
+          label: t('comparator'),
+          url: navigation.comparator,
+        },
+        {
+          icon: <CgCalculator data-testid="menu-icon-calculator" />,
+          label: t('calculator'),
+          url: navigation.calculator,
+        },
+        {
+          icon: <CgInfo data-testid="menu-icon-about" />,
+          label: t('aboutApp'),
+          url: navigation.about,
+        },
+        status === 'authenticated'
+          ? {
+              icon: <IoMdLogOut data-testid="menu-icon-logout" />,
+              label: t('logout'),
+              onClick: signOut,
+            }
+          : {
+              icon: <IoMdLogIn data-testid="menu-icon-login" />,
+              label: t('login'),
+              onClick: signIn,
+            },
+      ].map(({ icon, label, onClick, url }) => (
         <li
-          key={`menu-page-${pageUrl}`}
+          key={`menu-page-${url}`}
           className={cx({
             menu__page: true,
-            'menu__page--active': pathname === pageUrl,
+            'menu__page--active': pathname === url,
           })}
         >
-          <Link href={pageUrl as string}>
-            <a className="menu__link">
+          <Link href={url || ''} legacyBehavior={false} onClick={onClick}>
+            <div className="menu__link">
               {withIcon && <span className="menu__pageIcon">{icon}</span>}{' '}
-              {title}
-            </a>
+              {label}
+            </div>
           </Link>
         </li>
       ))}

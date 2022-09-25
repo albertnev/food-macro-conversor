@@ -1,5 +1,6 @@
 import { appWithTranslation } from 'next-i18next';
 import Head from 'next/head';
+import { SessionProvider } from 'next-auth/react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import type { AppProps } from 'next/app';
@@ -8,7 +9,7 @@ import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <SessionProvider session={pageProps.session}>
       <Head>
         <meta
           content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
@@ -95,7 +96,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         theme="colored"
       />
       <Component {...pageProps} />
-    </>
+    </SessionProvider>
   );
 }
 

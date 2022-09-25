@@ -11,8 +11,12 @@ describe('Component Button', () => {
     onClick: jest.fn(),
   };
 
-  const renderWithProps = (props: any = {}) =>
-    renderComponent(<Button {...defaultProps} {...props} />);
+  const renderWithProps = (props: any = {}, children: React.ReactNode = null) =>
+    renderComponent(
+      <Button {...defaultProps} {...props}>
+        {children}
+      </Button>,
+    );
 
   it('renders the component successfully', () => {
     renderWithProps();
@@ -35,6 +39,11 @@ describe('Component Button', () => {
     expect(screen.getByTestId('button')).toHaveStyle({
       backgroundColor: 'transparent',
     });
+  });
+
+  it('renders the provided children correctly', () => {
+    renderWithProps(undefined, <span>My button text</span>);
+    expect(screen.getByText('My button text')).toBeInTheDocument();
   });
 
   it('adds the provided className to the element', () => {
