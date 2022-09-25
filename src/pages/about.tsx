@@ -18,7 +18,7 @@ const About: NextPage = () => {
   return (
     <PageWithMenu>
       <Head>
-        <title>Macro Conversor - {t('common:aboutApp')}</title>
+        <title>{`Macro Conversor - ${t('common:aboutApp')}`}</title>
       </Head>
       <StAboutContainer>
         <Collapsible

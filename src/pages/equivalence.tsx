@@ -67,7 +67,7 @@ const FoodEquivalence: NextPage = () => {
       }
     >
       <Head>
-        <title>Macro Conversor - {t('equivalence')}</title>
+        <title>{`Macro Conversor - ${t('equivalence')}`}</title>
       </Head>
       {activeStep === 0 && (
         <FoodSelector
