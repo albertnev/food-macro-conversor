@@ -10,6 +10,8 @@
   "doNotExceed": "No te excedas de",
   "equivalence": "Equivalencia",
   "errorOcurred": "Ha ocurrido un error. Vuelve a intentarlo.",
+  "notFoundPage": "Página no encontrada",
+  "pageDoesNotExist": "La página que estás buscando no existe. Usa el menú para navegar a cualquiera de las otras páginas de esta aplicación.",
   "errors": {
     "bedcaDatabase": "La base de datos de BEDCA no está disponible en este momento. Se muestran el resto de resultados.",
     "genericError": "Ha ocurrido un error. Por favor, vuelve a intentarlo en unos minutos.",
