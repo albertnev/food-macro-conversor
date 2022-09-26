@@ -1,10 +1,5 @@
-import {
-  getGramsFromVolume,
-  getKcalsFromGrams,
-} from '../utils/conversors/alcohol';
 import { FoodDetailsTd } from '../types/FoodDetailsTd';
 import { FoodSearchResultTd } from '../types/FoodSearchResultTd';
-import { getValueOrZero } from '../utils/getValueOrZero';
 import { foodDataSources } from '../constants/foodDataSources';
 
 export const normalizeSearchResponse = (
@@ -18,55 +13,54 @@ export const normalizeSearchResponse = (
         datasource: foodDataSources.database,
         // eslint-disable-next-line no-underscore-dangle
         id: food._id,
-        imageUrl: food.image_url,
+        imageUrl: food.imageUrl,
         name: food.name,
       } as FoodSearchResultTd),
   ) as FoodSearchResultTd[];
 };
 
 export const normalizeFoodDetailsResponse = (response: any): FoodDetailsTd => {
-  const food = response.products[0];
-  const isAlcohol =
-    food.nutriments.alcohol_100g && !food.nutriments.proteins_100g;
+  const food = response;
+  const { _id, ...safeFoodData } = food;
 
   return {
-    brand: food.brands,
-    datasource: foodDataSources.openfoodfacts,
-    grams: 100,
-    id: food.code,
-    imageUrl: food.image_url,
-    ingredients: food.ingredients_text_es || food.ingredients_text,
-    kcals: `${
-      isAlcohol
-        ? getKcalsFromGrams(
-            getGramsFromVolume(food.nutriments.alcohol_100g || 0),
-          )
-        : food.nutriments['energy-kcal_100g']
-    }`,
+    ...safeFoodData,
+    id: _id,
     macronutrients: {
       alcohol: {
-        amount: getValueOrZero(
-          getGramsFromVolume(food.nutriments.alcohol_100g),
-        ),
+        amount: safeFoodData.macronutrients?.alcohol || '0',
         name: 'alcohol',
         units: 'g',
       },
       carbs: {
-        amount: getValueOrZero(food.nutriments.carbohydrates_100g),
+        amount: safeFoodData.macronutrients?.carbs || '0',
         name: 'carbs',
         units: 'g',
       },
       fat: {
-        amount: getValueOrZero(food.nutriments.fat_100g),
+        amount: safeFoodData.macronutrients?.fat || '0',
         name: 'fat',
         units: 'g',
       },
       protein: {
-        amount: getValueOrZero(food.nutriments.proteins_100g),
+        amount: safeFoodData.macronutrients?.protein || '0',
         name: 'protein',
         units: 'g',
       },
     },
-    name: food.name,
   } as FoodDetailsTd;
+};
+
+export const normalizeFoodForDatabase = (food: FoodDetailsTd) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { datasource, id, ...dbSafeData } = food;
+  return {
+    ...dbSafeData,
+    macronutrients: {
+      alcohol: dbSafeData.macronutrients.alcohol.amount || '0',
+      carbs: dbSafeData.macronutrients.carbs.amount || '0',
+      fat: dbSafeData.macronutrients.fat.amount || '0',
+      protein: dbSafeData.macronutrients.protein.amount || '0',
+    },
+  };
 };

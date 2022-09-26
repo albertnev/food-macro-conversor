@@ -39,7 +39,7 @@ const ShowFoodDetails: React.FC<ShowFoodDetailsProps> = ({
           headers: { datasource },
         });
       } catch (err) {
-        toast.error(t(getErrorMessage(err)));
+        toast.error(t(getErrorMessage(err)), { toastId: 'food-details-error' });
       }
     };
 
