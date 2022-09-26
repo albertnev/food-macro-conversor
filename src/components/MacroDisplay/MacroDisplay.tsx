@@ -9,65 +9,13 @@ import { getValueOrZero } from '../../utils/getValueOrZero';
 import { hexToRgba } from '../../utils/hexToRgba';
 import { DoughnutChart } from '../DoughnutChart';
 import { StMacroDisplayContainer } from './MacroDisplay.styled';
+import { MacroGraph } from '../MacroGraph';
 
 interface MacroDisplayProps {
   className?: string;
   food: FoodDetailsTd;
   verticalDisplay?: boolean;
 }
-
-interface MacroGraphProps {
-  amount: string;
-  graph?: React.ReactNode;
-  mainColor?: string;
-  name: string;
-  percentage?: number;
-  secondaryColor?: string;
-}
-
-const MacroGraph: React.FC<MacroGraphProps> = ({
-  amount,
-  graph,
-  mainColor,
-  name,
-  percentage,
-  secondaryColor,
-}) => (
-  <div className="macroGraph">
-    <div className="macroName">{name}</div>
-    <div className="graphContainer">
-      {graph || (
-        <DoughnutChart
-          data={[
-            {
-              color: mainColor!,
-              id: 'main',
-              value: percentage!,
-            },
-            {
-              color: secondaryColor!,
-              id: 'rest',
-              value: 100 - percentage!,
-            },
-          ]}
-        />
-      )}
-    </div>
-    <div className="macroAmounts">
-      <span>{amount}</span>{' '}
-      {!!percentage && (
-        <span style={{ color: mainColor }}>({percentage}%)</span>
-      )}
-    </div>
-  </div>
-);
-
-MacroGraph.defaultProps = {
-  graph: undefined,
-  mainColor: '',
-  percentage: 0,
-  secondaryColor: '',
-};
 
 const MacroDisplay: React.FC<MacroDisplayProps> = ({
   className,
@@ -96,6 +44,7 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({
           name={t('alcohol')}
           percentage={macroPercentages.alcohol}
           secondaryColor={hexToRgba(getCssVarValue('--alcohol-color'), 0.2)}
+          verticalDisplay={verticalDisplay}
         />
       )}
       <MacroGraph
@@ -104,6 +53,7 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({
         name={t('carbs')}
         percentage={macroPercentages.carbs}
         secondaryColor={hexToRgba(getCssVarValue('--carbs-color'), 0.2)}
+        verticalDisplay={verticalDisplay}
       />
       <MacroGraph
         amount={`${getValueOrZero(food.macronutrients.fat.amount)}g`}
@@ -111,6 +61,7 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({
         name={t('fat')}
         percentage={macroPercentages.fat}
         secondaryColor={hexToRgba(getCssVarValue('--fat-color'), 0.2)}
+        verticalDisplay={verticalDisplay}
       />
       <MacroGraph
         amount={`${getValueOrZero(food.macronutrients.protein.amount)}g`}
@@ -118,6 +69,7 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({
         name={t('protein')}
         percentage={macroPercentages.protein}
         secondaryColor={hexToRgba(getCssVarValue('--protein-color'), 0.2)}
+        verticalDisplay={verticalDisplay}
       />
       <MacroGraph
         amount={`${getValueOrZero(food.kcals)} Kcals`}
@@ -148,6 +100,7 @@ const MacroDisplay: React.FC<MacroDisplayProps> = ({
           />
         }
         name="Kcals"
+        verticalDisplay={verticalDisplay}
       />
     </StMacroDisplayContainer>
   );
