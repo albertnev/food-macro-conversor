@@ -86,8 +86,7 @@ export const StMenuDrawerContainer = styled.div(
     .menu__drawerMenu {
       margin-left: auto;
       width: fit-content;
-      min-width: 300px;
-      max-width: 400px;
+      width: min(100%, 350px);
       z-index: 999;
       background-color: var(--color-background);
 
@@ -119,11 +118,20 @@ export const StMenuDrawerContainer = styled.div(
           }
         }
 
-        .menu__profileName {
+        .menu__profileName,
+        .menu__profileEmail {
           max-width: max(70%, 250px);
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+        }
+
+        .menu__profileName {
+          font-weight: bold;
+        }
+
+        .menu__profileEmail {
+          font-size: 80%;
         }
       }
     }

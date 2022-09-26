@@ -72,6 +72,9 @@ const MainMenu: React.FC = () => {
                 <div className="menu__profileName">
                   {session.user.name || session.user.email}
                 </div>
+                {session.user.name && (
+                  <div className="menu__profileEmail">{session.user.email}</div>
+                )}
               </div>
             )}
             <MenuList withIcon />
