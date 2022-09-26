@@ -6,6 +6,7 @@ const navigation = {
   home: '/',
   login: '/login',
   logout: '/logout',
+  underDevelopment: '/under-development',
 };
 
 export default navigation;

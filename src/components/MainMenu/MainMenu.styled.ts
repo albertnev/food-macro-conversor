@@ -35,24 +35,26 @@ export const StMenuContainer = styled.div(
         }
       }
 
-      .menu__pageList {
+      .menu__toggle {
         display: flex;
         flex-direction: row;
-
-        .menu__page {
-          margin-left: 32px;
-          &--active {
-            color: var(--color-main-accent);
-          }
-        }
-      }
-
-      .menu__drawerIcon {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
         cursor: pointer;
+
+        &:hover {
+          color: var(--color-main-accent);
+        }
+
+        .menu__activePage {
+          margin-right: 24px;
+          font-weight: bold;
+        }
+
+        .menu__drawerIcon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 24px;
+        }
       }
     }
   `,
@@ -84,36 +86,44 @@ export const StMenuDrawerContainer = styled.div(
     .menu__drawerMenu {
       margin-left: auto;
       width: fit-content;
-      min-width: max(50%, 300px);
-      padding: 24px 40px;
+      min-width: 300px;
+      max-width: 400px;
       z-index: 999;
       background-color: var(--color-background);
 
-      .menu__pageList {
-        .menu__page {
-          &--active {
-            color: var(--color-main-accent);
+      .menu__profileContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-secondary-dark);
+        padding: 16px;
+        color: var(--c-color-secondary-dark);
+
+        .menu__profileImage {
+          width: 80px;
+          height: 80px;
+          padding: 4px;
+          border-radius: 50%;
+          margin-bottom: 12px;
+          overflow: hidden;
+          border: 2px solid var(--c-color-secondary-dark);
+
+          div {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
           }
+        }
 
-          .menu__link {
-            display: flex;
-            align-items: center;
-            padding: 16px 0;
-            border-bottom: 1px solid var(--color-main-accent);
-            cursor: pointer;
-
-            &:hover {
-              color: var(--color-main-accent);
-            }
-
-            .menu__pageIcon {
-              color: var(--color-main-accent);
-              display: flex;
-              align-items: center;
-              margin-right: 16px;
-              font-size: 24px;
-            }
-          }
+        .menu__profileName {
+          max-width: max(70%, 250px);
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }

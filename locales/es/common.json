@@ -17,6 +17,7 @@
     "unavailableDatabases": "Las bases de datos no están disponibles en este momento. Vuelve a intentarlo en unos minutos."
   },
   "fat": "Grasas",
+  "favouriteEquivalences": "Equivalencias favoritas",
   "firstFood": "Primer alimento",
   "foodCalculatorText_toGet": "Para llegar a <input /> de <selector />",
   "foodCalculatorText_youNeed": "Necesitas <quantity /> de <food />",
@@ -35,8 +36,9 @@
   "forEachNGrams_other": "Por cada {{count}}g",
   "ingredients": "Ingredientes",
   "kcals": "Kcals",
-  "login": "Login",
-  "logout": "Logout",
+  "login": "Iniciar sesión",
+  "logout": "Cerrar sesión",
+  "myFoods": "Mis alimentos",
   "next": "Siguiente",
   "noResultsRetrieved": "No se han encontrado resultados.",
   "notFoundPage": "Página no encontrada",
@@ -49,8 +51,11 @@
   "select": "Seleccionar",
   "selectDataSource": "Selecciona origen de datos",
   "selectFood": "Elige alimento",
+  "settings": "Ajustes",
   "showingResultsFor": "Mostrando resultados para",
   "switchFoods": "Intercambiar alimentos",
   "tryAnotherSearch": "Prueba a buscar con otras palabras.",
+  "underDevelopment": "En desarrollo",
+  "underDevelopmentDescription": "Esta funcionalidad está todavía en desarrollo. Podrás acceder a ella próximamente.",
   "withoutInformation": "Sin información"
 }
