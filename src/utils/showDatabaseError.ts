@@ -12,6 +12,8 @@ export const notifyIfDatabaseError = (response: FetchResponse<any> | null) => {
       errorMessage = 'bedcaDatabase';
     } else if (response.status === databaseErrorCodes.openfoodfacts) {
       errorMessage = 'openfoodfactsDatabase';
+    } else if (response.status === databaseErrorCodes.database) {
+      errorMessage = 'database';
     }
 
     if (errorMessage) toast.info(`${i18n?.t(`errors.${errorMessage}`)}`);

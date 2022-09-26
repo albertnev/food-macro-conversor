@@ -1,5 +1,6 @@
 export const foodDataSources = {
   bedca: 'bedca',
+  database: 'database',
   openfoodfacts: 'openfoodfacts',
 };
 

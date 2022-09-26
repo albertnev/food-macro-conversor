@@ -13,5 +13,8 @@ export interface ApiControllerTd {
       response: NextApiResponse<any>,
     ) => void;
   };
-  searchFood: (searchText: string) => Promise<FoodSearchResultTd[]>;
+  searchFood: (
+    searchText: string,
+    userId?: string,
+  ) => Promise<FoodSearchResultTd[]>;
 }
