@@ -1,4 +1,10 @@
 import React from 'react';
 
-export default ({ children, ...rest }: { children: React.ReactElement }) =>
-  React.cloneElement(children, { ...rest });
+export default ({
+  children,
+  legacyBehavior,
+  ...rest
+}: {
+  children: React.ReactElement;
+  legacyBehavior?: boolean;
+}) => React.cloneElement(children, { ...rest });

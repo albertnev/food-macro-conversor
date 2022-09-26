@@ -1,73 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
-import cx from 'classnames';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { TbChartArcs } from 'react-icons/tb';
-import { useTranslation } from 'next-i18next';
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { FaBalanceScale } from 'react-icons/fa';
-import { BiGitCompare } from 'react-icons/bi';
-import { CgCalculator, CgInfo } from 'react-icons/cg';
+import { useTranslation } from 'next-i18next';
+import { useSession } from 'next-auth/react';
 
 import navigation from '../../constants/navigation';
 import { StMenuContainer, StMenuDrawerContainer } from './MainMenu.styled';
-import useMediaQuery from '../../hooks/useMediaQuery';
-
-const MenuList: React.FC<{ withIcon?: boolean }> = ({ withIcon }) => {
-  const { pathname } = useRouter();
-  const { t } = useTranslation();
-
-  return (
-    <ul className="menu__pageList" data-testid="menu-list">
-      {[
-        [
-          navigation.equivalence,
-          t('equivalence'),
-          <FaBalanceScale data-testid="menu-icon-equivalence" />,
-        ],
-        [
-          navigation.comparator,
-          t('comparator'),
-          <BiGitCompare data-testid="menu-icon-comparator" />,
-        ],
-        [
-          navigation.calculator,
-          t('calculator'),
-          <CgCalculator data-testid="menu-icon-calculator" />,
-        ],
-        [
-          navigation.about,
-          t('aboutApp'),
-          <CgInfo data-testid="menu-icon-about" />,
-        ],
-      ].map(([pageUrl, title, icon]) => (
-        <li
-          key={`menu-page-${pageUrl}`}
-          className={cx({
-            menu__page: true,
-            'menu__page--active': pathname === pageUrl,
-          })}
-        >
-          <Link href={pageUrl as string}>
-            <a className="menu__link">
-              {withIcon && <span className="menu__pageIcon">{icon}</span>}{' '}
-              {title}
-            </a>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-};
-
-MenuList.defaultProps = {
-  withIcon: false,
-};
+import { menuItems } from './menuItems';
+import MenuList from './components/MenuList/MenuList';
 
 const MainMenu: React.FC = () => {
+  const { t } = useTranslation();
+  const { data: session } = useSession();
+  const { pathname } = useRouter();
+
   const [isDrawerOpened, setIsDrawerOpened] = useState(false);
-  const menuDrawerMode = useMediaQuery(700);
 
   const toggleMenuDrawer = () => {
     setIsDrawerOpened((current) => !current);
@@ -87,14 +37,18 @@ const MainMenu: React.FC = () => {
               </a>
             </Link>
           </div>
-          {(menuDrawerMode && (
-            <div className="menu__drawerIcon">
-              <GiHamburgerMenu
-                data-testid="main-menu-drawer-icon"
-                onClick={toggleMenuDrawer}
-              />
+          <div
+            className="menu__toggle"
+            role="presentation"
+            onClick={toggleMenuDrawer}
+          >
+            <div className="menu__activePage">
+              {t(menuItems.find(({ url }) => pathname === url)?.label || '')}
             </div>
-          )) || <MenuList />}
+            <div className="menu__drawerIcon">
+              <GiHamburgerMenu data-testid="main-menu-drawer-icon" />
+            </div>
+          </div>
         </div>
       </StMenuContainer>
       {isDrawerOpened && (
@@ -108,6 +62,18 @@ const MainMenu: React.FC = () => {
             onClick={() => setIsDrawerOpened(false)}
           />
           <div className="menu__drawerMenu">
+            {session?.user?.email && (
+              <div className="menu__profileContainer">
+                <div className="menu__profileImage">
+                  <div
+                    style={{ backgroundImage: `url(${session.user.image})` }}
+                  />
+                </div>
+                <div className="menu__profileName">
+                  {session.user.name || session.user.email}
+                </div>
+              </div>
+            )}
             <MenuList withIcon />
           </div>
         </StMenuDrawerContainer>
