@@ -1,29 +1,53 @@
+import React, { useEffect } from 'react';
+import Head from 'next/head';
 import { GetStaticProps, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import React from 'react';
-import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
-import { mockedOpenFoodDetails } from '../../testUtils/mocks/foodDetails';
-import { Button } from '../../components/Button';
 import { PageWithMenu } from '../../components/PageWithMenu';
+import useFetch from '../../hooks/useFetch';
+import { FoodDetailsTd } from '../../types/FoodDetailsTd';
+import { foodDataSources } from '../../constants/foodDataSources';
+import { Loader } from '../../components/Loader';
+import { EditFoodForm } from '../../components/EditFoodForm';
 
 const UpdateFood: NextPage = () => {
   const { t } = useTranslation();
+  const { query } = useRouter();
 
-  const fetchUpdate = () => {
+  const {
+    data: fetchedFoodData,
+    fetchData,
+    isLoading,
+  } = useFetch<FoodDetailsTd>(`/api/food/getDetails`);
+
+  const fetchUpdate = (foodData: FoodDetailsTd) => {
     fetch('/api/food/update', {
-      body: JSON.stringify({ ...mockedOpenFoodDetails, id: '' }),
+      body: JSON.stringify(foodData),
       method: 'post',
     });
   };
+
+  useEffect(() => {
+    if (query.foodId) {
+      fetchData(
+        {
+          headers: { datasource: foodDataSources.database },
+        },
+        `?id=${query.foodId}`,
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query.foodId]);
 
   return (
     <PageWithMenu>
       <Head>
         <title>{`Macro Conversor - ${t('update')}`}</title>
       </Head>
-      <Button label="UPDATE" onClick={fetchUpdate} />
+      {isLoading && <Loader />}
+      <EditFoodForm foodDetails={fetchedFoodData} onSubmit={fetchUpdate} />
     </PageWithMenu>
   );
 };

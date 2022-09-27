@@ -48,7 +48,7 @@ const apiUpdateFood = async (
       userFoods.length < MAX_FOODS_PER_USER ||
       userFoods.find((f) => f._id === food.id)
     ) {
-      const foodId = food.id || new ObjectId();
+      const foodId = food.id ? new ObjectId(food.id) : new ObjectId();
       const result = await db
         .collection('foods')
         .replaceOne(
@@ -81,12 +81,10 @@ const apiGetFoodDetails = async (
   const sessionInfo = await getToken({ req });
   if (sessionInfo?.email && req.query.id) {
     const { db } = await connectToDatabase();
-    const food = await db
-      .collection('foods')
-      .findOne({
-        _id: new ObjectId(req.query.id as string),
-        user: sessionInfo.email,
-      });
+    const food = await db.collection('foods').findOne({
+      _id: new ObjectId(req.query.id as string),
+      user: sessionInfo.email,
+    });
 
     if (food) {
       return res.status(200).json(normalizeFoodDetailsResponse(food));

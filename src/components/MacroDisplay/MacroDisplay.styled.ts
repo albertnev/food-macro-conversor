@@ -9,7 +9,7 @@ export const StMacroDisplayContainer = styled.div(
     width: 100%;
     justify-content: space-around;
 
-    .inQuantity {
+    .macroDisplay__inQuantity {
       font-size: 14px;
       margin: 16px 0;
       opacity: 0.7;
@@ -23,7 +23,7 @@ export const StMacroDisplayContainer = styled.div(
       margin-top: 20px;
       height: auto;
 
-      .inQuantity {
+      .macroDisplay__inQuantity {
         transform: none;
         opacity: 1;
         font-weight: bold;
@@ -36,7 +36,7 @@ export const StMacroDisplayContainer = styled.div(
       flex-wrap: nowrap;
       margin: 20px 0;
 
-      .inQuantity {
+      .macroDisplay__inQuantity {
         writing-mode: vertical-lr;
         transform: rotate(-180deg);
         width: auto;

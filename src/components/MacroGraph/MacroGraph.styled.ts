@@ -17,6 +17,10 @@ export const StMacroGraphContainer = styled.div(
 
     .macroAmounts {
       font-weight: bold;
+
+      .macroGraph__editInput {
+        width: 50px;
+      }
     }
 
     .graphContainer {
