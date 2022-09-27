@@ -74,6 +74,20 @@ const apiUpdateFood = async (
   return res.status(401).send('Not authorized. Session invalid or expired.');
 };
 
+const apiListCustomFoods = async (
+  req: NextApiRequest,
+  res: NextApiResponse<any>,
+) => {
+  const sessionInfo = await getToken({ req });
+  if (sessionInfo?.email) {
+    const { db } = await connectToDatabase();
+    const userFoods = await db.collection('foods').find().toArray();
+    return res.status(200).json(normalizeSearchResponse(userFoods));
+  }
+
+  return res.status(401).send('Not authorized. Session invalid or expired.');
+};
+
 const apiGetFoodDetails = async (
   req: NextApiRequest,
   res: NextApiResponse<any>,
@@ -124,12 +138,17 @@ const apiSearchFood = async (
 export default {
   api: {
     getFoodDetails: apiGetFoodDetails,
+    listCustomFoods: apiListCustomFoods,
     searchFood: apiSearchFood,
     updateFood: apiUpdateFood,
   },
   searchFood,
 } as {
   api: {
+    listCustomFoods: (
+      request: NextApiRequest,
+      response: NextApiResponse<any>,
+    ) => void;
     updateFood: (
       request: NextApiRequest,
       response: NextApiResponse<any>,

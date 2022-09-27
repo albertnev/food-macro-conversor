@@ -25,8 +25,9 @@ const FoodList: React.FC<FoodListProps> = ({
   const [selectedFoodId, setSelectedFoodId] = useState(selectedFoodIdProp);
 
   const selectFood = (food: FoodSearchResultTd) => {
+    setSelectedFoodId(food.id);
+
     if (onSelect) {
-      setSelectedFoodId(food.id);
       onSelect(food);
     }
   };

@@ -30,19 +30,19 @@ const UpdateFood: NextPage = () => {
   };
 
   useEffect(() => {
-    if (query.foodId) {
+    if (query.id) {
       fetchData(
         {
           headers: { datasource: foodDataSources.database },
         },
-        `?id=${query.foodId}`,
+        `?id=${query.id}`,
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [query.foodId]);
+  }, [query.id]);
 
   return (
-    <PageWithMenu>
+    <PageWithMenu pageName={t(fetchedFoodData?.id ? 'updateFood' : 'addFood')}>
       <Head>
         <title>{`Macro Conversor - ${t('update')}`}</title>
       </Head>

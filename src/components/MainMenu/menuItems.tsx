@@ -31,12 +31,11 @@ export const menuItems = [
     label: 'favouriteEquivalences',
     url: navigation.underDevelopment,
   },
-
   {
     accessLevel: 'signed',
     icon: <GiForkKnifeSpoon data-testid="menu-icon-my-foods" />,
     label: 'myFoods',
-    url: navigation.underDevelopment,
+    url: navigation.foods.list,
   },
   {
     accessLevel: 'signed',

@@ -1,5 +1,6 @@
 {
   "aboutApp": "Sobre la app",
+  "addFood": "Añadir comida",
   "alcohol": "Alcohol",
   "back": "Atrás",
   "brand": "Marca",
@@ -11,6 +12,7 @@
   "create": "Crear",
   "doNotExceed": "No te excedas de",
   "edit": "Editar",
+  "editFood": "Editar comida",
   "equivalence": "Equivalencia",
   "errorOcurred": "Ha ocurrido un error. Vuelve a intentarlo.",
   "errors": {
