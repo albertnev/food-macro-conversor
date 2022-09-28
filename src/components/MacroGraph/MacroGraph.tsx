@@ -66,7 +66,6 @@ const MacroGraph: React.FC<MacroGraphProps> = ({
                 : `macro-graph-input-${name}-loaded`
             }
             className="macroGraph__editInput"
-            debounceMs={150}
             defaultValue={amount}
             onChange={(val) => onEditMacro(val)}
           />

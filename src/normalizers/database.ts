@@ -25,6 +25,7 @@ export const normalizeFoodDetailsResponse = (response: any): FoodDetailsTd => {
 
   return {
     ...safeFoodData,
+    grams: safeFoodData.grams || 100,
     id: _id,
     macronutrients: {
       alcohol: {

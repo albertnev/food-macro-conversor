@@ -4,14 +4,17 @@ import { GetStaticProps, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { MdOutlineAdd } from 'react-icons/md';
+import { TbListSearch } from 'react-icons/tb';
 
 import { PageWithMenu } from '../../components/PageWithMenu';
 import useFetch from '../../hooks/useFetch';
 import { Loader } from '../../components/Loader';
 import { FoodList } from '../../components/FoodList';
 import { FoodSearchResultTd } from '../../types/FoodSearchResultTd';
-import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { Button } from '../../components/Button';
+import navigation from '../../constants/navigation';
+import { StFoodListContainer } from '../../styles/FoodList';
 
 const ListFoods: NextPage = () => {
   const { t } = useTranslation();
@@ -25,7 +28,8 @@ const ListFoods: NextPage = () => {
   const [selectedFood, setSelectedFood] = useState<FoodSearchResultTd>();
 
   const editFood = () => {
-    if (selectedFood?.id) push(`/foods/update?id=${selectedFood.id}`);
+    if (selectedFood?.id)
+      push(`${navigation.foods.update}?id=${selectedFood.id}`);
   };
 
   useEffect(() => {
@@ -38,12 +42,40 @@ const ListFoods: NextPage = () => {
       <Head>
         <title>{`Macro Conversor - ${t('myFoods')}`}</title>
       </Head>
-      {isLoading && <Loader />}
-      <FoodList
-        foodList={fetchedFoodList}
-        onSelect={(food) => setSelectedFood(food)}
-      />
-      <Button disabled={!selectedFood} label={t('edit')} onClick={editFood} />
+      <StFoodListContainer>
+        {isLoading && <Loader />}
+        <Button
+          className="customFoodList__addFoodButton"
+          icon={<MdOutlineAdd />}
+          label={t('addFood')}
+          secondary
+          onClick={() => push(navigation.foods.update)}
+        />
+        {(!fetchedFoodList?.length && (
+          <>
+            <FoodList
+              foodList={fetchedFoodList}
+              onSelect={(food) => setSelectedFood(food)}
+            />
+            <Button
+              disabled={!selectedFood}
+              label={t('edit')}
+              onClick={editFood}
+            />
+          </>
+        )) || (
+          <div
+            className="customFoodList__emptyContainer"
+            data-testid="custom-food-list-empty"
+          >
+            <div className="customFoodList__emptyIcon">
+              <TbListSearch />
+            </div>
+            <div>{t('noCustomFoodsSaved')}</div>
+            <div>{t('tryAddingCustomFood')}</div>
+          </div>
+        )}
+      </StFoodListContainer>
     </PageWithMenu>
   );
 };

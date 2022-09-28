@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { GetStaticProps, NextPage } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 import { PageWithMenu } from '../../components/PageWithMenu';
 import useFetch from '../../hooks/useFetch';
@@ -11,22 +12,42 @@ import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { foodDataSources } from '../../constants/foodDataSources';
 import { Loader } from '../../components/Loader';
 import { EditFoodForm } from '../../components/EditFoodForm';
+import { fetchServer } from '../../utils/fetchServer';
+import navigation from '../../constants/navigation';
 
 const UpdateFood: NextPage = () => {
   const { t } = useTranslation();
-  const { query } = useRouter();
+  const { push, query } = useRouter();
 
+  const [isLoading, setIsLoading] = useState(false);
   const {
     data: fetchedFoodData,
     fetchData,
-    isLoading,
+    isLoading: foodFetchLoading,
   } = useFetch<FoodDetailsTd>(`/api/food/getDetails`);
 
-  const fetchUpdate = (foodData: FoodDetailsTd) => {
-    fetch('/api/food/update', {
+  const fetchUpdate = async (foodData: FoodDetailsTd) => {
+    setIsLoading(true);
+
+    const resp = await fetchServer<FoodDetailsTd>('/api/food/update', {
       body: JSON.stringify(foodData),
       method: 'post',
     });
+
+    if (resp.response?.id) {
+      toast.success(
+        t(
+          fetchedFoodData?.id
+            ? 'foodEditedSuccessfully'
+            : 'foodCreatedSuccessfully',
+        ),
+      );
+      await push(navigation.foods.list);
+    } else {
+      toast.error(t('errors.genericError'));
+    }
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -46,7 +67,7 @@ const UpdateFood: NextPage = () => {
       <Head>
         <title>{`Macro Conversor - ${t('update')}`}</title>
       </Head>
-      {isLoading && <Loader />}
+      {(isLoading || foodFetchLoading) && <Loader />}
       <EditFoodForm foodDetails={fetchedFoodData} onSubmit={fetchUpdate} />
     </PageWithMenu>
   );

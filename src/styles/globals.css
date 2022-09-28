@@ -40,6 +40,9 @@
   --carbs-color: #36a7a9;
   --alcohol-color: #646363;
   --kcals-color: #333333;
+
+  /* Third parties overrides */
+  --toastify-toast-width: 440px;
 }
 
 html,
@@ -62,7 +65,7 @@ a {
   box-sizing: border-box;
 }
 
-ul {
+ul:not(.Toastify__toast ul) {
   padding: 0;
   list-style-type: none;
 }

@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next';
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
+import { toast } from 'react-toastify';
 
 import { FoodDetailsTd } from '../../types/FoodDetailsTd';
 import { Button } from '../Button';
@@ -42,6 +43,49 @@ const EditFoodForm: React.FC<EditFoodFormProps> = ({
       }),
     }));
 
+  const validateForm = () => {
+    const emptyName = !foodData.name;
+    const emptyMacros = Object.values(foodData.macronutrients).every(
+      (macro) => !macro.amount || macro.amount === '0',
+    );
+    const emptyKcals = !foodData.kcals || foodData.kcals === '0';
+
+    const errorsList = [];
+
+    if (emptyName) {
+      errorsList.push(t('errors.foodForm.emptyName'));
+    }
+
+    if (emptyMacros) {
+      errorsList.push(t('errors.foodForm.emptyMacros'));
+    }
+
+    if (emptyKcals) {
+      errorsList.push(t('errors.foodForm.emptyKcals'));
+    }
+
+    if (errorsList.length) {
+      toast.error(
+        <>
+          <span>{t('errors.foodForm.validationError')}</span>
+          <ul>
+            {errorsList.map((error) => (
+              <li key={`form-validation-error-${error}`}>{error}</li>
+            ))}
+          </ul>
+        </>,
+      );
+    }
+
+    return errorsList.length === 0;
+  };
+
+  const handleSubmit = () => {
+    if (validateForm()) {
+      onSubmit(foodData);
+    }
+  };
+
   useEffect(() => {
     if (foodDetails) setFoodData(foodDetails);
   }, [foodDetails]);
@@ -82,6 +126,14 @@ const EditFoodForm: React.FC<EditFoodFormProps> = ({
               setFoodData((current) => ({ ...current, brand: val }))
             }
           />
+          <SimpleInput
+            className="editFoodForm__input editFoodForm__imageUrl"
+            defaultValue={foodData.imageUrl}
+            placeholder={t('imageUrl')}
+            onChange={(val) =>
+              setFoodData((current) => ({ ...current, imageUrl: val }))
+            }
+          />
         </div>
       </div>
       <MacroDisplay
@@ -103,8 +155,8 @@ const EditFoodForm: React.FC<EditFoodFormProps> = ({
       </div>
       <Button
         className="editFoodForm__submitButton"
-        label={t(foodData.id ? 'edit' : 'create')}
-        onClick={() => onSubmit(foodData)}
+        label={t(foodData.id ? 'saveChanges' : 'addFood')}
+        onClick={handleSubmit}
       />
     </StEditFoodFormContainer>
   );

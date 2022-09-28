@@ -40,12 +40,20 @@ export const StEditFoodFormContainer = styled.div(
         .editFoodForm__nameTitle {
           margin: 0;
           margin-bottom: 10px;
-          font-size: 24px;
+          font-size: 22px;
         }
 
         .editFoodForm__brand {
           font-weight: 600;
+          opacity: 0.7;
+          margin-bottom: 10px;
+        }
+
+        .editFoodForm__imageUrl {
           opacity: 0.6;
+          .input__inputControl {
+            font-weight: normal;
+          }
         }
       }
 
