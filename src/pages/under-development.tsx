@@ -6,7 +6,7 @@ import { useTranslation } from 'next-i18next';
 import { MdComputer } from 'react-icons/md';
 
 import { PageWithMenu } from '../components/PageWithMenu';
-import { StPage404Container } from '../styles/Page404.styled';
+import { StUnderDevelopmentContainer } from '../styles/UnderDevelopment.styled';
 
 const Page404: NextPage = () => {
   const { t } = useTranslation();
@@ -16,14 +16,14 @@ const Page404: NextPage = () => {
       <Head>
         <title>{`Macro Conversor - ${t('underDevelopment')}`}</title>
       </Head>
-      <StPage404Container>
-        <h1 className="page404_404">
+      <StUnderDevelopmentContainer>
+        <h1 className="underDevelopment__title">
           <MdComputer /> <span>{t('underDevelopment')}</span>
         </h1>
-        <div className="page404__textDescription">
+        <div className="underDevelopment__textDescription">
           {t('underDevelopmentDescription')}
         </div>
-      </StPage404Container>
+      </StUnderDevelopmentContainer>
     </PageWithMenu>
   );
 };

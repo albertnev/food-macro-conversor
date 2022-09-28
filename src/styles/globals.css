@@ -65,9 +65,14 @@ a {
   box-sizing: border-box;
 }
 
-ul:not(.Toastify__toast ul) {
+ul {
   padding: 0;
   list-style-type: none;
+}
+
+.Toastify__toast ul {
+  padding-left: 40px;
+  list-style-type: disc;
 }
 
 button,
