@@ -51,7 +51,7 @@ const ListFoods: NextPage = () => {
           secondary
           onClick={() => push(navigation.foods.update)}
         />
-        {(!fetchedFoodList?.length && (
+        {(!!fetchedFoodList?.length && (
           <>
             <FoodList
               foodList={fetchedFoodList}
