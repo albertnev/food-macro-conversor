@@ -1,4 +1,5 @@
 export interface ErrorResponse {
+  context: any;
   key: string;
   originalResponse: any;
   parsedResponse: any;

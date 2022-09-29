@@ -14,6 +14,7 @@ import { Loader } from '../../components/Loader';
 import { EditFoodForm } from '../../components/EditFoodForm';
 import { fetchServer } from '../../utils/fetchServer';
 import navigation from '../../constants/navigation';
+import { getErrorMessage } from '../../utils/getErrorMessage';
 
 const UpdateFood: NextPage = () => {
   const { t } = useTranslation();
@@ -29,25 +30,37 @@ const UpdateFood: NextPage = () => {
   const fetchUpdate = async (foodData: FoodDetailsTd) => {
     setIsLoading(true);
 
-    const resp = await fetchServer<FoodDetailsTd>('/api/food/update', {
-      body: JSON.stringify(foodData),
-      method: 'post',
-    });
+    try {
+      const resp = await fetchServer<FoodDetailsTd>('/api/food/update', {
+        body: JSON.stringify(foodData),
+        method: 'post',
+      });
 
-    if (resp.response?.id) {
-      toast.success(
-        t(
-          fetchedFoodData?.id
-            ? 'foodEditedSuccessfully'
-            : 'foodCreatedSuccessfully',
-        ),
-      );
-      await push(navigation.foods.list);
-    } else {
-      toast.error(t('errors.genericError'));
+      if (resp.response?.id) {
+        toast.success(
+          t(
+            fetchedFoodData?.id
+              ? 'foodEditedSuccessfully'
+              : 'foodCreatedSuccessfully',
+          ),
+        );
+        await push(navigation.foods.list);
+      } else {
+        toast.error(t('errors.genericError'));
+      }
+    } catch (err: any) {
+      if (err?.key) {
+        toast.error(
+          t(getErrorMessage(err, 'foodForm'), {
+            maxFoods: err.context?.maxQuantity,
+          }),
+        );
+      } else {
+        toast.error(t('errors.genericError'));
+      }
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   useEffect(() => {

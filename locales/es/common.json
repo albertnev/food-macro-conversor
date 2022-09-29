@@ -24,6 +24,7 @@
   "tryAddingCustomFood": "Añade tu primera comida con el botón de \"Añadir comida\".",
   "errors": {
     "foodForm": {
+      "foodLimitReached": "Solo se pueden añadir un máximo de {{maxFoods}} comidas por usuario.",
       "validationError": "Hay campos inválidos en el formulario.",
       "emptyKcals": "Las Kcals no pueden estar vacías.",
       "emptyName": "El nombre es obligatorio.",

@@ -40,7 +40,10 @@ const apiUpdateFood = async (
   const sessionInfo = await getToken({ req });
   if (sessionInfo?.email) {
     const { db } = await connectToDatabase();
-    const userFoods = await db.collection('foods').find().toArray();
+    const userFoods = await db
+      .collection('foods')
+      .find({ user: sessionInfo.email })
+      .toArray();
     const food = JSON.parse(req.body);
 
     // If user has reached max_foods, only let update if the food already exists
@@ -67,7 +70,12 @@ const apiUpdateFood = async (
     }
 
     // Food limit reached
-    const error = { key: 'foodLimitReached' } as ErrorResponse;
+    const error = {
+      context: {
+        maxQuantity: MAX_FOODS_PER_USER,
+      },
+      key: 'foodLimitReached',
+    } as ErrorResponse;
     return res.status(420).json(error);
   }
 
@@ -81,7 +89,10 @@ const apiListCustomFoods = async (
   const sessionInfo = await getToken({ req });
   if (sessionInfo?.email) {
     const { db } = await connectToDatabase();
-    const userFoods = await db.collection('foods').find().toArray();
+    const userFoods = await db
+      .collection('foods')
+      .find({ user: sessionInfo.email })
+      .toArray();
     return res.status(200).json(normalizeSearchResponse(userFoods));
   }
 

@@ -37,6 +37,7 @@ export const fetchServer = async <T>(
     try {
       errorObj = JSON.parse(errorText);
       errorResponse.key = errorObj?.key;
+      errorResponse.context = errorObj?.context;
     } catch (err) {
       errorObj = errorText;
     }

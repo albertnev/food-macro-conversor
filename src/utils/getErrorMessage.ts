@@ -1,2 +1,4 @@
-export const getErrorMessage = (error: any) =>
-  error?.key ? `errors.${error.key}` : 'errorOcurred';
+export const getErrorMessage = (error: any, context: string = '') =>
+  error?.key
+    ? `errors.${context && `${context}.`}${error.key}`
+    : 'errorOcurred';
