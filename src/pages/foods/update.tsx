@@ -46,7 +46,9 @@ const UpdateFood: NextPage = () => {
         );
         await push(navigation.foods.list);
       } else {
-        toast.error(t('errors.genericError'));
+        toast.error(t('errors.genericError'), {
+          toastId: 'update-response-error',
+        });
       }
     } catch (err: any) {
       if (err?.key) {
@@ -54,9 +56,12 @@ const UpdateFood: NextPage = () => {
           t(getErrorMessage(err, 'foodForm'), {
             maxFoods: err.context?.maxQuantity,
           }),
+          { toastId: 'update-limit-error' },
         );
       } else {
-        toast.error(t('errors.genericError'));
+        toast.error(t('errors.genericError'), {
+          toastId: 'update-catched-error',
+        });
       }
     } finally {
       setIsLoading(false);

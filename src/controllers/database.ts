@@ -49,7 +49,8 @@ const apiUpdateFood = async (
     // If user has reached max_foods, only let update if the food already exists
     if (
       userFoods.length < MAX_FOODS_PER_USER ||
-      userFoods.find((f) => f._id === food.id)
+      (food.id &&
+        userFoods?.find((f) => f._id.toString() === food.id.toString()))
     ) {
       const foodId = food.id ? new ObjectId(food.id) : new ObjectId();
       const result = await db
