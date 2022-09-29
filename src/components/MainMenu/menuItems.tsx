@@ -1,4 +1,4 @@
-// import { signIn, signOut } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import { IoMdLogIn, IoMdLogOut } from 'react-icons/io';
 import { FaBalanceScale } from 'react-icons/fa';
 import { BiGitCompare } from 'react-icons/bi';
@@ -31,12 +31,11 @@ export const menuItems = [
     label: 'favouriteEquivalences',
     url: navigation.underDevelopment,
   },
-
   {
     accessLevel: 'signed',
     icon: <GiForkKnifeSpoon data-testid="menu-icon-my-foods" />,
     label: 'myFoods',
-    url: navigation.underDevelopment,
+    url: navigation.foods.list,
   },
   {
     accessLevel: 'signed',
@@ -50,15 +49,15 @@ export const menuItems = [
     url: navigation.about,
   },
   {
-    accessLevel: 'signed',
-    icon: <IoMdLogOut data-testid="menu-icon-logout" />,
-    label: 'logout',
-    onClick: () => null,
-  },
-  {
     accessLevel: 'unsigned',
     icon: <IoMdLogIn data-testid="menu-icon-login" />,
     label: 'login',
-    onClick: () => null,
+    onClick: signIn,
+  },
+  {
+    accessLevel: 'signed',
+    icon: <IoMdLogOut data-testid="menu-icon-logout" />,
+    label: 'logout',
+    onClick: signOut,
   },
 ];

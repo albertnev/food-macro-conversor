@@ -30,6 +30,10 @@ export const StButton = styled.button(
       background-color: var(--color-main-accent);
     }
 
+    &.button--disabled {
+      opacity: 0.5;
+    }
+
     &.button--secondary {
       border: 3px solid var(--color-main-dark);
       font-weight: bold;

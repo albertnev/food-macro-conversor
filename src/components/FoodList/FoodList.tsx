@@ -3,6 +3,7 @@ import cx from 'classnames';
 import Image from 'next/image';
 import { GiOrange } from 'react-icons/gi';
 import { CgDatabase } from 'react-icons/cg';
+import { FaUserAlt } from 'react-icons/fa';
 
 import { FoodSearchResultTd } from '../../types/FoodSearchResultTd';
 import { foodDataSources } from '../../constants/foodDataSources';
@@ -24,10 +25,19 @@ const FoodList: React.FC<FoodListProps> = ({
   const [selectedFoodId, setSelectedFoodId] = useState(selectedFoodIdProp);
 
   const selectFood = (food: FoodSearchResultTd) => {
+    setSelectedFoodId(food.id);
+
     if (onSelect) {
-      setSelectedFoodId(food.id);
       onSelect(food);
     }
+  };
+
+  const sourceIcons = {
+    [foodDataSources.bedca]: <CgDatabase data-testid="icon-bedca" />,
+    [foodDataSources.openfoodfacts]: (
+      <GiOrange data-testid="icon-openfoodfacts" />
+    ),
+    [foodDataSources.database]: <FaUserAlt data-testid="icon-database" />,
   };
 
   useEffect(() => {
@@ -66,9 +76,7 @@ const FoodList: React.FC<FoodListProps> = ({
               <div className="foodList__foodDetails">
                 <div className="foodList__foodName">{food.name}</div>
                 <div className="foodList__sourceIcon">
-                  {(food.datasource === foodDataSources.bedca && (
-                    <CgDatabase data-testid="icon-bedca" />
-                  )) || <GiOrange data-testid="icon-openfoodfacts" />}
+                  {sourceIcons[food.datasource]}
                 </div>
               </div>
             </div>

@@ -14,6 +14,10 @@ export const StSimpleInput = styled(Input)(
     border-radius: 0;
     width: 70px;
 
+    &:focus-within {
+      box-shadow: none;
+    }
+
     .input__inputControl {
       font-weight: bold;
       color: var(--color-main-dark);

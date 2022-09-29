@@ -6,6 +6,7 @@ import { StButton } from './Button.styled';
 interface ButtonCommonProps {
   className?: string;
   'data-testid'?: string;
+  disabled?: boolean;
   icon?: React.ReactNode;
   onClick: () => void;
   secondary?: boolean;
@@ -26,6 +27,7 @@ const Button: React.FC<
 > = ({
   children = null,
   className,
+  disabled,
   'data-testid': dataTestId,
   icon,
   label = undefined,
@@ -34,11 +36,13 @@ const Button: React.FC<
 }) => (
   <StButton
     className={cx({
-      button: true,
-      'button--secondary': secondary,
       [className!]: !!className,
+      button: true,
+      'button--disabled': disabled,
+      'button--secondary': secondary,
     })}
     data-testid={dataTestId || 'button'}
+    disabled={disabled}
     type="button"
     onClick={onClick}
   >
@@ -51,6 +55,7 @@ Button.defaultProps = {
   children: null,
   className: '',
   'data-testid': '',
+  disabled: false,
   icon: undefined,
   secondary: false,
 };

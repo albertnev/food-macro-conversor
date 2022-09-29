@@ -12,7 +12,11 @@ import { StMenuContainer, StMenuDrawerContainer } from './MainMenu.styled';
 import { menuItems } from './menuItems';
 import MenuList from './components/MenuList/MenuList';
 
-const MainMenu: React.FC = () => {
+interface MainMenuProps {
+  pageName?: string;
+}
+
+const MainMenu: React.FC<MainMenuProps> = ({ pageName }) => {
   const { t } = useTranslation();
   const { data: session } = useSession();
   const { pathname } = useRouter();
@@ -43,7 +47,11 @@ const MainMenu: React.FC = () => {
             onClick={toggleMenuDrawer}
           >
             <div className="menu__activePage">
-              {t(menuItems.find(({ url }) => pathname === url)?.label || '')}
+              {t(
+                pageName ||
+                  menuItems.find(({ url }) => pathname === url)?.label ||
+                  '',
+              )}
             </div>
             <div className="menu__drawerIcon">
               <GiHamburgerMenu data-testid="main-menu-drawer-icon" />
@@ -83,6 +91,10 @@ const MainMenu: React.FC = () => {
       )}
     </>
   );
+};
+
+MainMenu.defaultProps = {
+  pageName: '',
 };
 
 export default MainMenu;

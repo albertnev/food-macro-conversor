@@ -17,6 +17,10 @@ export const StMenuList = styled.ul(
         }
       }
 
+      &.menu__page--development {
+        opacity: 0.5;
+      }
+
       .menu__link {
         display: flex;
         align-items: center;

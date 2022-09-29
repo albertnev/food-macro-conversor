@@ -7,15 +7,17 @@ import { StPageWithMenuContent } from './PageWithMenu.styled';
 
 interface PageWithMenuProps {
   children?: React.ReactNode;
+  pageName?: string;
   precontent?: React.ReactNode;
 }
 
 const PageWithMenu: React.FC<PageWithMenuProps> = ({
   children,
+  pageName,
   precontent,
 }) => (
   <AppContainer>
-    <MainMenu />
+    <MainMenu pageName={pageName} />
     {precontent}
     <StPageWithMenuContent
       className={cx('pageWithMenuContent', 'width-container')}
@@ -27,6 +29,7 @@ const PageWithMenu: React.FC<PageWithMenuProps> = ({
 
 PageWithMenu.defaultProps = {
   children: null,
+  pageName: '',
   precontent: null,
 };
 

@@ -2,7 +2,7 @@ export const mockedOpenFoodDetails = {
   brand: 'Bimbo',
   datasource: 'openfoodfacts',
   grams: 100,
-  id: '8412600009345',
+  id: '84126000244409345',
   imageUrl:
     'https://images.openfoodfacts.org/images/products/841/260/000/9345/front_en.33.400.jpg',
   ingredients:
@@ -36,7 +36,7 @@ export const mockedOpenFoodDetails = {
 export const mockedBedcaFoodDetails = {
   datasource: 'bedca',
   grams: 100,
-  id: '2260',
+  id: '2260245',
   kcals: '464.91',
   macronutrients: {
     alcohol: {

@@ -7,6 +7,8 @@ import { foodDataSources } from '../constants/foodDataSources';
 export const normalizeSearchResponse = (
   response: any,
 ): FoodSearchResultTd[] => {
+  if (!response.foodresponse?.food) return [];
+
   const foodArray = Array.isArray(response.foodresponse.food)
     ? response.foodresponse.food
     : [response.foodresponse.food];

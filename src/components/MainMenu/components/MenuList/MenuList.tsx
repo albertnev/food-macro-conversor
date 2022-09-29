@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react';
 
 import { menuItems } from '../../menuItems';
 import { StMenuList } from './MenuList.styled';
+import navigation from '../../../../constants/navigation';
 
 interface MenuListProps {
   className?: string;
@@ -42,6 +43,7 @@ const MenuList: React.FC<MenuListProps> = ({ className, withIcon }) => {
               className={cx({
                 menu__page: true,
                 'menu__page--active': pathname === url,
+                'menu__page--development': url === navigation.underDevelopment,
                 'menu__page--restricted': accessLevel === 'signed',
               })}
             >
